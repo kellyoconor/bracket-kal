@@ -12,18 +12,31 @@
         "seed": 16,
         "team": "Siena"
       },
-      "market_prob": 0.995,
-      "claude_prob": 0.97,
-      "divergence": -0.025,
-      "abs_divergence": 0.025,
+      "kalshi_prob": 0.99,
+      "ensemble_prob": 0.969,
+      "divergence": -0.021,
+      "abs_divergence": 0.021,
       "pick": "Duke",
       "pick_seed": 1,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Duke as a #1 seed brings elite coaching under Jon Scheyer, superior athleticism, and ACC-tested depth against a mid-major Siena program from the MAAC. #16 seeds have only beaten #1 seeds twice in tournament history, and Duke's talent advantage at every position makes an upset extremely unlikely. Siena would need a near-perfect performance combined with Duke having a historically off night for any upset scenario to materialize."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "A #1 vs #16 matchup is historically the safest bet in the tournament \u2014 no #16 seed won until UMBC over Virginia in 2018, and the talent/efficiency gap between a top Duke program and a mid-major like Siena is typically enormous. KenPom efficiency metrics are highly reliable here as Duke's superior athleticism, depth, and coaching should dominate in ways that raw win-rate logs may slightly understate. Siena lacks the profile of a classic upset threat (e.g., an elite defensive squad or a battle-tested, experienced roster) needed to threaten a blue-blood program, so the base ensemble near 96% is well-calibrated.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.9693,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.8843,
+        "seed_prob": 0.993,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.964
+      }
     },
     {
       "game": 2,
@@ -37,18 +50,31 @@
         "seed": 9,
         "team": "TCU"
       },
-      "market_prob": 0.565,
-      "claude_prob": 0.52,
-      "divergence": -0.045,
-      "abs_divergence": 0.045,
+      "kalshi_prob": 0.575,
+      "ensemble_prob": 0.516,
+      "divergence": -0.059,
+      "abs_divergence": 0.059,
       "pick": "Ohio State",
       "pick_seed": 8,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "This is a classic 8-9 coin-flip matchup where seeding differences are minimal. Ohio State's Big Ten tournament experience and home-court familiarity with high-pressure games gives them a slight edge, but TCU's athleticism and Big 12 battle-tested schedule make this extremely competitive. Expect a close game decided in the final minutes."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "This is a genuine toss-up between two evenly matched teams, with Log5 actually favoring TCU slightly, suggesting Ohio State's KenPom efficiency edge may be overstated in a tournament setting. TCU as an experienced Big 12 program brings a physical defensive identity that can neutralize efficiency advantages, making raw efficiency metrics less predictive here \u2014 hence the KenPom weight reduction. The 8-9 seed line is historically the flattest in the bracket (~50/50), so seed history gets a modest bump to reflect true parity, and the slight edge to Ohio State is driven primarily by home conference familiarity with high-pressure environments.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.5158,
+        "kenpom_prob": 0.5521,
+        "log5_prob": 0.4659,
+        "seed_prob": 0.5,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.5228
+      }
     },
     {
       "game": 3,
@@ -62,18 +88,31 @@
         "seed": 12,
         "team": "Northern Iowa"
       },
-      "market_prob": 0.835,
-      "claude_prob": 0.62,
-      "divergence": -0.215,
-      "abs_divergence": 0.215,
-      "pick": "Northern Iowa",
-      "pick_seed": 12,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.835,
+      "ensemble_prob": 0.78,
+      "divergence": -0.055,
+      "abs_divergence": 0.055,
+      "pick": "St. John's",
+      "pick_seed": 5,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Northern Iowa MORE than market",
-      "claude_rationale": "St. John's has been a consistent Big East program under Rick Pitino with strong guard play and tournament experience. Northern Iowa is a dangerous 12-seed from the Missouri Valley Conference known for physical, disciplined play that can neutralize higher-seeded opponents. The 5-12 upset rate historically runs around 35%, and UNI's defensive identity and tournament savvy make them a legitimate threat to pull the upset."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Northern Iowa is a prototypical upset threat: a veteran-heavy, defense-first Missouri Valley Conference program that plays slow, physical basketball capable of neutralizing St. John's athleticism and transition offense \u2014 this style mismatch makes KenPom efficiency ratings less predictive than usual. St. John's had a strong Big East season but the #5 vs #12 seed line historically produces upsets at a higher rate (~35%) than KenPom's efficiency gap implies, so seed historical weight is bumped up to reflect that base rate risk. Northern Iowa's half-court defensive identity and tournament experience in this seed spot warrants a meaningful upset flag, pulling the final probability down from the 83% base ensemble toward the mid-to-upper 60s range.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.7797,
+        "kenpom_prob": 0.9493,
+        "log5_prob": 0.6374,
+        "seed_prob": 0.645,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.3,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.8257
+      }
     },
     {
       "game": 4,
@@ -87,18 +126,31 @@
         "seed": 13,
         "team": "Cal Baptist"
       },
-      "market_prob": 0.895,
-      "claude_prob": 0.82,
-      "divergence": -0.075,
-      "abs_divergence": 0.075,
+      "kalshi_prob": 0.905,
+      "ensemble_prob": 0.867,
+      "divergence": -0.038,
+      "abs_divergence": 0.038,
       "pick": "Kansas",
       "pick_seed": 4,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Kansas brings elite Big 12 competition experience, superior athleticism, and Bill Self's proven tournament pedigree to this matchup. Cal Baptist, as a 13-seed from the WAC, would need a massive upset against Kansas's depth and coaching advantage. While 13-over-4 upsets happen roughly 20% of the time historically, Kansas's program caliber makes them a stronger-than-average 4-seed."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Kansas as a #4 seed carries elite Big 12 pedigree with superior athleticism, depth, and coaching experience under Bill Self \u2014 factors KenPom captures well and that should dominate against a WAC mid-major. Cal Baptist, while a scrappy program, lacks the defensive profile or tempo-disruption ability typically needed to pull a 13-over-4 upset; they don't fit the classic upset archetype of a disciplined, veteran defensive squad. The Log5 weight is reduced because Cal Baptist's win rate is inflated by a weak WAC schedule that doesn't translate to NCAA Tournament competition, while seed weight is modestly raised to reflect the historical rarity of 13-seeds beating programs of Kansas's caliber.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.867,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.4234,
+        "seed_prob": 0.8,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.15,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.8199
+      }
     },
     {
       "game": 5,
@@ -112,18 +164,31 @@
         "seed": 11,
         "team": "South Florida"
       },
-      "market_prob": 0.675,
-      "claude_prob": 0.62,
-      "divergence": -0.055,
-      "abs_divergence": 0.055,
+      "kalshi_prob": 0.675,
+      "ensemble_prob": 0.719,
+      "divergence": 0.044,
+      "abs_divergence": 0.044,
       "pick": "Louisville",
       "pick_seed": 6,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Louisville as a 6-seed carries the seeding advantage and typically benefits from ACC experience and stronger overall resume heading into March. South Florida as an 11-seed from the AAC would need to execute a classic mid-major upset, which happens roughly 37% of the time historically for 11-seeds. The Cardinals' coaching stability under Pat Kelsey and presumed depth should be enough to navigate this first-round matchup."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "South Florida represents a classic upset profile \u2014 an experienced AAC program capable of controlling tempo and grinding out low-possession games that can neutralize Louisville's efficiency advantages, which is why KenPom weight is slightly reduced. The massive gap between KenPom (93%) and Log5 (42%) signals real uncertainty about Louisville's resume vs. actual game-to-game performance, suggesting the Cardinals may be somewhat efficiency-metric inflated. #11 seeds historically upset #6 seeds at one of the higher rates in the bracket (~36%), so seed weight is nudged upward to reflect this structural upset vulnerability.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.7193,
+        "kenpom_prob": 0.9345,
+        "log5_prob": 0.4234,
+        "seed_prob": 0.625,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.7603
+      }
     },
     {
       "game": 6,
@@ -137,18 +202,31 @@
         "seed": 14,
         "team": "North Dakota State"
       },
-      "market_prob": 0.925,
-      "claude_prob": 0.82,
-      "divergence": -0.105,
-      "abs_divergence": 0.105,
-      "pick": "North Dakota State",
-      "pick_seed": 14,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.93,
+      "ensemble_prob": 0.854,
+      "divergence": -0.076,
+      "abs_divergence": 0.076,
+      "pick": "Michigan State",
+      "pick_seed": 3,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes North Dakota State MORE than market",
-      "claude_rationale": "Michigan State as a 3-seed brings significant Big Ten tournament experience, strong coaching under Tom Izzo, and superior athleticism compared to a mid-major North Dakota State squad. Izzo's teams are historically well-prepared for NCAA Tournament play, and the talent gap between a Power Conference 3-seed and a 14-seed Summit League champion is typically substantial. However, 14-seeds win roughly 15% of the time historically, keeping a small upset probability in play."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "North Dakota State as a 14-seed from the Summit League presents a classic mid-major upset profile \u2014 typically a veteran, slower-paced team that can neutralize superior athleticism with disciplined execution and three-point shooting, which warrants elevating seed historical weight slightly. Michigan State under Izzo is a battle-tested tournament program that rarely underperforms seeding, but #14 seeds do pull upsets at a roughly 14% historical rate, so the seed weight bump is appropriate. KenPom is modestly downweighted because efficiency metrics can be inflated against weak Summit League competition for NDSU, making their numbers less reliable as a true quality indicator in this cross-conference matchup.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8544,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.4806,
+        "seed_prob": 0.855,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.8424
+      }
     },
     {
       "game": 7,
@@ -162,18 +240,31 @@
         "seed": 10,
         "team": "UCF"
       },
-      "market_prob": 0.68,
-      "claude_prob": 0.62,
-      "divergence": -0.06,
-      "abs_divergence": 0.06,
+      "kalshi_prob": 0.69,
+      "ensemble_prob": 0.676,
+      "divergence": -0.014,
+      "abs_divergence": 0.014,
       "pick": "UCLA",
       "pick_seed": 7,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "UCLA carries the traditional brand advantage and typically fields experienced Pac-12/Big Ten caliber talent with strong coaching under Mick Cronin, who has proven tournament acumen. UCF has developed into a competitive AAC program capable of upsets, making this a dangerous 7-10 matchup where the Knights could exploit any UCLA inconsistencies. The slight edge goes to UCLA based on overall roster depth and defensive discipline, but this is far from a sure thing."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "UCF presents a classic upset profile as an experienced AAC program with strong defensive identity and the ability to control tempo, which can neutralize KenPom efficiency advantages for a UCLA team that can be inconsistent offensively. The Log5 model's tighter 52% figure deserves elevated weight here because the raw win-rate data captures UCF's competitiveness against quality opposition better than efficiency margins that may be inflated by conference schedule disparities. Seed weight is nudged up slightly to acknowledge the historical 7-10 upset rate (~39% historically), making this one of the most volatile matchups in the bracket.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.6757,
+        "kenpom_prob": 0.7959,
+        "log5_prob": 0.5225,
+        "seed_prob": 0.605,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.6989
+      }
     },
     {
       "game": 8,
@@ -187,18 +278,31 @@
         "seed": 15,
         "team": "Furman"
       },
-      "market_prob": 0.955,
-      "claude_prob": 0.93,
-      "divergence": -0.025,
-      "abs_divergence": 0.025,
+      "kalshi_prob": 0.965,
+      "ensemble_prob": 0.937,
+      "divergence": -0.028,
+      "abs_divergence": 0.028,
       "pick": "UConn",
       "pick_seed": 2,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "UConn remains an elite program under Dan Hurley with tournament pedigree, superior athleticism, and top-tier recruiting that overwhelms mid-major competition. Furman, while a capable Southern Conference program, lacks the depth and athleticism to compete with a bluechip Big East squad. Historical trends show #2 seeds defeat #15 seeds roughly 93% of the time, and UConn's program caliber reinforces that baseline."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "UConn under Dan Hurley is a historically dominant defensive and depth team with Final Four pedigree, making their KenPom efficiency metrics particularly trustworthy \u2014 slight upward adjustment warranted. Furman, while a capable SoCon squad with some mid-major experience, lacks the offensive firepower and athleticism to exploit UConn's defensive schemes, and there is no meaningful tempo mismatch or stylistic vulnerability that would inflate an upset profile. This matchup does not exhibit classic upset indicators (no experienced mid-major hot streak, no obvious size/shooting edge for the 15-seed), so seed-historical weight remains stable and log5 is trimmed slightly given the wide talent gap.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.9369,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.76,
+        "seed_prob": 0.943,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.9254
+      }
     },
     {
       "game": 9,
@@ -212,18 +316,31 @@
         "seed": 16,
         "team": "LIU"
       },
-      "market_prob": 0.995,
-      "claude_prob": 0.97,
-      "divergence": -0.025,
-      "abs_divergence": 0.025,
+      "kalshi_prob": 0.995,
+      "ensemble_prob": 0.966,
+      "divergence": -0.029,
+      "abs_divergence": 0.029,
       "pick": "Arizona",
       "pick_seed": 1,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Arizona as a #1 seed brings elite Pac-12/Big 12 competition experience, superior athleticism, and deep recruiting to overwhelm a mid-major LIU program. The Sharks from the Northeast Conference rarely have the talent or depth to compete with a top-tier Arizona squad. Historical precedent strongly favors #1 seeds in this matchup, with upsets occurring less than 5% of the time."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Arizona as a #1 seed brings elite KenPom efficiency metrics that are highly reliable here \u2014 they have the size, athleticism, and coaching to handle a #16 LIU squad that plays in a mid-major conference with limited exposure to high-major competition. No 16-seed has won more than once in NCAA Tournament history, and LIU lacks the defensive profile or experienced roster to slow down Arizona's multi-dimensional offensive attack. There are no meaningful upset indicators in this matchup \u2014 no tempo trap, no veteran-heavy mid-major, no injury concern to the top seed \u2014 making this one of the safest chalk plays on the bracket.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.9663,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.8691,
+        "seed_prob": 0.993,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.9602
+      }
     },
     {
       "game": 10,
@@ -237,18 +354,31 @@
         "seed": 9,
         "team": "Utah State"
       },
-      "market_prob": 0.445,
-      "claude_prob": 0.42,
-      "divergence": -0.025,
-      "abs_divergence": 0.025,
+      "kalshi_prob": 0.44,
+      "ensemble_prob": 0.458,
+      "divergence": 0.018,
+      "abs_divergence": 0.018,
       "pick": "Utah State",
       "pick_seed": 9,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Utah State has been a consistently strong Mountain West program with excellent coaching under Danny Sprinkle's successor and a physical, defense-oriented style that translates well to tournament play. Villanova, while a storied program, has faced roster rebuilding challenges post-Wright era and the 8-9 matchup is historically nearly a coin flip. Utah State's recent tournament experience and cohesive team identity gives them a slight edge in this neutral-site contest."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Utah State is a classic upset profile team \u2014 an experienced, defense-first Mountain West program that consistently punches above its seed with disciplined, physical play that can neutralize efficiency advantages. Villanova has been in a program rebuilding phase post-Wright era, lacking the tournament-hardened identity that made them a perennial 1-seed threat, which makes KenPom efficiency metrics somewhat less reliable as a predictor here. The 8-9 game is historically a coin flip (seed model reflects this), and Utah State's style \u2014 slow tempo, elite rebounding, gritty defense \u2014 is precisely the kind that neutralizes higher-rated offensive teams and creates chaos in first-round settings.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.4577,
+        "kenpom_prob": 0.4791,
+        "log5_prob": 0.3905,
+        "seed_prob": 0.5,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.3,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.4601
+      }
     },
     {
       "game": 11,
@@ -262,18 +392,31 @@
         "seed": 12,
         "team": "High Point"
       },
-      "market_prob": 0.805,
-      "claude_prob": 0.68,
-      "divergence": -0.125,
-      "abs_divergence": 0.125,
-      "pick": "High Point",
-      "pick_seed": 12,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.805,
+      "ensemble_prob": 0.727,
+      "divergence": -0.078,
+      "abs_divergence": 0.078,
+      "pick": "Wisconsin",
+      "pick_seed": 5,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes High Point MORE than market",
-      "claude_rationale": "Wisconsin's deliberate, disciplined offensive system and Big Ten tournament experience give them a structural advantage over High Point, a mid-major from the Big South. However, 5-vs-12 upsets occur roughly 35% of the time historically, and High Point's style could create tempo problems for the Badgers. Wisconsin's defensive efficiency and frontcourt size should ultimately be the difference in a competitive game."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "High Point is a Big South program making a rare NCAA appearance, and while 12-seeds historically upset 5-seeds at a meaningful rate (~35%), this matchup lacks the classic upset profile \u2014 Wisconsin's disciplined, slow-tempo offense and elite defense (hallmarks of Greg Gard's system) should neutralize High Point's mid-major style. The Log5 number (24%) is heavily dragged down by win-rate context that doesn't reflect Wisconsin's true tournament caliber, so seed historical weight is raised to better capture the structural power gap. No significant travel or venue concerns shift the needle here.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.7272,
+        "kenpom_prob": 0.9406,
+        "log5_prob": 0.2432,
+        "seed_prob": 0.645,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.7219
+      }
     },
     {
       "game": 12,
@@ -287,18 +430,31 @@
         "seed": 13,
         "team": "Hawaii"
       },
-      "market_prob": 0.905,
-      "claude_prob": 0.72,
-      "divergence": -0.185,
-      "abs_divergence": 0.185,
-      "pick": "Hawaii",
-      "pick_seed": 13,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.905,
+      "ensemble_prob": 0.849,
+      "divergence": -0.056,
+      "abs_divergence": 0.056,
+      "pick": "Arkansas",
+      "pick_seed": 4,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Hawaii MORE than market",
-      "claude_rationale": "Arkansas as a 4-seed brings SEC tournament experience, superior athleticism, and typically strong frontcourt play under their coaching staff. Hawaii, as a 13-seed from the Big West, faces a significant talent and depth gap against high-major competition. However, 13-over-4 upsets occur roughly 20-23% of the time historically, and Hawaii's system-based play and three-point shooting could create problems if Arkansas has a cold shooting night."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Arkansas as a 4-seed is a legitimate power program with SEC tournament experience, but Hawaii represents a classic mid-major upset profile \u2014 long travel from the Mountain West, potential crowd neutrality disadvantage for the Razorbacks, and Rainbow Warriors tend to play deliberate, defensively disciplined basketball that can neutralize efficiency advantages. The seed weight is raised slightly because 13-over-4 upsets occur at roughly a 20% historical rate and Hawaii's style (slower tempo, perimeter-oriented) can muddy KenPom efficiency metrics that favor up-tempo high-volume offenses. However, the talent and depth gap is substantial enough that Arkansas remains a strong favorite, and the KenPom model's near-certainty is tempered but not dismissed.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8486,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.5204,
+        "seed_prob": 0.8,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.8441
+      }
     },
     {
       "game": 13,
@@ -312,18 +468,31 @@
         "seed": 11,
         "team": "Texas"
       },
-      "market_prob": 0.505,
-      "claude_prob": 0.58,
-      "divergence": 0.075,
-      "abs_divergence": 0.075,
+      "kalshi_prob": 0.5,
+      "ensemble_prob": 0.738,
+      "divergence": 0.238,
+      "abs_divergence": 0.238,
       "pick": "BYU",
       "pick_seed": 6,
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "BYU as a 6-seed holds a meaningful seeding advantage over Texas's 11-seed, suggesting the committee viewed them as the stronger team heading into the tournament. BYU's Big 12 experience and coaching under Kevin Young gives them a solid foundation, though Texas's program history and potential tournament-tested players make this a competitive matchup. The slight edge goes to BYU based on seeding differential, but this figures to be a closely contested game."
+      "pick_rationale": "Ensemble likes BYU MORE than Kalshi",
+      "claude_rationale": "Texas carries legitimate upset potential as a Power 4 program with experienced guards and defensive identity that can neutralize BYU's efficient offense \u2014 this is far from a typical 11-seed. BYU's KenPom numbers are strong but inflated by Big 12 schedule variance, and Texas's slower, grind-it-out defensive style can compress possessions and make efficiency margins less predictive, so I'm pulling KenPom weight down slightly in favor of log5 and seed historical base rates. The classic upset profile here (experienced high-major 11-seed with defensive discipline vs. an offensive-leaning 6-seed) warrants flagging this game as a potential bracket buster despite BYU remaining the slight favorite.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.7383,
+        "kenpom_prob": 0.8556,
+        "log5_prob": 0.6182,
+        "seed_prob": 0.625,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.7617
+      }
     },
     {
       "game": 14,
@@ -337,18 +506,31 @@
         "seed": 14,
         "team": "Kennesaw State"
       },
-      "market_prob": 0.955,
-      "claude_prob": 0.88,
-      "divergence": -0.075,
-      "abs_divergence": 0.075,
+      "kalshi_prob": 0.955,
+      "ensemble_prob": 0.937,
+      "divergence": -0.018,
+      "abs_divergence": 0.018,
       "pick": "Gonzaga",
       "pick_seed": 3,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Gonzaga remains an elite program under Mark Few with consistent high-major talent, experienced tournament play, and superior depth compared to a mid-major Kennesaw State program. The Bulldogs' size, athleticism, and offensive firepower should overwhelm a smaller KSU roster that rarely faces this level of competition. A 14-seed upset is always possible but Gonzaga's program continuity and recruiting edge make this a comfortable expected win."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Gonzaga is a perennial powerhouse with elite size, shooting, and offensive efficiency that translates well to tournament play, while Kennesaw State as a 14-seed Atlantic Sun representative lacks the defensive profile or experienced talent to slow down Gonzaga's high-powered offense. There is no classic upset indicator here \u2014 Kennesaw State does not present the tempo-disrupting, grind-it-out defensive identity that typically fuels 14-over-3 upsets, and the talent gap is substantial enough that KenPom's efficiency metrics are fully trustworthy. Default weights are maintained as there is no compelling reason to deviate from the model's strong consensus.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.9374,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.8606,
+        "seed_prob": 0.855,
+        "weights": {
+          "kenpom": 0.6,
+          "log5": 0.25,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.9374
+      }
     },
     {
       "game": 15,
@@ -362,18 +544,31 @@
         "seed": 10,
         "team": "Missouri"
       },
-      "market_prob": 0.545,
-      "claude_prob": 0.42,
-      "divergence": -0.125,
-      "abs_divergence": 0.125,
-      "pick": "Missouri",
-      "pick_seed": 10,
+      "kalshi_prob": 0.545,
+      "ensemble_prob": 0.725,
+      "divergence": 0.18,
+      "abs_divergence": 0.18,
+      "pick": "Miami (FL)",
+      "pick_seed": 7,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Missouri MORE than market",
-      "claude_rationale": "Missouri has shown strong mid-major to Power conference transition resilience and typically matches up well against ACC teams in neutral-site games. Miami has struggled with consistency in close games and the 7-10 matchup historically favors upsets roughly 40% of the time. Missouri's physicality and tournament-tested roster gives them a slight edge in this evenly matched contest."
+      "pick_rationale": "Ensemble likes Miami (FL) MORE than Kalshi",
+      "claude_rationale": "Miami (FL) is a veteran ACC squad with tournament experience and strong perimeter shooting, while Missouri as a 10-seed represents a credible mid-major-tier threat with athleticism and SEC toughness that can neutralize pure efficiency advantages. The slight reduction in KenPom weight reflects that Missouri's physical, transition-heavy style can compress efficiency margins in single-elimination play, making raw ratings slightly less predictive. However, Miami's depth, coaching experience, and overall talent edge still make them a comfortable favorite near the 70% range.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.7252,
+        "kenpom_prob": 0.7992,
+        "log5_prob": 0.6527,
+        "seed_prob": 0.605,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.28,
+          "seed": 0.17
+        },
+        "base_ensemble_prob": 0.7335
+      }
     },
     {
       "game": 16,
@@ -387,18 +582,31 @@
         "seed": 15,
         "team": "Queens"
       },
-      "market_prob": 0.975,
-      "claude_prob": 0.88,
-      "divergence": -0.095,
-      "abs_divergence": 0.095,
-      "pick": "Queens",
-      "pick_seed": 15,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.92,
+      "divergence": -0.055,
+      "abs_divergence": 0.055,
+      "pick": "Purdue",
+      "pick_seed": 2,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Queens MORE than market",
-      "claude_rationale": "Purdue as a #2 seed brings significant Big Ten experience, superior athleticism, and coaching pedigree under Matt Painter against a #15 seed Queens program from a mid-major conference. The talent and depth disparity heavily favors Purdue, and while 15-over-2 upsets do occasionally occur, they remain historically rare at roughly 6-7% frequency. Queens would need a near-perfect performance combined with Purdue having an unusually poor shooting day to pull the upset."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Purdue is a legitimate national title contender with elite size (Zach Edey era talent profile), superior KenPom efficiency metrics, and a massive talent gap over Queens, a CAA mid-major making a rare tournament appearance. Queens lacks the defensive identity or experienced tournament pedigree typically needed to pull a 15-over-2 upset, and there is no compelling tempo mismatch or stylistic advantage that would make Purdue's efficiency numbers misleading \u2014 if anything, Purdue's size and interior dominance should translate cleanly. The KenPom weight is nudged slightly higher given the raw talent and efficiency differential is so pronounced and reliable in this type of lopsided matchup.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.92,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.6754,
+        "seed_prob": 0.943,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.9043
+      }
     },
     {
       "game": 17,
@@ -412,18 +620,31 @@
         "seed": 16,
         "team": "Prairie View A&M"
       },
-      "market_prob": 0.6,
-      "claude_prob": 0.97,
-      "divergence": 0.37,
-      "abs_divergence": 0.37,
+      "kalshi_prob": 0.595,
+      "ensemble_prob": 0.948,
+      "divergence": 0.353,
+      "abs_divergence": 0.353,
       "pick": "Florida",
       "pick_seed": 1,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Florida MORE than market",
-      "claude_rationale": "Florida as a #1 seed brings elite talent, superior depth, and a high-powered offense that should overwhelm Prairie View A&M, a 16-seed from the SWAC. No 16-seed has ever beaten a 1-seed with any consistency, and the talent gap between a top-tier Power conference program and a mid-major HBCU program is vast. Prairie View would need a historically unprecedented combination of Florida off-day and perfect execution to have any realistic chance."
+      "pick_rationale": "Ensemble likes Florida MORE than Kalshi",
+      "claude_rationale": "Florida as a #1 seed against a #16 seed represents the most lopsided bracket matchup in college basketball \u2014 no #16 seed has won more than a handful of times in tournament history, and the Gators' elite KenPom efficiency metrics are highly reliable indicators here. Prairie View A&M competes in the SWAC, a mid-major conference with limited exposure to high-major competition, meaning their efficiency numbers are likely inflated against weaker schedules, further validating the KenPom model's dominance in this assessment. There are no meaningful upset indicators present \u2014 this lacks the classic profile (experienced defensive mid-major vs young high-seed) and the talent/depth gap is simply too vast to engineer a historic upset.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.9481,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.7785,
+        "seed_prob": 0.993,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.9376
+      }
     },
     {
       "game": 18,
@@ -437,18 +658,31 @@
         "seed": 9,
         "team": "Iowa"
       },
-      "market_prob": 0.44,
-      "claude_prob": 0.52,
-      "divergence": 0.08,
-      "abs_divergence": 0.08,
-      "pick": "Clemson",
-      "pick_seed": 8,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.445,
+      "ensemble_prob": 0.423,
+      "divergence": -0.022,
+      "abs_divergence": 0.022,
+      "pick": "Iowa",
+      "pick_seed": 9,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Clemson MORE than market",
-      "claude_rationale": "This is an extremely even 8-9 matchup where both teams are evenly matched by definition of their seeding. Clemson's ACC tournament experience and Brad Brownell's veteran coaching give them a slight edge, but Iowa's size and Big Ten physicality could neutralize Clemson's athleticism. Essentially a coin flip with marginal advantage to Clemson on neutral court."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Iowa enters as a classic upset profile team \u2014 experienced Big Ten battle-tested roster with elite offensive weapons (historically Fran McCaffery teams can shoot and score in bunches), while Clemson's ACC efficiency numbers may be inflated against weaker competition. The KenPom model weight is reduced because tempo and offensive style mismatches in neutral-site tournament games can make efficiency margins misleading, particularly when Iowa's experience factor provides resilience in close late-game situations. The seed weight is elevated to reflect the well-documented historical near-coin-flip nature of 8/9 matchups, where raw efficiency differentials carry less predictive power than in other first-round games.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.423,
+        "kenpom_prob": 0.2763,
+        "log5_prob": 0.5788,
+        "seed_prob": 0.5,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.3,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.3855
+      }
     },
     {
       "game": 19,
@@ -462,18 +696,31 @@
         "seed": 12,
         "team": "McNeese"
       },
-      "market_prob": 0.845,
-      "claude_prob": 0.63,
-      "divergence": -0.215,
-      "abs_divergence": 0.215,
+      "kalshi_prob": 0.845,
+      "ensemble_prob": 0.726,
+      "divergence": -0.119,
+      "abs_divergence": 0.119,
       "pick": "McNeese",
       "pick_seed": 12,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes McNeese MORE than market",
-      "claude_rationale": "Vanderbilt as a 5-seed brings SEC tournament experience and superior overall talent, but McNeese has historically been a dangerous 12-seed capable of upsets in this classic bracket spot. The 5-12 matchup is notoriously volatile, and McNeese's cohesive Southland/WAC-style system could exploit any Vanderbilt defensive lapses. Vanderbilt's depth and recruiting advantage should ultimately carry them through, but this is far from a safe pick."
+      "pick_rationale": "Ensemble likes McNeese MORE than Kalshi",
+      "claude_rationale": "This matchup has several classic 12-over-5 upset indicators: McNeese is a battle-tested Southland Conference champion with tournament experience and a cohesive unit, while Vanderbilt had a tumultuous SEC season and the Log5 win-rate model's stark 37% figure suggests their raw efficiency metrics may be inflated by conference schedule context rather than true elite-level performance. The KenPom weight is reduced because Vanderbilt's adjusted efficiency numbers likely overstate their true ceiling against a disciplined mid-major that controls tempo and limits possessions, and the seed weight is raised to reflect the historically strong 12-seed upset rate (~35%) which aligns well with this specific profile. McNeese's cohesion and defensive identity give them a legitimate path to an upset, warranting the elevated upset flag.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.7255,
+        "kenpom_prob": 0.9774,
+        "log5_prob": 0.3685,
+        "seed_prob": 0.645,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.25,
+          "seed": 0.3
+        },
+        "base_ensemble_prob": 0.7753
+      }
     },
     {
       "game": 20,
@@ -487,18 +734,31 @@
         "seed": 13,
         "team": "Troy"
       },
-      "market_prob": 0.895,
-      "claude_prob": 0.72,
-      "divergence": -0.175,
-      "abs_divergence": 0.175,
-      "pick": "Troy",
-      "pick_seed": 13,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.89,
+      "ensemble_prob": 0.871,
+      "divergence": -0.019,
+      "abs_divergence": 0.019,
+      "pick": "Nebraska",
+      "pick_seed": 4,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Troy MORE than market",
-      "claude_rationale": "Nebraska as a #4 seed carries a significant seeding advantage and the Big Ten pedigree that typically translates well to tournament play. Troy, as a Sun Belt representative, would need a strong shooting performance to pull off this upset, which historically succeeds for #13 seeds roughly 20-25% of the time. Nebraska's size and defensive structure should be enough to control the game, though mid-major upsets at this seed line are always a real threat."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Nebraska is a well-rounded Big Ten program with strong efficiency metrics, but Troy as a Sun Belt champion brings a battle-tested mid-major profile with tournament experience that can neutralize raw efficiency gaps \u2014 a classic upset ingredient. The slight downward adjustment on KenPom reflects that Troy likely plays at a slower, more deliberate pace that can compress the scoring margin and make efficiency ratings slightly less predictive. However, the talent and depth gap is significant enough that Nebraska should comfortably advance, with no strong upset indicators beyond the general mid-major familiarity with single-elimination pressure.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8708,
+        "kenpom_prob": 0.9876,
+        "log5_prob": 0.6846,
+        "seed_prob": 0.8,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.28,
+          "seed": 0.17
+        },
+        "base_ensemble_prob": 0.8837
+      }
     },
     {
       "game": 21,
@@ -512,18 +772,31 @@
         "seed": 11,
         "team": "VCU"
       },
-      "market_prob": 0.555,
-      "claude_prob": 0.58,
-      "divergence": 0.025,
-      "abs_divergence": 0.025,
+      "kalshi_prob": 0.56,
+      "ensemble_prob": 0.685,
+      "divergence": 0.125,
+      "abs_divergence": 0.125,
       "pick": "North Carolina",
       "pick_seed": 6,
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "North Carolina's ACC pedigree and recruiting talent give them an edge, but VCU's signature havoc-style defense historically makes them dangerous as an 11-seed against power conference opponents. The Rams' pressure defense can disrupt UNC's rhythm and force turnovers, keeping this competitive. UNC's size advantage and tournament experience should ultimately prevail, but this is a classic dangerous mid-major matchup."
+      "pick_rationale": "Ensemble likes North Carolina MORE than Kalshi",
+      "claude_rationale": "VCU is a classic upset-profile team \u2014 an experienced, defense-first mid-major program built around havoc-style pressure defense and pace disruption that historically neutralizes efficiency advantages from power conference teams. Their chaotic tempo and full-court pressure can render KenPom efficiency metrics less predictive, as Carolina's half-court offense may be forced into uncomfortable situations; accordingly, KenPom weight is reduced and historical seed weight is slightly elevated to reflect the well-documented 6-vs-11 upset vulnerability (11-seeds historically win ~36% of first-round games). The Log5 signal at 44% is a significant warning that VCU's overall win-rate profile is genuinely competitive here, and the near-coin-flip read from that model deserves more weight than usual.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.6854,
+        "kenpom_prob": 0.8582,
+        "log5_prob": 0.4377,
+        "seed_prob": 0.625,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.7181
+      }
     },
     {
       "game": 22,
@@ -537,18 +810,31 @@
         "seed": 14,
         "team": "Penn"
       },
-      "market_prob": 0.965,
-      "claude_prob": 0.79,
-      "divergence": -0.175,
-      "abs_divergence": 0.175,
+      "kalshi_prob": 0.965,
+      "ensemble_prob": 0.877,
+      "divergence": -0.088,
+      "abs_divergence": 0.088,
       "pick": "Penn",
       "pick_seed": 14,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Penn MORE than market",
-      "claude_rationale": "Illinois as a 3-seed brings significantly superior talent, depth, and Big Ten battle-tested experience compared to Penn's Ivy League schedule. The Illini's size and athleticism should create matchup problems that Penn's defense cannot consistently handle. While 14-seeds occasionally pull upsets, Illinois's coaching staff and tournament experience make a first-round exit unlikely."
+      "pick_rationale": "Ensemble likes Penn MORE than Kalshi",
+      "claude_rationale": "Illinois as a 3-seed brings significant size, athleticism, and Big Ten battle-tested experience that should overwhelm an Ivy League Penn squad with limited exposure to high-major athleticism \u2014 this is not a classic upset profile. Penn lacks the defensive identity or experienced mid-major pedigree typically associated with 14-seed upsets, and Illinois's efficiency metrics are likely reliable rather than inflated given their competitive conference schedule. Slightly reducing KenPom weight to account for potential Ivy League scheduling context deflating Penn's true efficiency numbers, while bumping seed weight modestly to reflect the historically strong 3-vs-14 matchup record.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8772,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.6468,
+        "seed_prob": 0.855,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.25,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.8839
+      }
     },
     {
       "game": 23,
@@ -562,18 +848,31 @@
         "seed": 10,
         "team": "Texas A&M"
       },
-      "market_prob": 0.575,
-      "claude_prob": 0.54,
-      "divergence": -0.035,
-      "abs_divergence": 0.035,
+      "kalshi_prob": 0.6,
+      "ensemble_prob": 0.737,
+      "divergence": 0.137,
+      "abs_divergence": 0.137,
       "pick": "Saint Mary's",
       "pick_seed": 7,
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Saint Mary's brings their characteristic disciplined, slow-paced offense under Randy Bennett that can neutralize higher-seeded athletic teams, but as a 7-seed they hold only a marginal edge. Texas A&M's size and SEC battle-tested experience makes this a competitive matchup, and the Aggies as a 10-seed suggest they had a strong enough resume to threaten upset. This is essentially a coin-flip game with a slight edge to the higher seed."
+      "pick_rationale": "Ensemble likes Saint Mary's MORE than Kalshi",
+      "claude_rationale": "Saint Mary's is a prototypical experienced mid-major with elite tempo control and disciplined half-court offense under Randy Bennett \u2014 their slow, methodical pace neutralizes Texas A&M's athleticism and makes KenPom efficiency metrics slightly less predictive in a low-possession game. Texas A&M has shown inconsistency in SEC play and can struggle against teams that deny transition opportunities, which plays directly into Saint Mary's identity. Raising the seed weight slightly reflects the historical reliability of 7-seeds who play this style, while trimming KenPom weight acknowledges that extreme pace differentials can compress the efficiency gap that model captures.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.7374,
+        "kenpom_prob": 0.8026,
+        "log5_prob": 0.7394,
+        "seed_prob": 0.605,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.25,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.7571
+      }
     },
     {
       "game": 24,
@@ -587,18 +886,31 @@
         "seed": 15,
         "team": "Idaho"
       },
-      "market_prob": 0.975,
-      "claude_prob": 0.93,
-      "divergence": -0.045,
-      "abs_divergence": 0.045,
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.936,
+      "divergence": -0.039,
+      "abs_divergence": 0.039,
       "pick": "Houston",
       "pick_seed": 2,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Houston under Kelvin Sampson consistently fields one of the nation's elite defensive programs with exceptional physicality, toughness, and tournament experience as a perennial Big 12 contender. Idaho, as a #15 seed from a mid-major conference, faces an enormous talent and athleticism gap against Houston's highly recruited and battle-tested roster. Historical #2 vs #15 matchups heavily favor the higher seed, and Houston's defensive identity makes them particularly difficult to upset."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Houston under Kelvin Sampson is a perennial defensive powerhouse with elite athleticism and size that creates brutal mismatches against low-major opponents like Idaho of the Big Sky Conference. Idaho has no notable upset profile here \u2014 they lack the experienced, disciplined offensive system or defensive identity typically needed to slow a top-2 seed, and the talent gap is enormous. KenPom weight is slightly elevated because Houston's efficiency metrics are genuinely reflective of their dominance against varied competition, making the model highly trustworthy in this context.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.9364,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.7574,
+        "seed_prob": 0.943,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.9248
+      }
     },
     {
       "game": 25,
@@ -612,18 +924,31 @@
         "seed": 16,
         "team": "UMBC"
       },
-      "market_prob": 0.475,
-      "claude_prob": 0.97,
-      "divergence": 0.495,
-      "abs_divergence": 0.495,
+      "kalshi_prob": 0.475,
+      "ensemble_prob": 0.948,
+      "divergence": 0.473,
+      "abs_divergence": 0.473,
       "pick": "Michigan",
       "pick_seed": 1,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Michigan MORE than market",
-      "claude_rationale": "As a #1 seed, Michigan enters with elite talent, coaching, and a dominant regular season resume that earns top seeding. UMBC, despite their historic 2018 upset of Virginia, faces an enormous talent and depth disadvantage typical of 1-vs-16 matchups, which historically see the 1-seed win over 99% of the time. Michigan's size, athleticism, and tournament experience should allow them to control this game from the opening tip."
+      "pick_rationale": "Ensemble likes Michigan MORE than Kalshi",
+      "claude_rationale": "This is the historically unique 2018 UMBC vs Virginia matchup context \u2014 UMBC is a legitimate upset-profile team with a high-tempo offense and experienced guards capable of exploiting a methodical high-major opponent, and the 16-seed has historically never won (pre-2018), but UMBC's offensive efficiency and three-point shooting make them a credible threat in a neutral-site environment. The seed weight is elevated because this specific matchup carries structural upset risk that KenPom efficiency metrics may undervalue \u2014 UMBC's pace-pushing style can neutralize Michigan's deliberate offensive sets and create variance. The upset flag is raised not because Michigan is likely to lose, but because UMBC is among the rare 16-seeds with the offensive firepower and coaching to keep the game within striking distance in the second half.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.9479,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.7755,
+        "seed_prob": 0.993,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.9368
+      }
     },
     {
       "game": 26,
@@ -637,18 +962,31 @@
         "seed": 9,
         "team": "Saint Louis"
       },
-      "market_prob": 0.585,
-      "claude_prob": 0.54,
-      "divergence": -0.045,
-      "abs_divergence": 0.045,
+      "kalshi_prob": 0.58,
+      "ensemble_prob": 0.513,
+      "divergence": -0.067,
+      "abs_divergence": 0.067,
       "pick": "Georgia",
       "pick_seed": 8,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "This is a classic 8-9 matchup where the seeds are nearly interchangeable in terms of team quality. Georgia brings SEC tournament experience and typically stronger recruiting under their coaching staff, but Saint Louis has historically been a tough mid-major program capable of competing with Power conference teams. The slight edge goes to Georgia based on conference strength and athleticism, but this is essentially a coin flip."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "This is a near-pure toss-up between an 8 and 9 seed, where historical seeding data is most meaningful \u2014 8 vs. 9 games split almost exactly 50/50 historically, warranting elevated seed weight. Saint Louis is a Battle of the Atlantic-hardened mid-major with experienced, disciplined play and strong defensive metrics that can neutralize KenPom efficiency advantages, so we discount the KenPom model slightly. The large gap between KenPom (61% Georgia) and Log5 (28% Georgia) signals model disagreement that itself signals uncertainty, making the seed baseline the most reliable anchor for this specific matchup type.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.5132,
+        "kenpom_prob": 0.6131,
+        "log5_prob": 0.2833,
+        "seed_prob": 0.5,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.2,
+          "seed": 0.3
+        },
+        "base_ensemble_prob": 0.5137
+      }
     },
     {
       "game": 27,
@@ -662,18 +1000,31 @@
         "seed": 12,
         "team": "Akron"
       },
-      "market_prob": 0.725,
-      "claude_prob": 0.68,
-      "divergence": -0.045,
-      "abs_divergence": 0.045,
+      "kalshi_prob": 0.725,
+      "ensemble_prob": 0.715,
+      "divergence": -0.01,
+      "abs_divergence": 0.01,
       "pick": "Texas Tech",
       "pick_seed": 5,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Texas Tech's defensive identity under their coaching staff typically translates well to tournament settings, and as a Big 12 team they bring stronger competition-tested experience. Akron as a #12 seed represents a mid-major program capable of an upset, and 12-over-5 is historically one of the most upset-prone matchups in the tournament. The Red Raiders' superior athleticism and depth should prevail, but Akron's disciplined MAC-tested system keeps this closer than the seeding suggests."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Akron is a classic mid-major upset candidate \u2014 experienced, MAC champion, defensively disciplined \u2014 but Texas Tech's elite defensive identity (top-tier KenPom efficiency) is a direct stylistic counter to the slow-tempo, grind-it-out game Akron prefers, neutralizing one of the Zips' key advantages. The seed historical weight is bumped up because 5-vs-12 is the most historically volatile seed line in the tournament (~35% upset rate), warranting respect for Akron's profile even if the efficiency gap favors Tech. The Log5 adjustment downward reflects that win-rate metrics can overfit mid-major regular season schedules, making Akron's record look stronger than MAC competition warrants against a Big 12 defensive powerhouse.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.7154,
+        "kenpom_prob": 0.9073,
+        "log5_prob": 0.2754,
+        "seed_prob": 0.645,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.71
+      }
     },
     {
       "game": 28,
@@ -687,18 +1038,31 @@
         "seed": 13,
         "team": "Hofstra"
       },
-      "market_prob": 0.875,
-      "claude_prob": 0.79,
-      "divergence": -0.085,
-      "abs_divergence": 0.085,
-      "pick": "Hofstra",
-      "pick_seed": 13,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.875,
+      "ensemble_prob": 0.848,
+      "divergence": -0.027,
+      "abs_divergence": 0.027,
+      "pick": "Alabama",
+      "pick_seed": 4,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Hofstra MORE than market",
-      "claude_rationale": "Alabama under Nate Oats typically fields an athletic, high-tempo offense with elite perimeter shooting that creates serious problems for mid-major defenses. Hofstra, as a CAA representative, lacks the depth and athleticism to consistently contain Alabama's guards over 40 minutes. However, 13-seeds upset 4-seeds at a non-trivial rate historically (~20%), so some upset equity remains."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Hofstra is a seasoned CAA mid-major with a disciplined, slower-tempo offense that could partially neutralize Alabama's transition-heavy attack, giving the seed-history model slightly more relevance as a stabilizing signal. However, Alabama's elite athleticism, SEC-tested defense, and dominant efficiency metrics make this a poor upset candidate \u2014 the gap in raw talent and coaching resources is simply too wide for a 13-seed to bridge. The log5 weight is trimmed because Hofstra's win-rate sample comes from a significantly weaker conference, inflating their apparent strength against CAA competition.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8477,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.5159,
+        "seed_prob": 0.8,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.843
+      }
     },
     {
       "game": 29,
@@ -712,18 +1076,31 @@
         "seed": 11,
         "team": "SMU"
       },
-      "market_prob": 0.275,
-      "claude_prob": 0.63,
-      "divergence": 0.355,
-      "abs_divergence": 0.355,
+      "kalshi_prob": 0.275,
+      "ensemble_prob": 0.693,
+      "divergence": 0.418,
+      "abs_divergence": 0.418,
       "pick": "Tennessee",
       "pick_seed": 6,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Tennessee MORE than market",
-      "claude_rationale": "Tennessee's physical, defensive-minded style under Rick Barnes typically translates well to tournament play, and as a 6-seed they carry meaningful seeding advantages and SEC battle-tested experience. SMU as an 11-seed has shown enough quality to earn a bid, and the First Four or play-in caliber teams can be dangerous, but Tennessee's depth and defensive intensity should be the difference. This is a competitive matchup but Tennessee's roster talent and coaching edge give them a reasonable advantage."
+      "pick_rationale": "Ensemble likes Tennessee MORE than Kalshi",
+      "claude_rationale": "SMU is a classic upset-profile mid-major \u2014 an experienced, well-coached team under Rhett Ingram that plays disciplined, slower-tempo basketball which can neutralize Tennessee's efficiency advantages and make raw KenPom margins misleading. Tennessee has the talent edge but has shown vulnerability against physical, pace-controlling teams, and the 11-seed historical upset rate (~37%) is notably high, warranting a slight shift away from KenPom and toward seed-historical weight. The Log5 model's more modest 57% figure deserves elevated consideration here, as SMU's r\u00e9sum\u00e9-based win rate better reflects their tournament-tested competitiveness against quality opponents.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.6926,
+        "kenpom_prob": 0.7959,
+        "log5_prob": 0.5656,
+        "seed_prob": 0.625,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.7127
+      }
     },
     {
       "game": 30,
@@ -737,18 +1114,29 @@
         "seed": 14,
         "team": "Wright State"
       },
-      "market_prob": 0.945,
-      "claude_prob": 0.78,
-      "divergence": -0.165,
-      "abs_divergence": 0.165,
+      "kalshi_prob": 0.94,
+      "ensemble_prob": 0.855,
+      "divergence": -0.085,
+      "abs_divergence": 0.085,
       "pick": "Wright State",
       "pick_seed": 14,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Wright State MORE than market",
-      "claude_rationale": "Virginia's disciplined pack-line defense and methodical half-court offense under Tony Bennett's system (or his successor) typically neutralizes mid-major offenses like Wright State's. As a #3 seed, Virginia has the talent and tournament experience advantage, though their slow-paced style can occasionally allow upset-minded teams to stay close. Wright State, as a #14 seed, faces a significant talent gap but could threaten if they execute efficiently from three and limit turnovers."
+      "pick_rationale": "Ensemble likes Wright State MORE than Kalshi",
+      "claude_rationale": "Virginia's pack-line defense and deliberate pace is a nightmare matchup for mid-majors like Wright State, who rely on transition opportunities and three-point variance to compete \u2014 UMAC/Horizon League offenses rarely have the half-court execution to crack elite defensive systems. Wright State does present some upset surface area as an experienced, cohesive mid-major unit, but Virginia's defensive efficiency metrics are especially reliable in slow-tempo games that neutralize opponent strengths. The 86% base probability is well-calibrated here; KenPom efficiency numbers are actually MORE trustworthy in this matchup given Virginia controls pace, so a slight upward adjustment to KenPom weight is warranted.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.855,
+        "kenpom_prob": null,
+        "log5_prob": null,
+        "seed_prob": 0.855,
+        "weights": {
+          "seed": 1.0
+        },
+        "base_ensemble_prob": 0.855
+      }
     },
     {
       "game": 31,
@@ -762,18 +1150,31 @@
         "seed": 10,
         "team": "Santa Clara"
       },
-      "market_prob": 0.605,
-      "claude_prob": 0.63,
-      "divergence": 0.025,
-      "abs_divergence": 0.025,
+      "kalshi_prob": 0.605,
+      "ensemble_prob": 0.588,
+      "divergence": -0.017,
+      "abs_divergence": 0.017,
       "pick": "Kentucky",
       "pick_seed": 7,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Kentucky's combination of SEC tournament experience, superior recruiting talent, and John Calipari's replacement coaching in a high-pressure environment gives them an edge, though the Wildcats have shown inconsistency this season. Santa Clara as a 10-seed from the WCC presents a credible upset threat with disciplined play and tournament-ready experience, making this a competitive but ultimately Kentucky-favored matchup. The 7-10 seed line historically produces frequent upsets, keeping Santa Clara very much in play."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Santa Clara is a classic upset candidate \u2014 an experienced, disciplined mid-major (WCC) with strong guard play and the ability to control tempo against a Kentucky team that can be inconsistent and relies heavily on raw talent over cohesion. The massive gap between KenPom (75%) and Log5 (33%) signals that Kentucky's efficiency metrics may be inflated by weak SEC opponents, while Santa Clara's numbers are battle-tested against quality WCC competition; this warrants downweighting KenPom and elevating Log5 and seed history. The 10-seed has historically been one of the most dangerous upset seeds in the tournament, and if Santa Clara can slow the pace and force Kentucky into a half-court game, this has all the hallmarks of a bracket-buster.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.5875,
+        "kenpom_prob": 0.7481,
+        "log5_prob": 0.332,
+        "seed_prob": 0.605,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.3,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.6226
+      }
     },
     {
       "game": 32,
@@ -787,18 +1188,31 @@
         "seed": 15,
         "team": "Tennessee State"
       },
-      "market_prob": 0.975,
-      "claude_prob": 0.93,
-      "divergence": -0.045,
-      "abs_divergence": 0.045,
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.904,
+      "divergence": -0.071,
+      "abs_divergence": 0.071,
       "pick": "Iowa State",
       "pick_seed": 2,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Iowa State under T.J. Otzelberger has built a defensive powerhouse program that consistently competes at the elite level of the Big 12, giving them enormous advantages in athleticism, depth, and coaching. Tennessee State, as a mid-major from the Ohio Valley/ASUN region, would face significant talent and experience gaps against a program accustomed to deep tournament runs. Historical trends strongly favor 2-seeds in this matchup, with 15-seeds winning only about 15% of first-round games."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Iowa State is a legitimate Big 12 powerhouse with elite two-way efficiency metrics under T.J. Otzelberger, and Tennessee State as a 15-seed from the Ohio Valley Conference presents virtually no structural upset profile \u2014 they lack the defensive identity, experienced star power, or tempo-disruption ability typically needed to threaten a 2-seed. The Log5 model's 60% figure feels anomalously low and likely reflects schedule-strength distortions in win-rate calculations rather than true competitive parity, so we slightly downweight it and lean into KenPom's efficiency edge. Historical 2-vs-15 seed data (94% win rate for the 2-seed) reinforces the KenPom signal here, making this one of the safest high-seed holds on the bracket.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.9037,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.601,
+        "seed_prob": 0.943,
+        "weights": {
+          "kenpom": 0.62,
+          "log5": 0.2,
+          "seed": 0.18
+        },
+        "base_ensemble_prob": 0.8857
+      }
     }
   ],
   "32": [
@@ -814,68 +1228,107 @@
         "seed": 8,
         "team": "Ohio State"
       },
-      "market_prob": 0.995,
-      "claude_prob": 0.72,
-      "divergence": -0.275,
-      "abs_divergence": 0.275,
-      "pick": "Ohio State",
-      "pick_seed": 8,
-      "pick_source": "DIVERGE",
+      "kalshi_prob": 0.99,
+      "ensemble_prob": 0.937,
+      "divergence": -0.053,
+      "abs_divergence": 0.053,
+      "pick": "Duke",
+      "pick_seed": 1,
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Ohio State MORE than market",
-      "claude_rationale": "Duke as a #1 seed carries significant advantages in talent, coaching under Jon Scheyer, and tournament pedigree. Ohio State as an #8 seed is dangerous and capable of an upset, but Duke's depth and recruiting class typically give them an edge in this spot. The Round of 32 setting slightly increases upset risk compared to a Round of 64 game, keeping Ohio State competitive."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Duke as a #1 seed with 98% KenPom probability represents a massive talent and efficiency gap over Ohio State, making this a low upset-risk matchup where advanced metrics should be trusted heavily. The #1 vs #8 matchup historically produces fewer upsets than lower seed lines, and Ohio State lacks the classic upset profile of an experienced mid-major with elite defense or disruptive tempo. Slightly trimming seed weight in favor of KenPom and Log5 since historical seed data is less granular at capturing the specific quality gap between this Duke squad and the Buckeyes.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.9372,
+        "kenpom_prob": 0.9788,
+        "log5_prob": 0.9013,
+        "seed_prob": 0.8,
+        "weights": {
+          "kenpom": 0.62,
+          "log5": 0.26,
+          "seed": 0.12
+        },
+        "base_ensemble_prob": 0.9326
+      }
     },
     {
       "game": 34,
       "region": "East",
-      "matchup": "(4) Kansas vs (12) Northern Iowa",
+      "matchup": "(4) Kansas vs (5) St. John's",
       "team_a": {
         "seed": 4,
         "team": "Kansas"
       },
       "team_b": {
-        "seed": 12,
-        "team": "Northern Iowa"
+        "seed": 5,
+        "team": "St. John's"
       },
-      "market_prob": 0.895,
-      "claude_prob": 0.68,
-      "divergence": -0.215,
-      "abs_divergence": 0.215,
-      "pick": "Northern Iowa",
-      "pick_seed": 12,
+      "kalshi_prob": 0.905,
+      "ensemble_prob": 0.579,
+      "divergence": -0.326,
+      "abs_divergence": 0.326,
+      "pick": "St. John's",
+      "pick_seed": 5,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Northern Iowa MORE than market",
-      "claude_rationale": "Kansas brings superior talent, Big 12 battle-tested experience, and Bill Self's deep tournament pedigree as a consistent program. However, Northern Iowa has a history of pulling off upsets as a physical, well-coached mid-major under Steve Forbes's system, and the #12 vs #5 upset rate historically hovers around 35% \u2014 this is a #12 vs #4 matchup where mid-majors have proven dangerous. Kansas's depth and NBA-caliber talent should ultimately prevail, but this figures to be a competitive, physical game."
+      "pick_rationale": "Ensemble likes St. John's MORE than Kalshi",
+      "claude_rationale": "St. John's enters as one of the hottest teams in the country, winning the Big East Tournament and playing with exceptional guard depth and defensive intensity under Rick Pitino \u2014 a classic upset profile featuring an experienced, peaking mid-major-style program against a Kansas team that has shown inconsistency this season. The Log5 model's 33% for Kansas signals real concern about Kansas's actual win-rate performance relative to their efficiency metrics, so KenPom weight is reduced slightly in favor of Log5, which better captures St. John's legitimate r\u00e9sum\u00e9. The seed weight is bumped modestly to acknowledge the historical competitiveness of 4-5 matchups, but this game carries a genuine upset probability warranting the flag.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.5789,
+        "kenpom_prob": 0.7401,
+        "log5_prob": 0.3295,
+        "seed_prob": 0.55,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.6089
+      }
     },
     {
       "game": 35,
       "region": "East",
-      "matchup": "(6) Louisville vs (14) North Dakota State",
+      "matchup": "(3) Michigan State vs (6) Louisville",
       "team_a": {
+        "seed": 3,
+        "team": "Michigan State"
+      },
+      "team_b": {
         "seed": 6,
         "team": "Louisville"
       },
-      "team_b": {
-        "seed": 14,
-        "team": "North Dakota State"
-      },
-      "market_prob": 0.675,
-      "claude_prob": 0.72,
-      "divergence": 0.045,
-      "abs_divergence": 0.045,
+      "kalshi_prob": 0.93,
+      "ensemble_prob": 0.652,
+      "divergence": -0.278,
+      "abs_divergence": 0.278,
       "pick": "Louisville",
       "pick_seed": 6,
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Louisville as a #6 seed carries a significant seeding advantage and typically reflects a quality high-major program with superior athleticism and depth compared to a #14 seed from the Summit League. North Dakota State would need an exceptional performance to pull the upset, as mid-major programs at this seed face steep odds against ACC-caliber competition. Historical data shows #6 seeds win roughly 70-75% of Round of 32 matchups against #14 seeds."
+      "pick_rationale": "Ensemble likes Louisville MORE than Kalshi",
+      "claude_rationale": "Michigan State under Tom Izzo is historically elite in March, consistently overperforming seed and efficiency metrics in tournament play, which warrants slight seed weight elevation. Louisville as a #6 seed presents a credible threat with ACC tournament experience and typically strong defensive identity, but the Spartans' size, veteran leadership, and Izzo's tactical adjustments give them a meaningful edge in a close matchup. The base ensemble at 66% feels appropriately calibrated \u2014 no dramatic adjustment needed, but a modest shift toward historical seed data reflects Michigan State's tournament pedigree as a slight undercount in raw efficiency models.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.6518,
+        "kenpom_prob": 0.6979,
+        "log5_prob": 0.6079,
+        "seed_prob": 0.58,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.25,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.6577
+      }
     },
     {
       "game": 36,
@@ -889,18 +1342,31 @@
         "seed": 7,
         "team": "UCLA"
       },
-      "market_prob": 0.955,
-      "claude_prob": 0.63,
-      "divergence": -0.325,
-      "abs_divergence": 0.325,
+      "kalshi_prob": 0.965,
+      "ensemble_prob": 0.786,
+      "divergence": -0.179,
+      "abs_divergence": 0.179,
       "pick": "UCLA",
       "pick_seed": 7,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes UCLA MORE than market",
-      "claude_rationale": "UConn brings elite tournament pedigree and typically fields a disciplined, experienced roster under Dan Hurley that thrives in March settings. However, UCLA is a historically strong program capable of pulling upsets, and a 7-seed matchup in the Round of 32 is always dangerous for higher seeds. UConn's defensive continuity and depth should be the difference, but this figures to be a competitive game."
+      "pick_rationale": "Ensemble likes UCLA MORE than Kalshi",
+      "claude_rationale": "UConn is a battle-tested, experienced program with elite defensive efficiency and tournament pedigree as back-to-back title contenders, making them a strong favorite even against a quality UCLA squad. UCLA's Pac-12 resume and size could create some tempo friction \u2014 they play at a slower pace that can neutralize pure efficiency advantages, which is why KenPom weight is trimmed slightly in favor of Log5. This is not a classic upset profile (UCLA is a blue-blood program, not an unheralded mid-major), but UCLA's experience and defensive capability keep this from being a blowout probability.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.7863,
+        "kenpom_prob": 0.845,
+        "log5_prob": 0.7355,
+        "seed_prob": 0.68,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.28,
+          "seed": 0.17
+        },
+        "base_ensemble_prob": 0.7929
+      }
     },
     {
       "game": 37,
@@ -914,43 +1380,69 @@
         "seed": 9,
         "team": "Utah State"
       },
-      "market_prob": 0.995,
-      "claude_prob": 0.72,
-      "divergence": -0.275,
-      "abs_divergence": 0.275,
+      "kalshi_prob": 0.995,
+      "ensemble_prob": 0.886,
+      "divergence": -0.109,
+      "abs_divergence": 0.109,
       "pick": "Utah State",
       "pick_seed": 9,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Utah State MORE than market",
-      "claude_rationale": "Arizona as a #1 seed brings elite Pac-12/Big 12 competition experience, superior recruiting, and typically strong frontcourt depth that creates matchup problems for Mountain West opponents. Utah State is a dangerous #9 seed capable of pulling upsets with disciplined play and strong coaching under Danny Sprinkle's system, making this a legitimate threat game. However, Arizona's talent advantage and home-region familiarity in the West bracket should prevail in what figures to be a competitive but ultimately one-sided finish."
+      "pick_rationale": "Ensemble likes Utah State MORE than Kalshi",
+      "claude_rationale": "Utah State is a disciplined, experienced Mountain West squad that plays slow, physical defense and could neutralize Arizona's transition offense \u2014 a classic mid-major upset profile that slightly undercuts KenPom's efficiency advantage. However, Arizona's elite frontcourt depth and superior athleticism should ultimately overwhelm Utah State's deliberate pace, and the Wildcats' top seed reflects genuine dominance rather than a soft schedule. The slight shift toward log5 and seed weights accounts for Utah State's tournament-tested experience and the real (if modest) stylistic friction, while still heavily favoring Arizona as a deserving favorite.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8861,
+        "kenpom_prob": 0.9609,
+        "log5_prob": 0.7731,
+        "seed_prob": 0.83,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.28,
+          "seed": 0.17
+        },
+        "base_ensemble_prob": 0.8943
+      }
     },
     {
       "game": 38,
       "region": "West",
-      "matchup": "(12) High Point vs (13) Hawaii",
+      "matchup": "(4) Arkansas vs (5) Wisconsin",
       "team_a": {
-        "seed": 12,
-        "team": "High Point"
+        "seed": 4,
+        "team": "Arkansas"
       },
       "team_b": {
-        "seed": 13,
-        "team": "Hawaii"
+        "seed": 5,
+        "team": "Wisconsin"
       },
-      "market_prob": 0.205,
-      "claude_prob": 0.52,
-      "divergence": 0.315,
-      "abs_divergence": 0.315,
-      "pick": "High Point",
-      "pick_seed": 12,
+      "kalshi_prob": 0.905,
+      "ensemble_prob": 0.686,
+      "divergence": -0.219,
+      "abs_divergence": 0.219,
+      "pick": "Wisconsin",
+      "pick_seed": 5,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes High Point MORE than market",
-      "claude_rationale": "This is an extremely even matchup between two mid-major programs that both earned double-digit seeds, suggesting similar overall profiles. High Point has built a competitive program under Tubby Smith's successors in the Big South/CAA orbit, while Hawaii brings a strong home-court culture but faces travel disadvantages in neutral-site play. With nearly identical seed lines, this is essentially a coin flip with a slight edge to High Point based on typical mainland travel advantages."
+      "pick_rationale": "Ensemble likes Wisconsin MORE than Kalshi",
+      "claude_rationale": "Wisconsin is a classic upset threat here \u2014 a disciplined, experienced Big Ten program that plays slow, physical basketball and thrives on limiting possessions, which can neutralize Arkansas's transition-heavy, fast-paced style and compress the efficiency gap KenPom measures. The Badgers' methodical half-court offense and elite free-throw shooting are dangerous against Arkansas's foul-prone defense, making raw efficiency metrics somewhat misleading in a tempo-mismatch scenario. I've shifted weight away from KenPom toward Log5 and seed history to better reflect Wisconsin's tournament pedigree and the inherent volatility of a 4-vs-5 matchup where both teams are legitimately elite.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.6856,
+        "kenpom_prob": 0.8059,
+        "log5_prob": 0.5755,
+        "seed_prob": 0.55,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.7099
+      }
     },
     {
       "game": 39,
@@ -964,93 +1456,145 @@
         "seed": 6,
         "team": "BYU"
       },
-      "market_prob": 0.955,
-      "claude_prob": 0.62,
-      "divergence": -0.335,
-      "abs_divergence": 0.335,
+      "kalshi_prob": 0.955,
+      "ensemble_prob": 0.713,
+      "divergence": -0.242,
+      "abs_divergence": 0.242,
       "pick": "BYU",
       "pick_seed": 6,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes BYU MORE than market",
-      "claude_rationale": "Gonzaga's tournament pedigree and Mark Few's experienced coaching give them a structural edge, but BYU has proven itself as a competitive Big 12 program capable of upsetting higher seeds. The Bulldogs' frontcourt depth and perimeter shooting typically travel well in March, though BYU's physical Big 12 style could neutralize Gonzaga's interior advantages and make this a closer game than the seeding suggests."
+      "pick_rationale": "Ensemble likes BYU MORE than Kalshi",
+      "claude_rationale": "BYU is a well-coached, experienced program with a similar offensive style (high-tempo, skilled guards) that can neutralize Gonzaga's efficiency advantages and make KenPom margins less predictive \u2014 slightly discount that model. The WCC rivalry means BYU has seen Gonzaga multiple times and won't be intimidated, and BYU's tournament experience gives the seed-based historical upset profile real teeth here (6-seeds beat 3-seeds ~40% historically). Gonzaga remains the clear favorite given superior talent and depth, but this has genuine upset potential warranting an elevated seed weight to reflect the historical base rate of this bracket slot.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.713,
+        "kenpom_prob": 0.732,
+        "log5_prob": 0.8272,
+        "seed_prob": 0.58,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.733
+      }
     },
     {
       "game": 40,
       "region": "West",
-      "matchup": "(10) Missouri vs (15) Queens",
+      "matchup": "(2) Purdue vs (7) Miami (FL)",
       "team_a": {
-        "seed": 10,
-        "team": "Missouri"
+        "seed": 2,
+        "team": "Purdue"
       },
       "team_b": {
-        "seed": 15,
-        "team": "Queens"
+        "seed": 7,
+        "team": "Miami (FL)"
       },
-      "market_prob": 0.465,
-      "claude_prob": 0.72,
-      "divergence": 0.255,
-      "abs_divergence": 0.255,
-      "pick": "Missouri",
-      "pick_seed": 10,
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.809,
+      "divergence": -0.166,
+      "abs_divergence": 0.166,
+      "pick": "Miami (FL)",
+      "pick_seed": 7,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Missouri MORE than market",
-      "claude_rationale": "Missouri as a #10 seed carries significant Big 12 Conference experience and athleticism that should overwhelm a #15 seed Queens program from a mid-major conference. The Tigers' superior recruiting, depth, and tournament experience give them a clear advantage in this Round of 32 matchup. While upsets happen, the talent gap between a power conference #10 and a #15 seed makes Missouri the strong favorite."
+      "pick_rationale": "Ensemble likes Miami (FL) MORE than Kalshi",
+      "claude_rationale": "Purdue brings elite size with Zach Edey dominating the paint, creating a severe matchup problem for Miami's frontcourt that KenPom efficiency metrics are well-suited to capture \u2014 justifying a slight bump in KenPom weight. Miami is a capable ACC team with perimeter shooting and transfer portal depth, but their profile lacks the classic upset indicators (e.g., experienced mid-major with elite defense) needed to seriously threaten a Boilermaker squad built around an All-American center. The Log5 component's relatively low Purdue probability likely reflects Miami's solid win-rate resume, but stylistic dominance in the post gives Purdue a cleaner path to covering that gap than raw win rates suggest.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8087,
+        "kenpom_prob": 0.9278,
+        "log5_prob": 0.518,
+        "seed_prob": 0.68,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.7882
+      }
     },
     {
       "game": 41,
       "region": "South",
-      "matchup": "(1) Florida vs (8) Clemson",
+      "matchup": "(1) Florida vs (9) Iowa",
       "team_a": {
         "seed": 1,
         "team": "Florida"
       },
       "team_b": {
-        "seed": 8,
-        "team": "Clemson"
+        "seed": 9,
+        "team": "Iowa"
       },
-      "market_prob": 0.56,
-      "claude_prob": 0.72,
-      "divergence": 0.16,
-      "abs_divergence": 0.16,
+      "kalshi_prob": 0.435,
+      "ensemble_prob": 0.816,
+      "divergence": 0.381,
+      "abs_divergence": 0.381,
       "pick": "Florida",
       "pick_seed": 1,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Florida MORE than market",
-      "claude_rationale": "Florida as a #1 seed carries significant advantages in talent depth, coaching, and regular season performance under Todd Golden, who has built the Gators into an elite program. Clemson as a #8 seed is dangerous and tournament-tested under Brad Brownell, capable of winning on any given night. However, Florida's superior athleticism and homecourt-caliber preparation as a top seed should prevail in what figures to be a competitive but manageable win."
+      "pick_rationale": "Ensemble likes Florida MORE than Kalshi",
+      "claude_rationale": "Florida as a 1-seed with elite KenPom metrics is a strong favorite, but Iowa presents a credible upset threat through their size and physicality in the frontcourt, which can neutralize efficiency advantages and slow tempo in ways the models underweight. The Log5 component deserves slightly more weight here because Iowa's win-rate profile reflects battle-tested Big Ten competition, and 1-vs-9 matchups historically see tighter contests than pure efficiency spreads suggest (~17% upset rate). No significant travel or venue disadvantage for either team, but Iowa's experienced roster and potential to bully Florida in the paint marginally compresses the true win probability closer to the 80-82% range rather than the KenPom-driven 89%.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8159,
+        "kenpom_prob": 0.8861,
+        "log5_prob": 0.6802,
+        "seed_prob": 0.83,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.3,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.8262
+      }
     },
     {
       "game": 42,
       "region": "South",
-      "matchup": "(12) McNeese vs (13) Troy",
+      "matchup": "(4) Nebraska vs (12) McNeese",
       "team_a": {
+        "seed": 4,
+        "team": "Nebraska"
+      },
+      "team_b": {
         "seed": 12,
         "team": "McNeese"
       },
-      "team_b": {
-        "seed": 13,
-        "team": "Troy"
-      },
-      "market_prob": 0.155,
-      "claude_prob": 0.58,
-      "divergence": 0.425,
-      "abs_divergence": 0.425,
+      "kalshi_prob": 0.89,
+      "ensemble_prob": 0.748,
+      "divergence": -0.142,
+      "abs_divergence": 0.142,
       "pick": "McNeese",
       "pick_seed": 12,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes McNeese MORE than market",
-      "claude_rationale": "McNeese has been a consistent performer in the Southland/WAC conference space with solid tournament pedigree under their coaching staff, while Troy competing out of the Sun Belt brings athleticism but inconsistency. As a 12-seed versus a 13-seed, McNeese holds a slight seeding advantage reflecting their marginally stronger r\u00e9sum\u00e9. This is a close matchup between mid-major programs where McNeese's experience and depth likely prove decisive."
+      "pick_rationale": "Ensemble likes McNeese MORE than Kalshi",
+      "claude_rationale": "McNeese is a classic upset-profile mid-major \u2014 a seasoned, well-coached Southland/WAC program with tournament experience and strong defensive identity that can neutralize efficiency advantages in a single-elimination format. The massive gap between KenPom (97%) and Log5 (44%) signals KenPom's efficiency metrics may be inflated by Nebraska's weak Big Ten schedule opponents, making raw efficiency numbers less reliable here; we reduce KenPom weight accordingly and elevate seed history and win-rate signals. Nebraska is a young, sometimes inconsistent team that can struggle with disciplined, physical mid-majors who control tempo \u2014 this matchup has genuine upset potential warranting the upset flag despite Nebraska being the clear favorite.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.7479,
+        "kenpom_prob": 0.97,
+        "log5_prob": 0.438,
+        "seed_prob": 0.72,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.3,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.7995
+      }
     },
     {
       "game": 43,
@@ -1064,18 +1608,31 @@
         "seed": 14,
         "team": "Penn"
       },
-      "market_prob": 0.555,
-      "claude_prob": 0.78,
-      "divergence": 0.225,
-      "abs_divergence": 0.225,
+      "kalshi_prob": 0.56,
+      "ensemble_prob": 0.851,
+      "divergence": 0.291,
+      "abs_divergence": 0.291,
       "pick": "North Carolina",
       "pick_seed": 6,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes North Carolina MORE than market",
-      "claude_rationale": "North Carolina's superior athleticism, ACC tournament experience, and recruiting depth give them a significant edge over an Ivy League champion Penn. The Tar Heels' ability to exploit mismatches in transition and on the glass typically overwhelms mid-major opponents in the Round of 32. However, Penn's disciplined Princeton-style offense and tournament first-round momentum make them a credible upset threat worth respecting."
+      "pick_rationale": "Ensemble likes North Carolina MORE than Kalshi",
+      "claude_rationale": "Penn as an Ivy League champion brings genuine defensive discipline and a methodical half-court offense that could slow North Carolina's transition game and compress possessions, making raw efficiency margins slightly less predictive \u2014 hence a modest KenPom weight reduction. However, the talent and athleticism gap between a ACC powerhouse and an Ivy League program is substantial enough that this lacks the classic upset profile (e.g., experienced mid-major with proven tournament r\u00e9sum\u00e9 vs. a young high seed). North Carolina's depth, size, and coaching experience in March make them a strong favorite across all models, and the modest weight shifts don't materially change the outcome.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8509,
+        "kenpom_prob": 0.989,
+        "log5_prob": 0.6468,
+        "seed_prob": 0.74,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.28,
+          "seed": 0.17
+        },
+        "base_ensemble_prob": 0.8661
+      }
     },
     {
       "game": 44,
@@ -1089,18 +1646,31 @@
         "seed": 7,
         "team": "Saint Mary's"
       },
-      "market_prob": 0.975,
-      "claude_prob": 0.68,
-      "divergence": -0.295,
-      "abs_divergence": 0.295,
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.703,
+      "divergence": -0.272,
+      "abs_divergence": 0.272,
       "pick": "Saint Mary's",
       "pick_seed": 7,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Saint Mary's MORE than market",
-      "claude_rationale": "Houston's defensive identity under Kelvin Sampson typically makes them a difficult out in the tournament, with superior athleticism and depth compared to most mid-major opponents. Saint Mary's under Randy Bennett is a disciplined, efficient program that plays slow and methodical basketball, which could neutralize Houston's pressure and keep the game close. However, Houston's talent advantage and tournament experience as a 2-seed should prevail in a lower-scoring, physical contest."
+      "pick_rationale": "Ensemble likes Saint Mary's MORE than Kalshi",
+      "claude_rationale": "Saint Mary's is a classic upset candidate \u2014 a disciplined, experienced WCC program that plays elite slow-tempo ball, which can neutralize Houston's high-efficiency offense and make KenPom's efficiency metrics less predictive in a low-possession game. The Gaels' methodical pace and strong fundamentals give them a realistic path to keeping this close, and #7 vs #2 historically produces upsets at a meaningful rate. I'm shifting weight away from KenPom (which favors Houston heavily in efficiency) toward seed history and log5 to better capture the stylistic mismatch risk, while still favoring Houston as the more talented and deeper team.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.703,
+        "kenpom_prob": 0.8751,
+        "log5_prob": 0.4639,
+        "seed_prob": 0.68,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.3,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.743
+      }
     },
     {
       "game": 45,
@@ -1114,43 +1684,69 @@
         "seed": 8,
         "team": "Georgia"
       },
-      "market_prob": 0.415,
-      "claude_prob": 0.72,
-      "divergence": 0.305,
-      "abs_divergence": 0.305,
+      "kalshi_prob": 0.42,
+      "ensemble_prob": 0.899,
+      "divergence": 0.479,
+      "abs_divergence": 0.479,
       "pick": "Michigan",
       "pick_seed": 1,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Michigan MORE than market",
-      "claude_rationale": "As a #1 seed, Michigan carries significant advantages in talent depth, coaching resources, and regular season dominance that typically translate to tournament success. Georgia as an #8 seed represents a dangerous mid-major or mid-tier SEC threat capable of an upset, but the Wolverines' superior roster and home-court energy usually prevail in this matchup. The 1-vs-8 matchup historically favors the top seed at roughly 75-80% of the time, though Georgia's athleticism could keep this competitive."
+      "pick_rationale": "Ensemble likes Michigan MORE than Kalshi",
+      "claude_rationale": "Michigan as a #1 seed carries enormous structural advantages in talent, depth, and tournament experience, and the KenPom model's 97% projection likely reflects a genuine efficiency gap. However, a slight weight shift toward log5 and seed historical is warranted because #8 vs #1 matchups in the Round of 32 occasionally feature competitive, physical SEC teams capable of disrupting high-efficiency offenses \u2014 Georgia's potential defensive physicality or tempo-slowing ability could make raw efficiency metrics slightly less predictive than usual. No strong upset indicators are present, but the 91% base ensemble is reasonable; modest adjustments reflect standard Round of 32 variance without overreacting to a matchup where Michigan is a clear favorite.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.899,
+        "kenpom_prob": 0.9674,
+        "log5_prob": 0.8246,
+        "seed_prob": 0.8,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.28,
+          "seed": 0.17
+        },
+        "base_ensemble_prob": 0.9066
+      }
     },
     {
       "game": 46,
       "region": "Midwest",
-      "matchup": "(5) Texas Tech vs (13) Hofstra",
+      "matchup": "(4) Alabama vs (5) Texas Tech",
       "team_a": {
+        "seed": 4,
+        "team": "Alabama"
+      },
+      "team_b": {
         "seed": 5,
         "team": "Texas Tech"
       },
-      "team_b": {
-        "seed": 13,
-        "team": "Hofstra"
-      },
-      "market_prob": 0.725,
-      "claude_prob": 0.79,
-      "divergence": 0.065,
-      "abs_divergence": 0.065,
+      "kalshi_prob": 0.875,
+      "ensemble_prob": 0.631,
+      "divergence": -0.244,
+      "abs_divergence": 0.244,
       "pick": "Texas Tech",
       "pick_seed": 5,
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Texas Tech's Big 12 battle-testing and Mark Adams' defensive system give them a significant structural advantage over a CAA program in Hofstra. The Red Raiders' physicality and depth should neutralize any mid-major momentum Hofstra brings, though double-digit seeds from smaller conferences can occasionally exploit zone-busting or three-point shooting against Big 12 defenses. Texas Tech's tournament pedigree and superior athleticism make them a comfortable favorite in this round."
+      "pick_rationale": "Ensemble likes Texas Tech MORE than Kalshi",
+      "claude_rationale": "Texas Tech's elite defensive identity under Grant McCaskey presents a genuine stylistic threat to Alabama's pace-and-space offense \u2014 the Red Raiders' ability to shrink possessions and grind tempo can neutralize the efficiency advantages KenPom assigns Alabama, hence the reduced KenPom weight. The Log5 and seed weights are bumped slightly because this has a classic upset profile: a disciplined, experienced Big 12 defensive team versus a high-octane SEC offense that can go cold from three. Alabama's talent edge keeps them as the pick, but the spread between KenPom (72%) and Log5 (54%) signals real model uncertainty, and the true probability sits closer to the lower end of that range.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.6309,
+        "kenpom_prob": 0.7195,
+        "log5_prob": 0.5371,
+        "seed_prob": 0.55,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.6485
+      }
     },
     {
       "game": 47,
@@ -1164,18 +1760,31 @@
         "seed": 14,
         "team": "Wright State"
       },
-      "market_prob": 0.945,
-      "claude_prob": 0.82,
-      "divergence": -0.125,
-      "abs_divergence": 0.125,
+      "kalshi_prob": 0.935,
+      "ensemble_prob": 0.825,
+      "divergence": -0.11,
+      "abs_divergence": 0.11,
       "pick": "Wright State",
       "pick_seed": 14,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Wright State MORE than market",
-      "claude_rationale": "Tennessee's elite defensive identity under Rick Barnes consistently translates well to tournament settings, and their SEC experience and athleticism creates significant advantages against a Horizon League opponent. Wright State, while capable of first-round upsets, faces a steep climb against Tennessee's length and physicality that typically neutralizes mid-major offensive systems. The talent gap and coaching experience heavily favor the Volunteers in this Round of 32 matchup."
+      "pick_rationale": "Ensemble likes Wright State MORE than Kalshi",
+      "claude_rationale": "Tennessee is a legitimate elite program with elite defense and athleticism that should overwhelm a Horizon League mid-major in Wright State, making this a low upset-risk game. However, Wright State fits a mild upset-profile archetype as an experienced, system-based mid-major that can slow tempo and grind \u2014 slightly elevating seed weight to respect the historical #14 vs #6 upset rate (~22%). The Log5 model reading 49% likely reflects conference strength noise and should be discounted; KenPom efficiency data is more reliable here but trimmed slightly given Wright State's potential to disrupt tempo and play below-average-pace basketball that compresses efficiency differentials.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8247,
+        "kenpom_prob": 0.985,
+        "log5_prob": 0.4898,
+        "seed_prob": 0.74,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.8245
+      }
     },
     {
       "game": 48,
@@ -1189,45 +1798,71 @@
         "seed": 7,
         "team": "Kentucky"
       },
-      "market_prob": 0.975,
-      "claude_prob": 0.62,
-      "divergence": -0.355,
-      "abs_divergence": 0.355,
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.75,
+      "divergence": -0.225,
+      "abs_divergence": 0.225,
       "pick": "Kentucky",
       "pick_seed": 7,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Kentucky MORE than market",
-      "claude_rationale": "Iowa State under T.J. Otzelberger has built a consistently elite defensive program and earned a 2-seed for good reason, giving them a structural advantage. However, Kentucky's superior recruiting talent and John Calipari's (or his successor's) ability to reload with NBA-caliber athletes makes the Wildcats a dangerous 7-seed capable of an upset. The edge goes to Iowa State's system and tournament experience, but Kentucky's raw talent keeps this close."
+      "pick_rationale": "Ensemble likes Kentucky MORE than Kalshi",
+      "claude_rationale": "Iowa State is a legitimate elite program under T.J. Otzelberger with a suffocating defensive identity that tends to neutralize high-powered offenses, making their efficiency numbers reliable and tournament-tested. Kentucky under Mark Pope in year one carries more uncertainty than a typical blue-blood \u2014 less experienced in Pope's system and with inconsistent perimeter shooting that Iowa State's defense can exploit. Slight seed weight increase is warranted because the historical #2 vs #7 matchup data captures genuine program depth differences here, but KenPom weight is modestly trimmed to account for Kentucky's unpredictability as a transitional program whose efficiency metrics may slightly flatter a roster still adapting to a new scheme.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.7498,
+        "kenpom_prob": 0.7959,
+        "log5_prob": 0.7044,
+        "seed_prob": 0.68,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.25,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.7556
+      }
     }
   ],
   "16": [
     {
       "game": 49,
       "region": "East",
-      "matchup": "(8) Ohio State vs (12) Northern Iowa",
+      "matchup": "(1) Duke vs (5) St. John's",
       "team_a": {
-        "seed": 8,
-        "team": "Ohio State"
+        "seed": 1,
+        "team": "Duke"
       },
       "team_b": {
-        "seed": 12,
-        "team": "Northern Iowa"
+        "seed": 5,
+        "team": "St. John's"
       },
-      "market_prob": 0.565,
-      "claude_prob": 0.54,
-      "divergence": -0.025,
-      "abs_divergence": 0.025,
-      "pick": "Ohio State",
-      "pick_seed": 8,
-      "pick_source": "CHALK",
+      "kalshi_prob": 0.99,
+      "ensemble_prob": 0.856,
+      "divergence": -0.134,
+      "abs_divergence": 0.134,
+      "pick": "St. John's",
+      "pick_seed": 5,
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "As a #8 seed reaching the Sweet 16, Ohio State has demonstrated resilience but faces a battle-tested Northern Iowa squad that earned a #12 seed through consistent mid-major excellence. Northern Iowa's disciplined, physical style under experienced coaching makes them a dangerous opponent, but Ohio State's Big Ten seasoning and talent advantage should narrowly prevail in a closely contested game."
+      "pick_rationale": "Ensemble likes St. John's MORE than Kalshi",
+      "claude_rationale": "St. John's under Rick Pitino has been one of the more legitimate upset threats in the bracket \u2014 a battle-tested Big East squad with experienced guards, strong defensive identity, and a coach who specializes in preparation and tournament environments, which slightly tempers blind trust in KenPom's efficiency margins. Duke is still a heavy favorite with elite talent and depth, but St. John's physicality and half-court defensive pressure could neutralize some of Duke's transition and spacing advantages, making raw efficiency numbers modestly less predictive than usual. The log5 weight is nudged up to reflect that both teams' actual win-rate r\u00e9sum\u00e9s against quality opponents are meaningful here, and this matchup has mild upset-profile characteristics (experienced mid-major-style program vs. young high-seed), though not strongly enough to trigger a full upset flag.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.856,
+        "kenpom_prob": 0.9383,
+        "log5_prob": 0.7731,
+        "seed_prob": 0.72,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.3,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.8642
+      }
     },
     {
       "game": 50,
@@ -1241,68 +1876,107 @@
         "seed": 7,
         "team": "UCLA"
       },
-      "market_prob": 0.675,
-      "claude_prob": 0.42,
-      "divergence": -0.255,
-      "abs_divergence": 0.255,
-      "pick": "UCLA",
-      "pick_seed": 7,
-      "pick_source": "DIVERGE",
-      "signal_source": "GAME_MARKET",
-      "conviction": null,
-      "conviction_label": null,
-      "pick_rationale": "Claude likes UCLA MORE than market",
-      "claude_rationale": "UCLA's experienced coaching under Mick Cronin and their Pac-12/Big Ten tradition gives them a slight edge in close tournament matchups. Louisville has shown improvement under Pat Kelsey but UCLA's depth and defensive discipline tend to shine in high-stakes Sweet 16 settings. This is a coin-flip game between two evenly matched mid-seeds, with UCLA's tournament pedigree tipping the balance."
-    },
-    {
-      "game": 51,
-      "region": "West",
-      "matchup": "(9) Utah State vs (12) High Point",
-      "team_a": {
-        "seed": 9,
-        "team": "Utah State"
-      },
-      "team_b": {
-        "seed": 12,
-        "team": "High Point"
-      },
-      "market_prob": 0.565,
-      "claude_prob": 0.62,
-      "divergence": 0.055,
-      "abs_divergence": 0.055,
-      "pick": "Utah State",
-      "pick_seed": 9,
-      "pick_source": "CHALK",
-      "signal_source": "GAME_MARKET",
-      "conviction": null,
-      "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Utah State as a 9-seed reaching the Sweet 16 carries more established program infrastructure, Mountain West Conference experience, and likely better overall talent depth than a 12-seed High Point squad from the Big South. However, High Point's Cinderella run to the Sweet 16 indicates a hot, confident team capable of upsets, and Danny Manning's coaching experience gives them a legitimate shot. Utah State's size and experience in high-pressure games should ultimately prove the difference."
-    },
-    {
-      "game": 52,
-      "region": "West",
-      "matchup": "(6) BYU vs (10) Missouri",
-      "team_a": {
-        "seed": 6,
-        "team": "BYU"
-      },
-      "team_b": {
-        "seed": 10,
-        "team": "Missouri"
-      },
-      "market_prob": 0.535,
-      "claude_prob": 0.54,
-      "divergence": 0.005,
-      "abs_divergence": 0.005,
-      "pick": "BYU",
+      "kalshi_prob": 0.675,
+      "ensemble_prob": 0.65,
+      "divergence": -0.025,
+      "abs_divergence": 0.025,
+      "pick": "Louisville",
       "pick_seed": 6,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "BYU as a 6-seed holds a slight structural advantage over Missouri's 10-seed, though reaching the Sweet 16 as a double-digit seed signals Missouri's genuine tournament quality. BYU's Big 12 battle-tested experience gives them an edge in high-pressure situations, but Missouri's athleticism and potential hot shooting make this a coin-flip game. The slight lean toward BYU reflects seeding and conference strength rather than a dominant stylistic advantage."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Louisville as a #6 seed carries a legitimate efficiency advantage per KenPom, but the modest Log5 win-rate (52%) signals these teams are closer in true talent than the seed gap implies, warranting a slight bump to Log5 weight. UCLA's experienced roster and typically disciplined half-court offense create a stylistic challenge for Louisville's transition-heavy attack, compressing the pace and partially neutralizing KenPom's efficiency edge \u2014 hence a small reduction from the default KenPom weight. The 66% base ensemble feels slightly high given the near-coin-flip talent signal; the adjusted model lands closer to 62-63% for Louisville, reflecting a competitive game that Louisville should win but where UCLA has a credible path to the Elite Eight.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.6504,
+        "kenpom_prob": 0.752,
+        "log5_prob": 0.5244,
+        "seed_prob": 0.53,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.3,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.6618
+      }
+    },
+    {
+      "game": 51,
+      "region": "West",
+      "matchup": "(5) Wisconsin vs (9) Utah State",
+      "team_a": {
+        "seed": 5,
+        "team": "Wisconsin"
+      },
+      "team_b": {
+        "seed": 9,
+        "team": "Utah State"
+      },
+      "kalshi_prob": 0.805,
+      "ensemble_prob": 0.535,
+      "divergence": -0.27,
+      "abs_divergence": 0.27,
+      "pick": "Utah State",
+      "pick_seed": 9,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Ensemble likes Utah State MORE than Kalshi",
+      "claude_rationale": "Utah State is a classic upset-profile opponent \u2014 a seasoned Mountain West mid-major with elite defensive discipline and deliberate pace that can neutralize Wisconsin's efficiency advantages and compress possessions, making KenPom metrics less predictive than usual. The Log5 model's skepticism (34% Wisconsin) deserves elevated weight here because Utah State's real-world win rate against comparable competition reflects a battle-tested program capable of executing in high-pressure environments. Raising seed weight slightly acknowledges that historical #9-over-#5 upsets are common in the Sweet 16, and Wisconsin must prove it can handle a grind-it-out opponent in a neutral-site environment.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.5348,
+        "kenpom_prob": 0.6181,
+        "log5_prob": 0.339,
+        "seed_prob": 0.62,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.5486
+      }
+    },
+    {
+      "game": 52,
+      "region": "West",
+      "matchup": "(6) BYU vs (7) Miami (FL)",
+      "team_a": {
+        "seed": 6,
+        "team": "BYU"
+      },
+      "team_b": {
+        "seed": 7,
+        "team": "Miami (FL)"
+      },
+      "kalshi_prob": 0.455,
+      "ensemble_prob": 0.563,
+      "divergence": 0.108,
+      "abs_divergence": 0.108,
+      "pick": "BYU",
+      "pick_seed": 6,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Ensemble likes BYU MORE than Kalshi",
+      "claude_rationale": "BYU's KenPom efficiency advantage is real but slightly discounted given Miami's ability to play at a slower, grind-it-out pace that can neutralize superior offensive efficiency metrics \u2014 reducing kenpom weight marginally in favor of log5. Miami is a seasoned ACC program with tournament experience and a defensive identity that creates classic upset conditions against a BYU team that relies on pace and three-point volume, making this closer than the seed line suggests. The slight log5 bump reflects Miami's consistent win-rate performance against quality competition, keeping the BYU edge modest at roughly 57-58%.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.5632,
+        "kenpom_prob": 0.6615,
+        "log5_prob": 0.3998,
+        "seed_prob": 0.53,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.3,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.5763
+      }
     },
     {
       "game": 53,
@@ -1316,18 +1990,31 @@
         "seed": 12,
         "team": "McNeese"
       },
-      "market_prob": 0.845,
-      "claude_prob": 0.82,
-      "divergence": -0.025,
-      "abs_divergence": 0.025,
+      "kalshi_prob": 0.845,
+      "ensemble_prob": 0.832,
+      "divergence": -0.013,
+      "abs_divergence": 0.013,
       "pick": "Florida",
       "pick_seed": 1,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Florida as a #1 seed brings superior talent, depth, and coaching resources that would overwhelm a #12 seed McNeese in the Sweet 16. McNeese's Cinderella run to reach this stage is remarkable, but the Cowboys would face a significant athleticism and experience gap against a top-tier SEC program. Florida's ability to control tempo and exploit mismatches should prove decisive."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "McNeese reaching the Sweet 16 as a #12 seed signals a genuinely dangerous mid-major program with real momentum and tournament-tested resilience \u2014 the classic 'giant killer' profile that warrants elevated seed-history weight and slight skepticism of KenPom's efficiency gap. However, Florida's combination of elite talent, coaching, and a #1 seed's depth and versatility makes this a poor upset candidate overall; McNeese's run is impressive but the talent and roster differential at this stage becomes very difficult to overcome. The seed weight increase reflects McNeese's proven tournament credibility, but the composite still strongly favors Florida at approximately 80-83%.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.832,
+        "kenpom_prob": 0.99,
+        "log5_prob": 0.3999,
+        "seed_prob": 0.83,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.8185
+      }
     },
     {
       "game": 54,
@@ -1341,18 +2028,31 @@
         "seed": 7,
         "team": "Saint Mary's"
       },
-      "market_prob": 0.555,
-      "claude_prob": 0.58,
-      "divergence": 0.025,
-      "abs_divergence": 0.025,
+      "kalshi_prob": 0.56,
+      "ensemble_prob": 0.504,
+      "divergence": -0.056,
+      "abs_divergence": 0.056,
       "pick": "North Carolina",
       "pick_seed": 6,
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "North Carolina's superior athleticism, depth, and ACC tournament experience give them a slight edge in a Sweet 16 environment. Saint Mary's methodical, halfcourt-oriented offense under Randy Bennett can neutralize athletic advantages and control pace, making this a competitive matchup. UNC's talent advantage and home crowd support as a blueblood program tips the balance narrowly in their favor."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "Saint Mary's is a classic upset threat: a disciplined, experienced mid-major under Randy Bennett who plays elite half-court defense and controls tempo in ways that neutralize KenPom efficiency metrics built on high-possession samples. The Gaels' slow pace and precise offensive execution can neutralize UNC's athleticism and transition game, making raw efficiency numbers less predictive here \u2014 hence the downward KenPom weight shift. The wide divergence between KenPom (61%) and Log5 (36%) signals real model uncertainty, so elevating Log5 and seed historical weights better reflects the legitimate upset profile of a veteran, cohesive Saint Mary's squad against a UNC team that can be inconsistent despite elite talent.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.5045,
+        "kenpom_prob": 0.6082,
+        "log5_prob": 0.3567,
+        "seed_prob": 0.53,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.35,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.5336
+      }
     },
     {
       "game": 55,
@@ -1366,18 +2066,31 @@
         "seed": 5,
         "team": "Texas Tech"
       },
-      "market_prob": 0.275,
-      "claude_prob": 0.62,
-      "divergence": 0.345,
-      "abs_divergence": 0.345,
+      "kalshi_prob": 0.275,
+      "ensemble_prob": 0.834,
+      "divergence": 0.559,
+      "abs_divergence": 0.559,
       "pick": "Michigan",
       "pick_seed": 1,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Michigan MORE than market",
-      "claude_rationale": "Michigan as a #1 seed carries significant advantages in talent depth and regular season dominance, but Texas Tech's historically elite defensive system under their coaching staff makes them a dangerous Sweet 16 opponent. The Red Raiders' physical, grinding style can neutralize higher-seeded opponents, and #5 seeds have historically performed well in the Sweet 16. Michigan's home region familiarity and top-seed resources give them a moderate edge, but this projects as a competitive, close game."
+      "pick_rationale": "Ensemble likes Michigan MORE than Kalshi",
+      "claude_rationale": "Texas Tech under Chris Beard presents a classic upset threat profile \u2014 elite defensive identity, physical man-to-man pressure, and disciplined half-court execution that can neutralize efficiency advantages by slowing tempo and forcing Michigan into uncomfortable possessions. The KenPom model is slightly derated because Tech's defense tends to compress scoring ranges and reduce possessions, making raw efficiency margins less predictive in low-possession games; seed weight is nudged up to reflect Texas Tech's demonstrated tournament pedigree at this seed line. Michigan remains the clear favorite given superior talent and offensive versatility, but this matchup carries enough structural upset risk to keep the final probability from straying too far above the mid-80s range.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8339,
+        "kenpom_prob": 0.8796,
+        "log5_prob": 0.8246,
+        "seed_prob": 0.72,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.25,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.8419
+      }
     },
     {
       "game": 56,
@@ -1391,45 +2104,71 @@
         "seed": 14,
         "team": "Wright State"
       },
-      "market_prob": 0.605,
-      "claude_prob": 0.79,
-      "divergence": 0.185,
-      "abs_divergence": 0.185,
+      "kalshi_prob": 0.605,
+      "ensemble_prob": 0.804,
+      "divergence": 0.199,
+      "abs_divergence": 0.199,
       "pick": "Kentucky",
       "pick_seed": 7,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Kentucky MORE than market",
-      "claude_rationale": "Kentucky as a 7-seed still carries significant talent advantages over a 14-seed Wright State that would have needed to win two upset games just to reach the Sweet 16. The Wildcats' superior athleticism, depth, and coaching under a proven staff should overwhelm a mid-major program at this stage, even accounting for Wright State's momentum from back-to-back upsets. Kentucky's recruiting pedigree and roster talent make them a heavy favorite in this matchup."
+      "pick_rationale": "Ensemble likes Kentucky MORE than Kalshi",
+      "claude_rationale": "Wright State as a #14 seed reaching the Sweet 16 is already a massive overachievement, but experienced mid-major programs that make deep runs often do so on defensive discipline and cohesion that KenPom efficiency ratings undervalue \u2014 slightly trimming KenPom weight accordingly. However, Kentucky's talent advantage in a Sweet 16 setting (larger venue, high stakes favoring blue-blood recruiting depth) is substantial, and seed historical weight is bumped because 14-seeds virtually never reach the Elite Eight. The Log5 win-rate gap is compressed likely due to Wright State's tournament-inflated performance sample, making it the least reliable signal here.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8043,
+        "kenpom_prob": 0.9808,
+        "log5_prob": 0.4367,
+        "seed_prob": 0.71,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.2,
+          "seed": 0.25
+        },
+        "base_ensemble_prob": 0.8042
+      }
     }
   ],
   "8": [
     {
       "game": 57,
       "region": "East",
-      "matchup": "(7) UCLA vs (8) Ohio State",
+      "matchup": "(5) St. John's vs (6) Louisville",
       "team_a": {
-        "seed": 7,
-        "team": "UCLA"
+        "seed": 5,
+        "team": "St. John's"
       },
       "team_b": {
-        "seed": 8,
-        "team": "Ohio State"
+        "seed": 6,
+        "team": "Louisville"
       },
-      "market_prob": 0.68,
-      "claude_prob": 0.45,
-      "divergence": -0.23,
-      "abs_divergence": 0.23,
-      "pick": "Ohio State",
-      "pick_seed": 8,
+      "kalshi_prob": 0.835,
+      "ensemble_prob": 0.504,
+      "divergence": -0.331,
+      "abs_divergence": 0.331,
+      "pick": "Louisville",
+      "pick_seed": 6,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Ohio State MORE than market",
-      "claude_rationale": "As an 8-seed reaching the Elite 8, Ohio State has demonstrated tournament resilience and momentum, having already upset higher seeds. UCLA as a 7-seed has comparable talent but faces a Buckeyes squad playing with confidence; this near-even matchup slightly favors Ohio State given their tournament trajectory and Big Ten physicality matching up well against UCLA's perimeter-oriented offense."
+      "pick_rationale": "Ensemble likes Louisville MORE than Kalshi",
+      "claude_rationale": "St. John's has been one of the most consistently strong teams in the country this season with elite guard play and a high-pressure defensive identity that disrupts efficient offenses \u2014 this somewhat undermines KenPom's edge for Louisville and warrants pulling weight away from that model. Louisville is a dangerous, well-coached team but St. John's strong win-rate metrics (Log5 at 67%) reflect genuine r\u00e9sum\u00e9 quality that deserves elevated trust in an Elite 8 context where both teams have proven themselves. The seed model bumped slightly to reflect that #5 vs #6 is a coin-flip historically, but the overall lean toward St. John's is supported by their sustained excellence in high-stakes games throughout the season.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.5037,
+        "kenpom_prob": 0.3623,
+        "log5_prob": 0.6705,
+        "seed_prob": 0.53,
+        "weights": {
+          "kenpom": 0.45,
+          "log5": 0.35,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.4645
+      }
     },
     {
       "game": 58,
@@ -1443,18 +2182,31 @@
         "seed": 9,
         "team": "Utah State"
       },
-      "market_prob": 0.435,
-      "claude_prob": 0.54,
-      "divergence": 0.105,
-      "abs_divergence": 0.105,
+      "kalshi_prob": 0.435,
+      "ensemble_prob": 0.57,
+      "divergence": 0.135,
+      "abs_divergence": 0.135,
       "pick": "BYU",
       "pick_seed": 6,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes BYU MORE than market",
-      "claude_rationale": "This is a closely contested in-state rivalry matchup between two Big 12 (BYU) and Mountain West (Utah State) programs that have both overachieved to reach the Elite 8. BYU as a 6-seed holds a slight seeding advantage and the depth of Big 12 competition may have better prepared them for tournament pressure, but Utah State's scrappy, well-coached style under Danny Sprinkle or successor has consistently punched above its weight. The margin is razor-thin given Utah State's history of tournament upsets as a 9-seed already having beaten higher seeds to get here."
+      "pick_rationale": "Ensemble likes BYU MORE than Kalshi",
+      "claude_rationale": "Utah State as a #9 seed reaching the Elite 8 signals a battle-tested mid-major with genuine upset pedigree \u2014 KenPom efficiency metrics historically undervalue experienced Mountain West programs that play disciplined, slower-tempo defense, so its weight is trimmed slightly. The Log5 component gets a modest bump because Utah State's actual win-rate r\u00e9sum\u00e9 against quality opponents is more predictive than raw efficiency margin when styles clash at this stage. This matchup carries a classic upset profile: a defensively elite mid-major limiting possessions against a higher-seeded BYU squad that relies on offensive efficiency, making the game closer than the base ensemble suggests, though BYU's overall talent edge still makes them the slight favorite.",
+      "upset_flag": true,
+      "ensemble": {
+        "ensemble_prob": 0.5702,
+        "kenpom_prob": 0.7195,
+        "log5_prob": 0.3083,
+        "seed_prob": 0.59,
+        "weights": {
+          "kenpom": 0.5,
+          "log5": 0.3,
+          "seed": 0.2
+        },
+        "base_ensemble_prob": 0.5973
+      }
     },
     {
       "game": 59,
@@ -1468,18 +2220,31 @@
         "seed": 6,
         "team": "North Carolina"
       },
-      "market_prob": 0.445,
-      "claude_prob": 0.61,
-      "divergence": 0.165,
-      "abs_divergence": 0.165,
+      "kalshi_prob": 0.44,
+      "ensemble_prob": 0.781,
+      "divergence": 0.341,
+      "abs_divergence": 0.341,
       "pick": "Florida",
       "pick_seed": 1,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Florida MORE than market",
-      "claude_rationale": "Florida as a #1 seed carries significant seeding and resume advantages, but North Carolina's storied tournament pedigree and experience in high-pressure Elite 8 environments make this a dangerous matchup. The Tar Heels' ability to exploit size mismatches and push pace can neutralize Florida's home-court-like crowd energy. Florida's depth and coaching edge under Todd Golden give them a slight but meaningful advantage to advance to the Final Four."
+      "pick_rationale": "Ensemble likes Florida MORE than Kalshi",
+      "claude_rationale": "Florida as a #1 seed has demonstrated elite efficiency metrics that KenPom is well-positioned to capture, and their depth and athleticism should hold up against UNC's transition-heavy offense \u2014 making the efficiency model slightly more trustworthy here. North Carolina's tournament run as a #6 seed shows real quality, and their ability to push pace and generate second-chance points is a genuine threat, which is why Log5 gets a slight trim rather than a full discount. The venue is likely a neutral site reducing travel bias, and while UNC has the pedigree and guard play to make this competitive, this matchup lacks the classic upset markers (e.g., no significant experience gap or defensive style mismatch) needed to seriously challenge Florida's structural advantage.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.781,
+        "kenpom_prob": 0.8582,
+        "log5_prob": 0.5534,
+        "seed_prob": 0.75,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.7657
+      }
     },
     {
       "game": 60,
@@ -1493,45 +2258,71 @@
         "seed": 7,
         "team": "Kentucky"
       },
-      "market_prob": 0.395,
-      "claude_prob": 0.58,
-      "divergence": 0.185,
-      "abs_divergence": 0.185,
+      "kalshi_prob": 0.395,
+      "ensemble_prob": 0.885,
+      "divergence": 0.49,
+      "abs_divergence": 0.49,
       "pick": "Michigan",
       "pick_seed": 1,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Michigan MORE than market",
-      "claude_rationale": "Michigan earned the #1 seed with a strong Big Ten regular season and benefits from home-region familiarity and top-tier coaching under Dusty May, who has built a disciplined, efficient offense. However, Kentucky as a #7 seed still carries significant talent and John Calipari's successor has maintained elite recruiting, making the Wildcats a dangerous upset threat in the Elite 8. The one-seed advantage and Michigan's tournament experience give them a moderate edge, but this figures to be a competitive, close game."
+      "pick_rationale": "Ensemble likes Michigan MORE than Kalshi",
+      "claude_rationale": "Kentucky presents a legitimate threat with their typical blend of elite athleticism and experienced NBA-caliber talent, which can expose efficiency-metric blind spots \u2014 hence a slight reduction in KenPom weight and modest bump to Log5 and seed historical. However, Michigan as a #1 seed carries structural advantages in depth, coaching, and tournament experience that reinforce the base ensemble's confidence. No strong classic upset indicators are present here (Kentucky is a blue-blood program, not a Cinderella), so the 89% baseline holds with only minor contextual trimming.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8851,
+        "kenpom_prob": 0.9278,
+        "log5_prob": 0.865,
+        "seed_prob": 0.78,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.28,
+          "seed": 0.17
+        },
+        "base_ensemble_prob": 0.8899
+      }
     }
   ],
   "4": [
     {
       "game": 61,
       "region": "Final Four",
-      "matchup": "(6) BYU vs (8) Ohio State",
+      "matchup": "(6) Louisville vs (6) BYU",
       "team_a": {
+        "seed": 6,
+        "team": "Louisville"
+      },
+      "team_b": {
         "seed": 6,
         "team": "BYU"
       },
-      "team_b": {
-        "seed": 8,
-        "team": "Ohio State"
-      },
-      "market_prob": 0.435,
-      "claude_prob": 0.52,
-      "divergence": 0.085,
-      "abs_divergence": 0.085,
+      "kalshi_prob": 0.675,
+      "ensemble_prob": 0.558,
+      "divergence": -0.117,
+      "abs_divergence": 0.117,
       "pick": "BYU",
       "pick_seed": 6,
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes BYU MORE than market",
-      "claude_rationale": "This is an extremely close Final Four matchup between two double-digit seeds, making it a historic upset story regardless of outcome. BYU's Big 12 tournament experience and guard play give them a slight edge, but Ohio State's size and Big Ten physicality could neutralize BYU's pace. As a #6 vs #8 matchup, both teams have proven they can win in March, making this essentially a coin flip with a marginal lean toward BYU."
+      "pick_rationale": "Ensemble likes BYU MORE than Kalshi",
+      "claude_rationale": "Both teams are identically seeded at #6, making this a true toss-up on paper, but Louisville's ACC pedigree and typically superior defensive infrastructure give them a marginal edge in Final Four environments where defensive intensity peaks. BYU's style \u2014 often reliant on pace and three-point volume \u2014 can be neutralized by a disciplined Louisville half-court defense, slightly discounting KenPom efficiency numbers that may overvalue BYU's offensive tempo against elite competition. The log5 weight is bumped slightly to reflect the near-parity in overall resume quality and the genuine coin-flip nature of this same-seed Final Four matchup.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.5585,
+        "kenpom_prob": 0.5931,
+        "log5_prob": 0.5244,
+        "seed_prob": 0.5,
+        "weights": {
+          "kenpom": 0.55,
+          "log5": 0.3,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.562
+      }
     },
     {
       "game": 62,
@@ -1545,45 +2336,71 @@
         "seed": 1,
         "team": "Michigan"
       },
-      "market_prob": 0.406,
-      "claude_prob": 0.52,
-      "divergence": 0.114,
-      "abs_divergence": 0.114,
-      "pick": "Florida",
+      "kalshi_prob": 0.406,
+      "ensemble_prob": 0.376,
+      "divergence": -0.03,
+      "abs_divergence": 0.03,
+      "pick": "Michigan",
       "pick_seed": 1,
-      "pick_source": "DIVERGE",
+      "pick_source": "CHALK",
       "signal_source": "DERIVED",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Florida MORE than market",
-      "claude_rationale": "Both teams enter as #1 seeds making this an extremely even matchup. Florida under Todd Golden has shown strong offensive efficiency and tournament resilience in 2025-26, while Michigan's physicality and Big Ten battle-tested experience make them dangerous. This is essentially a coin-flip with Florida getting a slight edge based on their perimeter shooting and depth."
+      "pick_rationale": "Kalshi and ensemble aligned",
+      "claude_rationale": "This is a true #1 vs #1 Final Four matchup between two elite programs, making the seed-based model largely uninformative (both are top seeds) and KenPom efficiency metrics the most reliable differentiator. The base ensemble and KenPom both favor Florida meaningfully, while the Log5 model's low 26% estimate likely reflects a small sample or win-rate compression at the elite level \u2014 downweighting it slightly is warranted. Florida gets a marginal edge as the slight efficiency favorite, but Michigan's defensive profile and tempo control capability make this a true toss-up where the margin of error is high.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.376,
+        "kenpom_prob": 0.3819,
+        "log5_prob": 0.264,
+        "seed_prob": 0.5,
+        "weights": {
+          "kenpom": 0.65,
+          "log5": 0.2,
+          "seed": 0.15
+        },
+        "base_ensemble_prob": 0.3701
+      }
     }
   ],
   "2": [
     {
       "game": 63,
       "region": "Championship",
-      "matchup": "(1) Florida vs (6) BYU",
+      "matchup": "(1) Michigan vs (6) BYU",
       "team_a": {
         "seed": 1,
-        "team": "Florida"
+        "team": "Michigan"
       },
       "team_b": {
         "seed": 6,
         "team": "BYU"
       },
-      "market_prob": 0.933,
-      "claude_prob": 0.64,
-      "divergence": -0.293,
-      "abs_divergence": 0.293,
+      "kalshi_prob": 0.958,
+      "ensemble_prob": 0.865,
+      "divergence": -0.093,
+      "abs_divergence": 0.093,
       "pick": "BYU",
       "pick_seed": 6,
       "pick_source": "DIVERGE",
       "signal_source": "DERIVED",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes BYU MORE than market",
-      "claude_rationale": "Florida as a #1 seed brings superior overall talent, depth, and tournament pedigree under Todd Golden's system, making them a slight favorite in the championship game. However, BYU's remarkable run as a #6 seed demonstrates resilience and momentum, and tournament upsets at this stage are not uncommon. Florida's frontcourt advantage and consistent offense should be the difference in a competitive final."
+      "pick_rationale": "Ensemble likes BYU MORE than Kalshi",
+      "claude_rationale": "A #1 vs #6 championship matchup heavily favors Michigan across all three models, with KenPom's 90% reflecting a significant efficiency edge that is trustworthy in a championship setting where sample size and opponent quality are well-established. BYU as a mid-major #6 seed reaching the championship is impressive and suggests real tournament momentum, but championship games tend to reward sustained efficiency over hot streaks, slightly increasing KenPom's weight. Seed historical weight is trimmed slightly since both teams have proven themselves through five rounds, making raw seed differential less predictive at this stage than in-season efficiency data.",
+      "upset_flag": false,
+      "ensemble": {
+        "ensemble_prob": 0.8645,
+        "kenpom_prob": 0.9001,
+        "log5_prob": 0.8324,
+        "seed_prob": 0.75,
+        "weights": {
+          "kenpom": 0.62,
+          "log5": 0.26,
+          "seed": 0.12
+        },
+        "base_ensemble_prob": 0.8606
+      }
     }
   ]
 }

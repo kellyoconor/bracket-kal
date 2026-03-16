@@ -1,5 +1,5 @@
 {
-  "generated_from": "results.json",
+  "generated_from": "ensemble results.json",
   "total_picks": 63,
   "picks": [
     {
@@ -10,9 +10,9 @@
       "picked_team": "Duke",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.995,
-      "claude_prob": 0.97,
-      "divergence": 0.025
+      "kalshi_prob": 0.99,
+      "ensemble_prob": 0.969,
+      "divergence": 0.021
     },
     {
       "game": 2,
@@ -22,21 +22,21 @@
       "picked_team": "Ohio State",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.565,
-      "claude_prob": 0.52,
-      "divergence": 0.045
+      "kalshi_prob": 0.575,
+      "ensemble_prob": 0.516,
+      "divergence": 0.059
     },
     {
       "game": 3,
       "round": "R64",
       "region": "East",
       "matchup": "(5) St. John's vs (12) Northern Iowa",
-      "picked_team": "Northern Iowa",
-      "pick_source": "DIVERGE",
+      "picked_team": "St. John's",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.835,
-      "claude_prob": 0.62,
-      "divergence": 0.215
+      "kalshi_prob": 0.835,
+      "ensemble_prob": 0.78,
+      "divergence": 0.055
     },
     {
       "game": 4,
@@ -46,9 +46,9 @@
       "picked_team": "Kansas",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.895,
-      "claude_prob": 0.82,
-      "divergence": 0.075
+      "kalshi_prob": 0.905,
+      "ensemble_prob": 0.867,
+      "divergence": 0.038
     },
     {
       "game": 5,
@@ -58,21 +58,21 @@
       "picked_team": "Louisville",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.675,
-      "claude_prob": 0.62,
-      "divergence": 0.055
+      "kalshi_prob": 0.675,
+      "ensemble_prob": 0.719,
+      "divergence": 0.044
     },
     {
       "game": 6,
       "round": "R64",
       "region": "East",
       "matchup": "(3) Michigan State vs (14) North Dakota State",
-      "picked_team": "North Dakota State",
-      "pick_source": "DIVERGE",
+      "picked_team": "Michigan State",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.925,
-      "claude_prob": 0.82,
-      "divergence": 0.105
+      "kalshi_prob": 0.93,
+      "ensemble_prob": 0.854,
+      "divergence": 0.076
     },
     {
       "game": 7,
@@ -82,9 +82,9 @@
       "picked_team": "UCLA",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.68,
-      "claude_prob": 0.62,
-      "divergence": 0.06
+      "kalshi_prob": 0.69,
+      "ensemble_prob": 0.676,
+      "divergence": 0.014
     },
     {
       "game": 8,
@@ -94,9 +94,9 @@
       "picked_team": "UConn",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.955,
-      "claude_prob": 0.93,
-      "divergence": 0.025
+      "kalshi_prob": 0.965,
+      "ensemble_prob": 0.937,
+      "divergence": 0.028
     },
     {
       "game": 9,
@@ -106,9 +106,9 @@
       "picked_team": "Arizona",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.995,
-      "claude_prob": 0.97,
-      "divergence": 0.025
+      "kalshi_prob": 0.995,
+      "ensemble_prob": 0.966,
+      "divergence": 0.029
     },
     {
       "game": 10,
@@ -118,33 +118,33 @@
       "picked_team": "Utah State",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.445,
-      "claude_prob": 0.42,
-      "divergence": 0.025
+      "kalshi_prob": 0.44,
+      "ensemble_prob": 0.458,
+      "divergence": 0.018
     },
     {
       "game": 11,
       "round": "R64",
       "region": "West",
       "matchup": "(5) Wisconsin vs (12) High Point",
-      "picked_team": "High Point",
-      "pick_source": "DIVERGE",
+      "picked_team": "Wisconsin",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.805,
-      "claude_prob": 0.68,
-      "divergence": 0.125
+      "kalshi_prob": 0.805,
+      "ensemble_prob": 0.727,
+      "divergence": 0.078
     },
     {
       "game": 12,
       "round": "R64",
       "region": "West",
       "matchup": "(4) Arkansas vs (13) Hawaii",
-      "picked_team": "Hawaii",
-      "pick_source": "DIVERGE",
+      "picked_team": "Arkansas",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.905,
-      "claude_prob": 0.72,
-      "divergence": 0.185
+      "kalshi_prob": 0.905,
+      "ensemble_prob": 0.849,
+      "divergence": 0.056
     },
     {
       "game": 13,
@@ -152,11 +152,11 @@
       "region": "West",
       "matchup": "(6) BYU vs (11) Texas",
       "picked_team": "BYU",
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.505,
-      "claude_prob": 0.58,
-      "divergence": 0.075
+      "kalshi_prob": 0.5,
+      "ensemble_prob": 0.738,
+      "divergence": 0.238
     },
     {
       "game": 14,
@@ -166,33 +166,33 @@
       "picked_team": "Gonzaga",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.955,
-      "claude_prob": 0.88,
-      "divergence": 0.075
+      "kalshi_prob": 0.955,
+      "ensemble_prob": 0.937,
+      "divergence": 0.018
     },
     {
       "game": 15,
       "round": "R64",
       "region": "West",
       "matchup": "(7) Miami (FL) vs (10) Missouri",
-      "picked_team": "Missouri",
+      "picked_team": "Miami (FL)",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.545,
-      "claude_prob": 0.42,
-      "divergence": 0.125
+      "kalshi_prob": 0.545,
+      "ensemble_prob": 0.725,
+      "divergence": 0.18
     },
     {
       "game": 16,
       "round": "R64",
       "region": "West",
       "matchup": "(2) Purdue vs (15) Queens",
-      "picked_team": "Queens",
-      "pick_source": "DIVERGE",
+      "picked_team": "Purdue",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.975,
-      "claude_prob": 0.88,
-      "divergence": 0.095
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.92,
+      "divergence": 0.055
     },
     {
       "game": 17,
@@ -202,21 +202,21 @@
       "picked_team": "Florida",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.6,
-      "claude_prob": 0.97,
-      "divergence": 0.37
+      "kalshi_prob": 0.595,
+      "ensemble_prob": 0.948,
+      "divergence": 0.353
     },
     {
       "game": 18,
       "round": "R64",
       "region": "South",
       "matchup": "(8) Clemson vs (9) Iowa",
-      "picked_team": "Clemson",
-      "pick_source": "DIVERGE",
+      "picked_team": "Iowa",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.44,
-      "claude_prob": 0.52,
-      "divergence": 0.08
+      "kalshi_prob": 0.445,
+      "ensemble_prob": 0.423,
+      "divergence": 0.022
     },
     {
       "game": 19,
@@ -226,21 +226,21 @@
       "picked_team": "McNeese",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.845,
-      "claude_prob": 0.63,
-      "divergence": 0.215
+      "kalshi_prob": 0.845,
+      "ensemble_prob": 0.726,
+      "divergence": 0.119
     },
     {
       "game": 20,
       "round": "R64",
       "region": "South",
       "matchup": "(4) Nebraska vs (13) Troy",
-      "picked_team": "Troy",
-      "pick_source": "DIVERGE",
+      "picked_team": "Nebraska",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.895,
-      "claude_prob": 0.72,
-      "divergence": 0.175
+      "kalshi_prob": 0.89,
+      "ensemble_prob": 0.871,
+      "divergence": 0.019
     },
     {
       "game": 21,
@@ -248,11 +248,11 @@
       "region": "South",
       "matchup": "(6) North Carolina vs (11) VCU",
       "picked_team": "North Carolina",
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.555,
-      "claude_prob": 0.58,
-      "divergence": 0.025
+      "kalshi_prob": 0.56,
+      "ensemble_prob": 0.685,
+      "divergence": 0.125
     },
     {
       "game": 22,
@@ -262,9 +262,9 @@
       "picked_team": "Penn",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.965,
-      "claude_prob": 0.79,
-      "divergence": 0.175
+      "kalshi_prob": 0.965,
+      "ensemble_prob": 0.877,
+      "divergence": 0.088
     },
     {
       "game": 23,
@@ -272,11 +272,11 @@
       "region": "South",
       "matchup": "(7) Saint Mary's vs (10) Texas A&M",
       "picked_team": "Saint Mary's",
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.575,
-      "claude_prob": 0.54,
-      "divergence": 0.035
+      "kalshi_prob": 0.6,
+      "ensemble_prob": 0.737,
+      "divergence": 0.137
     },
     {
       "game": 24,
@@ -286,9 +286,9 @@
       "picked_team": "Houston",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.975,
-      "claude_prob": 0.93,
-      "divergence": 0.045
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.936,
+      "divergence": 0.039
     },
     {
       "game": 25,
@@ -298,9 +298,9 @@
       "picked_team": "Michigan",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.475,
-      "claude_prob": 0.97,
-      "divergence": 0.495
+      "kalshi_prob": 0.475,
+      "ensemble_prob": 0.948,
+      "divergence": 0.473
     },
     {
       "game": 26,
@@ -310,9 +310,9 @@
       "picked_team": "Georgia",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.585,
-      "claude_prob": 0.54,
-      "divergence": 0.045
+      "kalshi_prob": 0.58,
+      "ensemble_prob": 0.513,
+      "divergence": 0.067
     },
     {
       "game": 27,
@@ -322,21 +322,21 @@
       "picked_team": "Texas Tech",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.725,
-      "claude_prob": 0.68,
-      "divergence": 0.045
+      "kalshi_prob": 0.725,
+      "ensemble_prob": 0.715,
+      "divergence": 0.01
     },
     {
       "game": 28,
       "round": "R64",
       "region": "Midwest",
       "matchup": "(4) Alabama vs (13) Hofstra",
-      "picked_team": "Hofstra",
-      "pick_source": "DIVERGE",
+      "picked_team": "Alabama",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.875,
-      "claude_prob": 0.79,
-      "divergence": 0.085
+      "kalshi_prob": 0.875,
+      "ensemble_prob": 0.848,
+      "divergence": 0.027
     },
     {
       "game": 29,
@@ -346,9 +346,9 @@
       "picked_team": "Tennessee",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.275,
-      "claude_prob": 0.63,
-      "divergence": 0.355
+      "kalshi_prob": 0.275,
+      "ensemble_prob": 0.693,
+      "divergence": 0.418
     },
     {
       "game": 30,
@@ -358,9 +358,9 @@
       "picked_team": "Wright State",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.945,
-      "claude_prob": 0.78,
-      "divergence": 0.165
+      "kalshi_prob": 0.94,
+      "ensemble_prob": 0.855,
+      "divergence": 0.085
     },
     {
       "game": 31,
@@ -370,9 +370,9 @@
       "picked_team": "Kentucky",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.605,
-      "claude_prob": 0.63,
-      "divergence": 0.025
+      "kalshi_prob": 0.605,
+      "ensemble_prob": 0.588,
+      "divergence": 0.017
     },
     {
       "game": 32,
@@ -382,45 +382,45 @@
       "picked_team": "Iowa State",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.975,
-      "claude_prob": 0.93,
-      "divergence": 0.045
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.904,
+      "divergence": 0.071
     },
     {
       "game": 33,
       "round": "R32",
       "region": "East",
       "matchup": "(1) Duke vs (8) Ohio State",
-      "picked_team": "Ohio State",
-      "pick_source": "DIVERGE",
+      "picked_team": "Duke",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.995,
-      "claude_prob": 0.72,
-      "divergence": 0.275
+      "kalshi_prob": 0.99,
+      "ensemble_prob": 0.937,
+      "divergence": 0.053
     },
     {
       "game": 34,
       "round": "R32",
       "region": "East",
-      "matchup": "(4) Kansas vs (12) Northern Iowa",
-      "picked_team": "Northern Iowa",
+      "matchup": "(4) Kansas vs (5) St. John's",
+      "picked_team": "St. John's",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.895,
-      "claude_prob": 0.68,
-      "divergence": 0.215
+      "kalshi_prob": 0.905,
+      "ensemble_prob": 0.579,
+      "divergence": 0.326
     },
     {
       "game": 35,
       "round": "R32",
       "region": "East",
-      "matchup": "(6) Louisville vs (14) North Dakota State",
+      "matchup": "(3) Michigan State vs (6) Louisville",
       "picked_team": "Louisville",
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.675,
-      "claude_prob": 0.72,
-      "divergence": 0.045
+      "kalshi_prob": 0.93,
+      "ensemble_prob": 0.652,
+      "divergence": 0.278
     },
     {
       "game": 36,
@@ -430,9 +430,9 @@
       "picked_team": "UCLA",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.955,
-      "claude_prob": 0.63,
-      "divergence": 0.325
+      "kalshi_prob": 0.965,
+      "ensemble_prob": 0.786,
+      "divergence": 0.179
     },
     {
       "game": 37,
@@ -442,21 +442,21 @@
       "picked_team": "Utah State",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.995,
-      "claude_prob": 0.72,
-      "divergence": 0.275
+      "kalshi_prob": 0.995,
+      "ensemble_prob": 0.886,
+      "divergence": 0.109
     },
     {
       "game": 38,
       "round": "R32",
       "region": "West",
-      "matchup": "(12) High Point vs (13) Hawaii",
-      "picked_team": "High Point",
+      "matchup": "(4) Arkansas vs (5) Wisconsin",
+      "picked_team": "Wisconsin",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.205,
-      "claude_prob": 0.52,
-      "divergence": 0.315
+      "kalshi_prob": 0.905,
+      "ensemble_prob": 0.686,
+      "divergence": 0.219
     },
     {
       "game": 39,
@@ -466,45 +466,45 @@
       "picked_team": "BYU",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.955,
-      "claude_prob": 0.62,
-      "divergence": 0.335
+      "kalshi_prob": 0.955,
+      "ensemble_prob": 0.713,
+      "divergence": 0.242
     },
     {
       "game": 40,
       "round": "R32",
       "region": "West",
-      "matchup": "(10) Missouri vs (15) Queens",
-      "picked_team": "Missouri",
+      "matchup": "(2) Purdue vs (7) Miami (FL)",
+      "picked_team": "Miami (FL)",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.465,
-      "claude_prob": 0.72,
-      "divergence": 0.255
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.809,
+      "divergence": 0.166
     },
     {
       "game": 41,
       "round": "R32",
       "region": "South",
-      "matchup": "(1) Florida vs (8) Clemson",
+      "matchup": "(1) Florida vs (9) Iowa",
       "picked_team": "Florida",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.56,
-      "claude_prob": 0.72,
-      "divergence": 0.16
+      "kalshi_prob": 0.435,
+      "ensemble_prob": 0.816,
+      "divergence": 0.381
     },
     {
       "game": 42,
       "round": "R32",
       "region": "South",
-      "matchup": "(12) McNeese vs (13) Troy",
+      "matchup": "(4) Nebraska vs (12) McNeese",
       "picked_team": "McNeese",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.155,
-      "claude_prob": 0.58,
-      "divergence": 0.425
+      "kalshi_prob": 0.89,
+      "ensemble_prob": 0.748,
+      "divergence": 0.142
     },
     {
       "game": 43,
@@ -514,9 +514,9 @@
       "picked_team": "North Carolina",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.555,
-      "claude_prob": 0.78,
-      "divergence": 0.225
+      "kalshi_prob": 0.56,
+      "ensemble_prob": 0.851,
+      "divergence": 0.291
     },
     {
       "game": 44,
@@ -526,9 +526,9 @@
       "picked_team": "Saint Mary's",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.975,
-      "claude_prob": 0.68,
-      "divergence": 0.295
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.703,
+      "divergence": 0.272
     },
     {
       "game": 45,
@@ -538,21 +538,21 @@
       "picked_team": "Michigan",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.415,
-      "claude_prob": 0.72,
-      "divergence": 0.305
+      "kalshi_prob": 0.42,
+      "ensemble_prob": 0.899,
+      "divergence": 0.479
     },
     {
       "game": 46,
       "round": "R32",
       "region": "Midwest",
-      "matchup": "(5) Texas Tech vs (13) Hofstra",
+      "matchup": "(4) Alabama vs (5) Texas Tech",
       "picked_team": "Texas Tech",
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.725,
-      "claude_prob": 0.79,
-      "divergence": 0.065
+      "kalshi_prob": 0.875,
+      "ensemble_prob": 0.631,
+      "divergence": 0.244
     },
     {
       "game": 47,
@@ -562,9 +562,9 @@
       "picked_team": "Wright State",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.945,
-      "claude_prob": 0.82,
-      "divergence": 0.125
+      "kalshi_prob": 0.935,
+      "ensemble_prob": 0.825,
+      "divergence": 0.11
     },
     {
       "game": 48,
@@ -574,57 +574,57 @@
       "picked_team": "Kentucky",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.975,
-      "claude_prob": 0.62,
-      "divergence": 0.355
+      "kalshi_prob": 0.975,
+      "ensemble_prob": 0.75,
+      "divergence": 0.225
     },
     {
       "game": 49,
       "round": "S16",
       "region": "East",
-      "matchup": "(8) Ohio State vs (12) Northern Iowa",
-      "picked_team": "Ohio State",
-      "pick_source": "CHALK",
+      "matchup": "(1) Duke vs (5) St. John's",
+      "picked_team": "St. John's",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.565,
-      "claude_prob": 0.54,
-      "divergence": 0.025
+      "kalshi_prob": 0.99,
+      "ensemble_prob": 0.856,
+      "divergence": 0.134
     },
     {
       "game": 50,
       "round": "S16",
       "region": "East",
       "matchup": "(6) Louisville vs (7) UCLA",
-      "picked_team": "UCLA",
-      "pick_source": "DIVERGE",
+      "picked_team": "Louisville",
+      "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.675,
-      "claude_prob": 0.42,
-      "divergence": 0.255
+      "kalshi_prob": 0.675,
+      "ensemble_prob": 0.65,
+      "divergence": 0.025
     },
     {
       "game": 51,
       "round": "S16",
       "region": "West",
-      "matchup": "(9) Utah State vs (12) High Point",
+      "matchup": "(5) Wisconsin vs (9) Utah State",
       "picked_team": "Utah State",
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.565,
-      "claude_prob": 0.62,
-      "divergence": 0.055
+      "kalshi_prob": 0.805,
+      "ensemble_prob": 0.535,
+      "divergence": 0.27
     },
     {
       "game": 52,
       "round": "S16",
       "region": "West",
-      "matchup": "(6) BYU vs (10) Missouri",
+      "matchup": "(6) BYU vs (7) Miami (FL)",
       "picked_team": "BYU",
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.535,
-      "claude_prob": 0.54,
-      "divergence": 0.005
+      "kalshi_prob": 0.455,
+      "ensemble_prob": 0.563,
+      "divergence": 0.108
     },
     {
       "game": 53,
@@ -634,9 +634,9 @@
       "picked_team": "Florida",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.845,
-      "claude_prob": 0.82,
-      "divergence": 0.025
+      "kalshi_prob": 0.845,
+      "ensemble_prob": 0.832,
+      "divergence": 0.013
     },
     {
       "game": 54,
@@ -646,9 +646,9 @@
       "picked_team": "North Carolina",
       "pick_source": "CHALK",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.555,
-      "claude_prob": 0.58,
-      "divergence": 0.025
+      "kalshi_prob": 0.56,
+      "ensemble_prob": 0.504,
+      "divergence": 0.056
     },
     {
       "game": 55,
@@ -658,9 +658,9 @@
       "picked_team": "Michigan",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.275,
-      "claude_prob": 0.62,
-      "divergence": 0.345
+      "kalshi_prob": 0.275,
+      "ensemble_prob": 0.834,
+      "divergence": 0.559
     },
     {
       "game": 56,
@@ -670,21 +670,21 @@
       "picked_team": "Kentucky",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.605,
-      "claude_prob": 0.79,
-      "divergence": 0.185
+      "kalshi_prob": 0.605,
+      "ensemble_prob": 0.804,
+      "divergence": 0.199
     },
     {
       "game": 57,
       "round": "E8",
       "region": "East",
-      "matchup": "(7) UCLA vs (8) Ohio State",
-      "picked_team": "Ohio State",
+      "matchup": "(5) St. John's vs (6) Louisville",
+      "picked_team": "Louisville",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.68,
-      "claude_prob": 0.45,
-      "divergence": 0.23
+      "kalshi_prob": 0.835,
+      "ensemble_prob": 0.504,
+      "divergence": 0.331
     },
     {
       "game": 58,
@@ -694,9 +694,9 @@
       "picked_team": "BYU",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.435,
-      "claude_prob": 0.54,
-      "divergence": 0.105
+      "kalshi_prob": 0.435,
+      "ensemble_prob": 0.57,
+      "divergence": 0.135
     },
     {
       "game": 59,
@@ -706,9 +706,9 @@
       "picked_team": "Florida",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.445,
-      "claude_prob": 0.61,
-      "divergence": 0.165
+      "kalshi_prob": 0.44,
+      "ensemble_prob": 0.781,
+      "divergence": 0.341
     },
     {
       "game": 60,
@@ -718,45 +718,45 @@
       "picked_team": "Michigan",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.395,
-      "claude_prob": 0.58,
-      "divergence": 0.185
+      "kalshi_prob": 0.395,
+      "ensemble_prob": 0.885,
+      "divergence": 0.49
     },
     {
       "game": 61,
       "round": "FF",
       "region": "Final Four",
-      "matchup": "(6) BYU vs (8) Ohio State",
+      "matchup": "(6) Louisville vs (6) BYU",
       "picked_team": "BYU",
       "pick_source": "DIVERGE",
       "signal_source": "GAME_MARKET",
-      "market_prob": 0.435,
-      "claude_prob": 0.52,
-      "divergence": 0.085
+      "kalshi_prob": 0.675,
+      "ensemble_prob": 0.558,
+      "divergence": 0.117
     },
     {
       "game": 62,
       "round": "FF",
       "region": "Final Four",
       "matchup": "(1) Florida vs (1) Michigan",
-      "picked_team": "Florida",
-      "pick_source": "DIVERGE",
+      "picked_team": "Michigan",
+      "pick_source": "CHALK",
       "signal_source": "DERIVED",
-      "market_prob": 0.406,
-      "claude_prob": 0.52,
-      "divergence": 0.114
+      "kalshi_prob": 0.406,
+      "ensemble_prob": 0.376,
+      "divergence": 0.03
     },
     {
       "game": 63,
       "round": "CHAMP",
       "region": "Championship",
-      "matchup": "(1) Florida vs (6) BYU",
+      "matchup": "(1) Michigan vs (6) BYU",
       "picked_team": "BYU",
       "pick_source": "DIVERGE",
       "signal_source": "DERIVED",
-      "market_prob": 0.933,
-      "claude_prob": 0.64,
-      "divergence": 0.293
+      "kalshi_prob": 0.958,
+      "ensemble_prob": 0.865,
+      "divergence": 0.093
     }
   ]
 }
