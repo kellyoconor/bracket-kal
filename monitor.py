@@ -210,10 +210,14 @@ def main():
     # Track previous odds for movement detection
     prev_odds: dict[str, float] = {}
 
+    # Count pick types
+    diverge_count = sum(1 for p in picks if p.get("pick_source") == "DIVERGE")
+    chalk_count = len(picks) - diverge_count
+
     telegram_send(
-        f"*Bracket Monitor started*\n"
-        f"Tracking {len(picks)} picks\n"
-        f"Score: {score['correct']}W / {score['busted']}L"
+        f"Bracket monitor is live.\n\n"
+        f"Tracking {len(picks)} picks — {diverge_count} contrarian, {chalk_count} chalk.\n"
+        f"I'll message you when odds move or games finish."
     )
 
     while True:
@@ -265,16 +269,60 @@ def main():
                         score["chalk_busted"] += 1
                 save_score(score)
 
-                emoji = "✅" if won else "❌"
-                msg = (
-                    f"{emoji} *Game {game_id} {result}*\n"
-                    f"{matchup}\n"
-                    f"Pick: {team} [{source}]\n"
-                    f"Score: {score['correct']}W / {score['busted']}L\n"
-                    f"Diverge: {score['diverge_correct']}W/{score['diverge_busted']}L | "
-                    f"Chalk: {score['chalk_correct']}W/{score['chalk_busted']}L"
-                )
-                print(f"  {emoji} Game {game_id}: {team} {result}")
+                # Build human-readable message
+                total_w = score["correct"]
+                total_l = score["busted"]
+                total = total_w + total_l
+                round_label = pick.get("round", "")
+                region = pick.get("region", "")
+
+                # Figure out who they lost to
+                parts = matchup.split(" vs ")
+                opponent = parts[1] if team in parts[0] else parts[0]
+
+                if won:
+                    if source == "DIVERGE":
+                        msg = (
+                            f"We nailed it. {team} wins.\n\n"
+                            f"{matchup} ({region})\n\n"
+                            f"This was a contrarian pick — the market had them lower but "
+                            f"Claude saw the edge. That's the whole point.\n\n"
+                            f"Record: {total_w}-{total_l} "
+                            f"({score['diverge_correct']}-{score['diverge_busted']} contrarian, "
+                            f"{score['chalk_correct']}-{score['chalk_busted']} chalk)"
+                        )
+                    else:
+                        msg = (
+                            f"{team} wins as expected.\n\n"
+                            f"{matchup} ({region})\n\n"
+                            f"Chalk pick — market and Claude both liked them. "
+                            f"No surprises here.\n\n"
+                            f"Record: {total_w}-{total_l}"
+                        )
+                else:
+                    if source == "DIVERGE":
+                        div = pick.get("divergence")
+                        div_str = f" (we saw a {div:.0%} gap)" if div else ""
+                        msg = (
+                            f"{team} is out. Contrarian miss{div_str}.\n\n"
+                            f"{matchup} ({region})\n\n"
+                            f"{opponent.strip()} advances. Claude liked {team} more than "
+                            f"the market did, but the market was right on this one.\n\n"
+                            f"Record: {total_w}-{total_l} "
+                            f"({score['diverge_correct']}-{score['diverge_busted']} contrarian, "
+                            f"{score['chalk_correct']}-{score['chalk_busted']} chalk)"
+                        )
+                    else:
+                        msg = (
+                            f"Upset. {team} is out.\n\n"
+                            f"{matchup} ({region})\n\n"
+                            f"{opponent.strip()} pulls the upset. This was a chalk pick — "
+                            f"both the market and Claude had {team}. "
+                            f"Sometimes the madness wins.\n\n"
+                            f"Record: {total_w}-{total_l}"
+                        )
+
+                print(f"  {'W' if won else 'L'} Game {game_id}: {team}")
                 telegram_send(msg)
                 continue
 
@@ -283,13 +331,27 @@ def main():
             if prev is not None:
                 drop = prev - current_prob
                 if drop >= 0.05:  # Dropped >5%
-                    msg = (
-                        f"⚠️ *ODDS DROP: {team}*\n"
-                        f"{matchup}\n"
-                        f"Was: {prev:.0%} -> Now: {current_prob:.0%} ({drop:+.0%})\n"
-                        f"Pick source: [{source}]"
-                    )
-                    print(f"  ⚠️  {team} dropped {drop:.0%} ({prev:.0%} -> {current_prob:.0%})")
+                    pct_now = f"{current_prob:.0%}"
+                    pct_was = f"{prev:.0%}"
+
+                    if source == "DIVERGE":
+                        msg = (
+                            f"Heads up — {team} is sliding.\n\n"
+                            f"{matchup}\n"
+                            f"Was {pct_was}, now {pct_now}.\n\n"
+                            f"This is one of our contrarian picks. The market is moving "
+                            f"against us. Could be injury news, could be sharp money. "
+                            f"Worth watching."
+                        )
+                    else:
+                        msg = (
+                            f"{team} odds are dropping.\n\n"
+                            f"{matchup}\n"
+                            f"Was {pct_was}, now {pct_now}.\n\n"
+                            f"Chalk pick — might be getting less chalky."
+                        )
+
+                    print(f"  Drop: {team} {pct_was} -> {pct_now}")
                     telegram_send(msg)
 
             prev_odds[f"{game_id}:{abbrev}"] = current_prob
