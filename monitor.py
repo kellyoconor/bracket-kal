@@ -67,16 +67,19 @@ def load_picks() -> list[dict]:
     return data["picks"]
 
 
-def load_score() -> dict:
-    if SCORE_FILE.exists():
-        with open(SCORE_FILE) as f:
-            return json.load(f)
-    return {
-        "correct": 0, "busted": 0, "pending": 0,
-        "diverge_correct": 0, "diverge_busted": 0,
-        "chalk_correct": 0, "chalk_busted": 0,
-        "resolved_games": [],
-    }
+FRESH_SCORE = {
+    "correct": 0, "busted": 0, "pending": 0,
+    "diverge_correct": 0, "diverge_busted": 0,
+    "chalk_correct": 0, "chalk_busted": 0,
+    "resolved_games": [],
+}
+
+
+def load_score(reset: bool = False) -> dict:
+    if reset or not SCORE_FILE.exists():
+        return {**FRESH_SCORE}
+    with open(SCORE_FILE) as f:
+        return json.load(f)
 
 
 def save_score(score: dict):
@@ -181,6 +184,11 @@ ABBREV_MAP = {
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Bracket Monitor")
+    parser.add_argument("--reset", action="store_true", help="Reset score and start fresh")
+    args = parser.parse_args()
+
     print("=" * 70)
     print("Bracket Monitor — Live Odds Tracking + Telegram Alerts")
     print("=" * 70)
@@ -191,7 +199,10 @@ def main():
         print("  Warning: TELEGRAM_CHAT_ID not set.")
 
     picks = load_picks()
-    score = load_score()
+    score = load_score(reset=args.reset)
+    if args.reset:
+        save_score(score)
+        print("\n  Score reset to 0-0.")
     print(f"\n  Loaded {len(picks)} picks from {PICKS_FILE}")
     print(f"  Score: {score['correct']}W / {score['busted']}L / {score['pending']} pending")
     print(f"  Polling every {POLL_INTERVAL // 60} minutes\n")
