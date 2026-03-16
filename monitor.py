@@ -84,8 +84,31 @@ def save_score(score: dict):
         json.dump(score, f, indent=2)
 
 
+# Tournament game dates (first round through championship)
+# Update these as the tournament progresses
+TOURNAMENT_DATES = [
+    "MAR17", "MAR18",  # First Four
+    "MAR19", "MAR20",  # Round of 64, Day 1-2
+    "MAR21", "MAR22",  # Round of 64, Day 3-4
+    "MAR23", "MAR24",  # Round of 32
+    "MAR27", "MAR28",  # Sweet 16
+    "MAR29", "MAR30",  # Elite 8
+    "APR05",            # Final Four
+    "APR07",            # Championship
+]
+
+
+def is_tournament_game(ticker: str) -> bool:
+    """Check if a market ticker is for a tournament game (not regular season)."""
+    return any(date in ticker for date in TOURNAMENT_DATES)
+
+
 def pull_game_odds() -> dict[str, dict]:
-    """Pull all active KXNCAAMBGAME markets, return {abbrev: {prob, status, ticker}}."""
+    """Pull tournament KXNCAAMBGAME markets, return {abbrev: {prob, status, ticker}}.
+
+    Only includes tournament-dated games to avoid collisions with
+    regular season markets that share the same team abbreviations.
+    """
     odds = {}
     try:
         cursor = None
@@ -97,6 +120,11 @@ def pull_game_odds() -> dict[str, dict]:
             markets = data.get("markets", [])
             for m in markets:
                 ticker = m.get("ticker", "")
+
+                # Skip non-tournament games
+                if not is_tournament_game(ticker):
+                    continue
+
                 abbrev = ticker.rsplit("-", 1)[-1] if "-" in ticker else ""
                 status = m.get("status", "")
                 yb = float(m.get("yes_bid_dollars", "0") or "0")
@@ -108,9 +136,10 @@ def pull_game_odds() -> dict[str, dict]:
                     prob = lp
                 else:
                     prob = None
-                # Only keep the most recent per abbreviation
+
                 if prob is not None:
                     existing = odds.get(abbrev)
+                    # Prefer active/open games over finalized ones
                     if not existing or status in ("active", "open"):
                         odds[abbrev] = {
                             "prob": prob, "status": status,
