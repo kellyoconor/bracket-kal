@@ -30,6 +30,8 @@ except ImportError:
 
 import anthropic
 
+from ensemble import load_kenpom, compute_ensemble
+
 ROOT = Path(__file__).parent
 KALSHI_FILE = ROOT / "kalshi_markets.json"
 HISTORY_FILE = ROOT / "bracket_history.json"
@@ -306,73 +308,129 @@ def resolve_market_signal(team_a: dict, team_b: dict,
     return None, "NONE"
 
 
-# ─── CLAUDE ASSESSMENT ──────────────────────────────────────────────────────
+# ─── CLAUDE CONTEXTUAL ASSESSMENT + ENSEMBLE ────────────────────────────────
 
 def assess_game(client: anthropic.Anthropic, team_a: dict, team_b: dict,
-                region: str, round_name: str) -> dict:
-    prompt = f"""You are an expert college basketball analyst. Assess this 2026 NCAA Tournament matchup:
+                region: str, round_name: str, kenpom: dict) -> dict:
+    """
+    Claude assesses contextual factors and adjusts ensemble weights.
+    Returns combined ensemble probability with Claude's reasoning.
+    """
+    # Compute base ensemble before Claude's input
+    base_ensemble = compute_ensemble(team_a, team_b, kenpom)
 
-Round: {round_name}
-Region: {region}
-#{team_a["seed"]} {team_a["team"]} vs #{team_b["seed"]} {team_b["team"]}
+    # Build context string for Claude
+    kp_str = ""
+    if base_ensemble["kenpom_prob"] is not None:
+        kp_str = f"KenPom model: {base_ensemble['kenpom_prob']:.0%} for {team_a['team']}"
+    l5_str = ""
+    if base_ensemble["log5_prob"] is not None:
+        l5_str = f"Log5 (win rates): {base_ensemble['log5_prob']:.0%} for {team_a['team']}"
+    seed_str = f"Seed historical: {base_ensemble['seed_prob']:.0%} for {team_a['team']}"
+    base_str = f"Base ensemble (before your adjustment): {base_ensemble['ensemble_prob']:.0%} for {team_a['team']}"
 
-Based on your knowledge of these teams' 2025-26 season performance, coaching, key players, style of play, tournament experience, and matchup dynamics:
+    prompt = f"""You are an expert college basketball analyst providing contextual assessment for an ensemble prediction model.
 
-1. Who wins this game?
-2. What is your confidence that #{team_a["seed"]} {team_a["team"]} wins? Express as a probability between 0.01 and 0.99.
-3. Brief rationale (2-3 sentences max).
+MATCHUP: #{team_a["seed"]} {team_a["team"]} vs #{team_b["seed"]} {team_b["team"]}
+Round: {round_name} | Region: {region}
 
-IMPORTANT: Respond in EXACTLY this JSON format, nothing else:
-{{"winner": "Team Name", "team_a_win_prob": 0.XX, "rationale": "Your reasoning here."}}"""
+MODEL INPUTS (already computed):
+  {kp_str}
+  {l5_str}
+  {seed_str}
+  {base_str}
+
+YOUR JOB: Assess contextual factors the models can't capture, then adjust the ensemble weights. Consider:
+
+1. MOMENTUM & FORM: How are both teams playing right now? Any hot/cold streaks?
+2. MATCHUP DYNAMICS: Style matchup advantages? (tempo, size, shooting, defense)
+3. VENUE & TRAVEL: Any travel/location factors?
+4. UPSET INDICATORS: Does this matchup have classic upset profile? (experienced mid-major vs young high-seed, defensive team vs offensive team, etc.)
+5. WEIGHT ADJUSTMENT: Should we trust the KenPom efficiency model more or less for this specific game? (e.g., if tempo mismatch makes efficiency numbers misleading, lower kenpom weight)
+
+Respond in EXACTLY this JSON format:
+{{
+  "winner": "Team Name",
+  "weights": {{"kenpom": 0.XX, "log5": 0.XX, "seed": 0.XX}},
+  "upset_flag": true/false,
+  "reasoning": "2-3 sentences on the key contextual factors."
+}}
+
+The weights should sum to ~1.0. Default is kenpom:0.60, log5:0.25, seed:0.15.
+Shift weights when you have a strong reason — e.g., raise seed weight for classic upset profiles, lower kenpom if efficiency numbers are misleading for this matchup."""
 
     response = client.messages.create(
         model=MODEL,
-        max_tokens=300,
+        max_tokens=400,
         messages=[{"role": "user", "content": prompt}],
     )
     text = response.content[0].text.strip()
     if text.startswith("```"):
         text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
-    return json.loads(text)
+
+    claude_output = json.loads(text)
+
+    # Recompute ensemble with Claude's adjusted weights
+    adjusted = compute_ensemble(team_a, team_b, kenpom, claude_output.get("weights"))
+
+    return {
+        "winner": claude_output["winner"],
+        "team_a_win_prob": adjusted["ensemble_prob"],
+        "rationale": claude_output["reasoning"],
+        "upset_flag": claude_output.get("upset_flag", False),
+        "ensemble": {
+            "ensemble_prob": adjusted["ensemble_prob"],
+            "kenpom_prob": adjusted["kenpom_prob"],
+            "log5_prob": adjusted["log5_prob"],
+            "seed_prob": adjusted["seed_prob"],
+            "weights": adjusted["weights"],
+            "base_ensemble_prob": base_ensemble["ensemble_prob"],
+        },
+    }
 
 
 # ─── PICK RESOLUTION ────────────────────────────────────────────────────────
 
 def resolve_matchup(team_a: dict, team_b: dict, market_prob: float | None,
-                    claude_prob: float, assessment: dict, region: str,
+                    ensemble_prob: float, assessment: dict, region: str,
                     game_num: int, signal_source: str) -> dict:
 
+    ensemble_data = assessment.get("ensemble", {})
+    upset_flag = assessment.get("upset_flag", False)
+
     if signal_source == "NONE":
-        if claude_prob >= 0.50:
+        if ensemble_prob >= 0.50:
             pick, pick_seed = team_a["team"], team_a["seed"]
         else:
             pick, pick_seed = team_b["team"], team_b["seed"]
-        conviction = abs(claude_prob - 0.50)
+        conviction = abs(ensemble_prob - 0.50)
         conv_label = "HIGH" if conviction >= 0.25 else "MED" if conviction >= 0.12 else "LOW"
         return {
             "game": game_num, "region": region,
             "matchup": f"({team_a['seed']}) {team_a['team']} vs ({team_b['seed']}) {team_b['team']}",
             "team_a": team_a, "team_b": team_b,
-            "market_prob": None, "claude_prob": round(claude_prob, 3),
+            "kalshi_prob": None, "ensemble_prob": round(ensemble_prob, 3),
             "divergence": None, "abs_divergence": None,
             "pick": pick, "pick_seed": pick_seed,
             "pick_source": "CLAUDE_ONLY", "signal_source": "NONE",
             "conviction": round(conviction, 3), "conviction_label": conv_label,
-            "pick_rationale": f"No market signal — Claude conviction pick ({conv_label})",
+            "pick_rationale": f"No market signal — ensemble conviction ({conv_label})",
             "claude_rationale": assessment["rationale"],
+            "upset_flag": upset_flag,
+            "ensemble": ensemble_data,
         }
 
     # MARKET SIGNAL (GAME_MARKET or DERIVED)
-    divergence = claude_prob - market_prob
+    divergence = ensemble_prob - market_prob
     abs_div = abs(divergence)
 
     if abs_div >= SIGNIFICANT_DIVERGENCE:
         if divergence > 0:
             pick, pick_seed = team_a["team"], team_a["seed"]
-            prefix = f"Claude likes {team_a['team']} MORE than market"
+            prefix = f"Ensemble likes {team_a['team']} MORE than Kalshi"
         else:
             pick, pick_seed = team_b["team"], team_b["seed"]
-            prefix = f"Claude likes {team_b['team']} MORE than market"
+            prefix = f"Ensemble likes {team_b['team']} MORE than Kalshi"
         pick_source = "DIVERGE"
     else:
         if market_prob >= 0.50:
@@ -380,19 +438,21 @@ def resolve_matchup(team_a: dict, team_b: dict, market_prob: float | None,
         else:
             pick, pick_seed = team_b["team"], team_b["seed"]
         pick_source = "CHALK"
-        prefix = "Market and Claude aligned"
+        prefix = "Kalshi and ensemble aligned"
 
     return {
         "game": game_num, "region": region,
         "matchup": f"({team_a['seed']}) {team_a['team']} vs ({team_b['seed']}) {team_b['team']}",
         "team_a": team_a, "team_b": team_b,
-        "market_prob": round(market_prob, 3), "claude_prob": round(claude_prob, 3),
+        "kalshi_prob": round(market_prob, 3), "ensemble_prob": round(ensemble_prob, 3),
         "divergence": round(divergence, 3), "abs_divergence": round(abs_div, 3),
         "pick": pick, "pick_seed": pick_seed,
         "pick_source": pick_source, "signal_source": signal_source,
         "conviction": None, "conviction_label": None,
         "pick_rationale": prefix,
         "claude_rationale": assessment["rationale"],
+        "upset_flag": upset_flag,
+        "ensemble": ensemble_data,
     }
 
 
@@ -407,7 +467,7 @@ def print_round_results(results: list[dict], round_name: str):
         print(f"\n{'=' * 125}")
         print(f" {round_name.upper()} — MARKET SIGNAL ({len(market_games)} games)")
         print(f"{'=' * 125}")
-        print(f" {'#':<4} {'Region':<10} {'Matchup':<44} {'Src':<5} {'Market':>7} {'Claude':>7} {'Gap':>7}  {'Pick':<22} {'Source':<8}")
+        print(f" {'#':<4} {'Region':<10} {'Matchup':<44} {'Src':<5} {'Kalshi':>7} {'Ensemb':>7} {'Gap':>7}  {'Pick':<22} {'Source':<8}")
         print("-" * 125)
         for r in sorted_market:
             div_str = f"{r['divergence']:+.0%}"
@@ -417,10 +477,11 @@ def print_round_results(results: list[dict], round_name: str):
                 flag = " <<<"
             elif r["abs_divergence"] >= SIGNIFICANT_DIVERGENCE:
                 flag = " <"
+            upset = " !" if r.get("upset_flag") else ""
             print(
                 f" {r['game']:<4} {r['region']:<10} {r['matchup']:<44} {src:<5}"
-                f"{r['market_prob']:>6.0%} {r['claude_prob']:>6.0%} {div_str:>7}  "
-                f"{r['pick']:<22} {r['pick_source']:<8}{flag}"
+                f"{r['kalshi_prob']:>6.0%} {r['ensemble_prob']:>6.0%} {div_str:>7}  "
+                f"{r['pick']:<22} {r['pick_source']:<8}{flag}{upset}"
             )
         print("-" * 125)
 
@@ -429,12 +490,12 @@ def print_round_results(results: list[dict], round_name: str):
         print(f"\n{'=' * 125}")
         print(f" {round_name.upper()} — CLAUDE ONLY ({len(claude_games)} games, no market signal)")
         print(f"{'=' * 125}")
-        print(f" {'#':<4} {'Region':<10} {'Matchup':<44} {'Claude':>7} {'Conv':>6}  {'Pick':<22} {'Conf':<5}")
+        print(f" {'#':<4} {'Region':<10} {'Matchup':<44} {'Ensemb':>7} {'Conv':>6}  {'Pick':<22} {'Conf':<5}")
         print("-" * 125)
         for r in sorted_claude:
             print(
                 f" {r['game']:<4} {r['region']:<10} {r['matchup']:<44} "
-                f"{r['claude_prob']:>6.0%} {r['conviction']:>5.0%}  "
+                f"{r['ensemble_prob']:>6.0%} {r['conviction']:>5.0%}  "
                 f"{r['pick']:<22} {r['conviction_label']:<5}"
             )
         print("-" * 125)
@@ -473,7 +534,7 @@ def print_round_picks(results: list[dict], round_name: str):
 
 
 def run_round(client: anthropic.Anthropic, matchups: list[dict],
-              game_odds: dict, champ_odds: dict,
+              game_odds: dict, champ_odds: dict, kenpom: dict,
               round_name: str, game_start: int) -> list[dict]:
     print(f"\n{'#' * 125}")
     print(f"#  {round_name.upper()}")
@@ -491,26 +552,31 @@ def run_round(client: anthropic.Anthropic, matchups: list[dict],
         print(f"  [{i+1:>2}/{len(matchups)}] [{sig_tag}] {label:<48}", end="", flush=True)
 
         try:
-            assessment = assess_game(client, team_a, team_b, region, round_name)
-            claude_prob = assessment["team_a_win_prob"]
+            assessment = assess_game(client, team_a, team_b, region, round_name, kenpom)
+            ensemble_prob = assessment["team_a_win_prob"]
             winner = assessment["winner"]
+            ens = assessment.get("ensemble", {})
+            kp = ens.get("kenpom_prob")
+            kp_str = f" kp:{kp:.0%}" if kp is not None else ""
             arrow = "->" if winner == team_a["team"] else "<-"
-            print(f" {arrow} {winner:<20} ({mkt_str} cld:{claude_prob:.0%})")
+            upset = " !" if assessment.get("upset_flag") else ""
+            print(f" {arrow} {winner:<18} ({mkt_str} ens:{ensemble_prob:.0%}{kp_str}){upset}")
         except Exception as e:
             print(f" ERROR: {e}")
-            if market_prob is not None:
-                cp = market_prob
-            else:
-                cp = SEED_WIN_RATES.get(team_a["seed"], 0.5)
+            # Fallback: compute ensemble without Claude weight adjustment
+            base = compute_ensemble(team_a, team_b, kenpom)
+            ensemble_prob = base["ensemble_prob"]
+            winner = team_a["team"] if ensemble_prob >= 0.5 else team_b["team"]
             assessment = {
-                "winner": team_a["team"] if cp >= 0.5 else team_b["team"],
-                "team_a_win_prob": cp,
-                "rationale": "Assessment failed; defaulting to available signal.",
+                "winner": winner,
+                "team_a_win_prob": ensemble_prob,
+                "rationale": "Claude assessment failed; using base ensemble.",
+                "upset_flag": False,
+                "ensemble": base,
             }
-            claude_prob = cp
 
         result = resolve_matchup(
-            team_a, team_b, market_prob, claude_prob, assessment,
+            team_a, team_b, market_prob, ensemble_prob, assessment,
             region, game_start + i, signal_source,
         )
         results.append(result)
@@ -688,11 +754,15 @@ def run_bracket() -> dict:
     champ_odds = build_champ_odds(raw)
     props = build_props_summary(raw)
 
+    print("Loading KenPom ratings...")
+    kenpom = load_kenpom()
+
     series_counts = {k: len(v) for k, v in raw.items() if v}
     for series, count in series_counts.items():
         print(f"  {series}: {count} markets")
     print(f"  Game H2H odds loaded: {len(game_odds)} teams")
     print(f"  Championship odds loaded: {len(champ_odds)} teams")
+    print(f"  KenPom ratings loaded: {len(kenpom)} teams")
     print(f"  Props loaded: {len(props)} signals\n")
 
     client = anthropic.Anthropic()
@@ -710,7 +780,7 @@ def run_bracket() -> dict:
             print(f"\nERROR: Expected {expected} games for {round_name}, got {len(current_matchups)}")
             break
 
-        results = run_round(client, current_matchups, game_odds, champ_odds,
+        results = run_round(client, current_matchups, game_odds, champ_odds, kenpom,
                             round_name, game_counter)
         all_results[round_size] = results
         game_counter += len(results)
