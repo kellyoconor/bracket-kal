@@ -1,0 +1,550 @@
+{
+  "tournament": "2026 NCAA Men's Basketball Tournament",
+  "round": "First Round",
+  "matchups": [
+    {
+      "game": 1,
+      "region": "East",
+      "higher_seed": {
+        "seed": 1,
+        "team": "Duke",
+        "kalshi_champ_prob": 0.215,
+        "market_prob": 0.9556
+      },
+      "lower_seed": {
+        "seed": 16,
+        "team": "Siena",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.0444
+      },
+      "market_prob": 0.9556
+    },
+    {
+      "game": 2,
+      "region": "East",
+      "higher_seed": {
+        "seed": 8,
+        "team": "Ohio State",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 9,
+        "team": "TCU",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 3,
+      "region": "East",
+      "higher_seed": {
+        "seed": 5,
+        "team": "St. John's",
+        "kalshi_champ_prob": 0.015,
+        "market_prob": 0.6
+      },
+      "lower_seed": {
+        "seed": 12,
+        "team": "Northern Iowa",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.4
+      },
+      "market_prob": 0.6
+    },
+    {
+      "game": 4,
+      "region": "East",
+      "higher_seed": {
+        "seed": 4,
+        "team": "Kansas",
+        "kalshi_champ_prob": 0.015,
+        "market_prob": 0.6
+      },
+      "lower_seed": {
+        "seed": 13,
+        "team": "Cal Baptist",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.4
+      },
+      "market_prob": 0.6
+    },
+    {
+      "game": 5,
+      "region": "East",
+      "higher_seed": {
+        "seed": 6,
+        "team": "Louisville",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 11,
+        "team": "South Florida",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 6,
+      "region": "East",
+      "higher_seed": {
+        "seed": 3,
+        "team": "Michigan State",
+        "kalshi_champ_prob": 0.015,
+        "market_prob": 0.6
+      },
+      "lower_seed": {
+        "seed": 14,
+        "team": "North Dakota State",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.4
+      },
+      "market_prob": 0.6
+    },
+    {
+      "game": 7,
+      "region": "East",
+      "higher_seed": {
+        "seed": 7,
+        "team": "UCLA",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 10,
+        "team": "UCF",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 8,
+      "region": "East",
+      "higher_seed": {
+        "seed": 2,
+        "team": "UConn",
+        "kalshi_champ_prob": 0.035,
+        "market_prob": 0.7778
+      },
+      "lower_seed": {
+        "seed": 15,
+        "team": "Furman",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.2222
+      },
+      "market_prob": 0.7778
+    },
+    {
+      "game": 9,
+      "region": "West",
+      "higher_seed": {
+        "seed": 1,
+        "team": "Arizona",
+        "kalshi_champ_prob": 0.175,
+        "market_prob": 0.9459
+      },
+      "lower_seed": {
+        "seed": 16,
+        "team": "LIU",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.0541
+      },
+      "market_prob": 0.9459
+    },
+    {
+      "game": 10,
+      "region": "West",
+      "higher_seed": {
+        "seed": 8,
+        "team": "Villanova",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 9,
+        "team": "Utah State",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 11,
+      "region": "West",
+      "higher_seed": {
+        "seed": 5,
+        "team": "Wisconsin",
+        "kalshi_champ_prob": 0.015,
+        "market_prob": 0.6
+      },
+      "lower_seed": {
+        "seed": 12,
+        "team": "High Point",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.4
+      },
+      "market_prob": 0.6
+    },
+    {
+      "game": 12,
+      "region": "West",
+      "higher_seed": {
+        "seed": 4,
+        "team": "Arkansas",
+        "kalshi_champ_prob": 0.015,
+        "market_prob": 0.6
+      },
+      "lower_seed": {
+        "seed": 13,
+        "team": "Hawaii",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.4
+      },
+      "market_prob": 0.6
+    },
+    {
+      "game": 13,
+      "region": "West",
+      "higher_seed": {
+        "seed": 6,
+        "team": "BYU",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 11,
+        "team": "Texas",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 14,
+      "region": "West",
+      "higher_seed": {
+        "seed": 3,
+        "team": "Gonzaga",
+        "kalshi_champ_prob": 0.015,
+        "market_prob": 0.6
+      },
+      "lower_seed": {
+        "seed": 14,
+        "team": "Kennesaw State",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.4
+      },
+      "market_prob": 0.6
+    },
+    {
+      "game": 15,
+      "region": "West",
+      "higher_seed": {
+        "seed": 7,
+        "team": "Miami (FL)",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 10,
+        "team": "Missouri",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 16,
+      "region": "West",
+      "higher_seed": {
+        "seed": 2,
+        "team": "Purdue",
+        "kalshi_champ_prob": 0.035,
+        "market_prob": 0.7778
+      },
+      "lower_seed": {
+        "seed": 15,
+        "team": "Queens",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.2222
+      },
+      "market_prob": 0.7778
+    },
+    {
+      "game": 17,
+      "region": "South",
+      "higher_seed": {
+        "seed": 1,
+        "team": "Florida",
+        "kalshi_champ_prob": 0.105,
+        "market_prob": 0.913
+      },
+      "lower_seed": {
+        "seed": 16,
+        "team": "Prairie View A&M",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.087
+      },
+      "market_prob": 0.913
+    },
+    {
+      "game": 18,
+      "region": "South",
+      "higher_seed": {
+        "seed": 8,
+        "team": "Clemson",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 9,
+        "team": "Iowa",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 19,
+      "region": "South",
+      "higher_seed": {
+        "seed": 5,
+        "team": "Vanderbilt",
+        "kalshi_champ_prob": 0.015,
+        "market_prob": 0.6
+      },
+      "lower_seed": {
+        "seed": 12,
+        "team": "McNeese",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.4
+      },
+      "market_prob": 0.6
+    },
+    {
+      "game": 20,
+      "region": "South",
+      "higher_seed": {
+        "seed": 4,
+        "team": "Nebraska",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 13,
+        "team": "Troy",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 21,
+      "region": "South",
+      "higher_seed": {
+        "seed": 6,
+        "team": "North Carolina",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 11,
+        "team": "VCU",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 22,
+      "region": "South",
+      "higher_seed": {
+        "seed": 3,
+        "team": "Illinois",
+        "kalshi_champ_prob": 0.035,
+        "market_prob": 0.7778
+      },
+      "lower_seed": {
+        "seed": 14,
+        "team": "Penn",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.2222
+      },
+      "market_prob": 0.7778
+    },
+    {
+      "game": 23,
+      "region": "South",
+      "higher_seed": {
+        "seed": 7,
+        "team": "Saint Mary's",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 10,
+        "team": "Texas A&M",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 24,
+      "region": "South",
+      "higher_seed": {
+        "seed": 2,
+        "team": "Houston",
+        "kalshi_champ_prob": 0.065,
+        "market_prob": 0.8667
+      },
+      "lower_seed": {
+        "seed": 15,
+        "team": "Idaho",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.1333
+      },
+      "market_prob": 0.8667
+    },
+    {
+      "game": 25,
+      "region": "Midwest",
+      "higher_seed": {
+        "seed": 1,
+        "team": "Michigan",
+        "kalshi_champ_prob": 0.175,
+        "market_prob": 0.9459
+      },
+      "lower_seed": {
+        "seed": 16,
+        "team": "UMBC",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.0541
+      },
+      "market_prob": 0.9459
+    },
+    {
+      "game": 26,
+      "region": "Midwest",
+      "higher_seed": {
+        "seed": 8,
+        "team": "Georgia",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 9,
+        "team": "Saint Louis",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 27,
+      "region": "Midwest",
+      "higher_seed": {
+        "seed": 5,
+        "team": "Texas Tech",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 12,
+        "team": "Akron",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 28,
+      "region": "Midwest",
+      "higher_seed": {
+        "seed": 4,
+        "team": "Alabama",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 13,
+        "team": "Hofstra",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 29,
+      "region": "Midwest",
+      "higher_seed": {
+        "seed": 6,
+        "team": "Tennessee",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 11,
+        "team": "SMU",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 30,
+      "region": "Midwest",
+      "higher_seed": {
+        "seed": 3,
+        "team": "Virginia",
+        "kalshi_champ_prob": 0.015,
+        "market_prob": 0.6
+      },
+      "lower_seed": {
+        "seed": 14,
+        "team": "Wright State",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.4
+      },
+      "market_prob": 0.6
+    },
+    {
+      "game": 31,
+      "region": "Midwest",
+      "higher_seed": {
+        "seed": 7,
+        "team": "Kentucky",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "lower_seed": {
+        "seed": 10,
+        "team": "Santa Clara",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.5
+      },
+      "market_prob": 0.5
+    },
+    {
+      "game": 32,
+      "region": "Midwest",
+      "higher_seed": {
+        "seed": 2,
+        "team": "Iowa State",
+        "kalshi_champ_prob": 0.035,
+        "market_prob": 0.7778
+      },
+      "lower_seed": {
+        "seed": 15,
+        "team": "Tennessee State",
+        "kalshi_champ_prob": 0.01,
+        "market_prob": 0.2222
+      },
+      "market_prob": 0.7778
+    }
+  ]
+}

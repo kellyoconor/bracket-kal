@@ -3,6 +3,11 @@
 Bracket Divergence: Derive win probabilities from Kalshi championship odds,
 run Claude's blind assessment, surface divergence, make picks — ALL ROUNDS.
 
+Two pick modes:
+  MARKET SIGNAL — Kalshi has meaningful spread between teams. Divergence logic applies.
+  CLAUDE ONLY  — Both teams at Kalshi floor (no market differentiation). Claude's
+                 assessment IS the pick.
+
 Round of 64 -> Round of 32 -> Sweet 16 -> Elite 8 -> Final Four -> Championship
 """
 
@@ -20,9 +25,12 @@ ROOT = Path(__file__).parent
 KALSHI_FILE = ROOT / "kalshi_markets.json"
 MODEL = "claude-sonnet-4-6"
 
-# Divergence thresholds (percentage points)
+# Divergence thresholds (percentage points) — only apply to MARKET SIGNAL games
 SIGNIFICANT_DIVERGENCE = 0.08  # 8pp
 STRONG_DIVERGENCE = 0.15       # 15pp
+
+# Championship odds at or below this are considered "floor" — no real market signal
+FLOOR_THRESHOLD = 0.012  # ~1.2% — Kalshi's minimum tick is $0.01
 
 ROUND_NAMES = {
     64: "Round of 64",
@@ -33,7 +41,7 @@ ROUND_NAMES = {
     2: "Championship",
 }
 
-# Historical seed win rates (first round) — Bayesian prior
+# Historical seed win rates — Bayesian prior for MARKET SIGNAL games
 SEED_WIN_RATES = {
     1: 0.993, 2: 0.943, 3: 0.855, 4: 0.800,
     5: 0.645, 6: 0.625, 7: 0.605, 8: 0.500,
@@ -42,8 +50,7 @@ SEED_WIN_RATES = {
 }
 
 # Full 2026 first-round bracket (from Selection Sunday)
-# Games are ordered so that adjacent pairs play each other in the next round:
-#   Game 0 winner vs Game 1 winner, Game 2 winner vs Game 3 winner, etc.
+# Adjacent pairs play each other in the next round.
 BRACKET = [
     # EAST (games 0-7)
     {"region": "East", "higher_seed": {"seed": 1, "team": "Duke"}, "lower_seed": {"seed": 16, "team": "Siena"}},
@@ -83,10 +90,8 @@ BRACKET = [
     {"region": "Midwest", "higher_seed": {"seed": 2, "team": "Iowa State"}, "lower_seed": {"seed": 15, "team": "Tennessee State"}},
 ]
 
-# Final Four bracket: East vs West, South vs Midwest
 FINAL_FOUR_PAIRS = [("East", "West"), ("South", "Midwest")]
 
-# Fuzzy name matching between bracket names and Kalshi names
 TEAM_ALIASES = {
     "Cal Baptist": "California Baptist",
     "North Dakota State": "North Dakota St.",
@@ -94,18 +99,10 @@ TEAM_ALIASES = {
     "Ohio State": "Ohio St.",
     "Utah State": "Utah St.",
     "Iowa State": "Iowa St.",
-    "Texas Tech": "Texas Tech",
-    "Texas A&M": "Texas A&M",
-    "Saint Mary's": "Saint Mary's",
-    "St. John's": "St. John's",
-    "Prairie View A&M": "Prairie View A&M",
     "Kennesaw State": "Kennesaw St.",
-    "LIU": "LIU",
-    "South Florida": "South Florida",
-    "North Carolina": "North Carolina",
-    "Hawaii": "Hawai'i",
-    "Miami (FL)": "Miami (FL)",
     "Tennessee State": "Tennessee St.",
+    "Wright State": "Wright St.",
+    "Hawaii": "Hawai'i",
     "NC State": "North Carolina St.",
 }
 
@@ -142,21 +139,26 @@ def lookup_kalshi(team: str, odds: dict[str, float]) -> float:
     return 0.003
 
 
+def has_market_signal(team_a: dict, team_b: dict, kalshi_odds: dict[str, float]) -> bool:
+    """True if at least one team has championship odds above the floor threshold."""
+    champ_a = lookup_kalshi(team_a["team"], kalshi_odds)
+    champ_b = lookup_kalshi(team_b["team"], kalshi_odds)
+    return champ_a > FLOOR_THRESHOLD or champ_b > FLOOR_THRESHOLD
+
+
 def derive_game_probability(team_a: dict, team_b: dict, kalshi_odds: dict[str, float]) -> float:
     """
     Derive implied win probability for team_a using Kalshi championship odds
-    + seed-based priors. Works for any round.
+    + seed-based priors. Only meaningful for MARKET SIGNAL games.
     """
     champ_a = lookup_kalshi(team_a["team"], kalshi_odds)
     champ_b = lookup_kalshi(team_b["team"], kalshi_odds)
 
-    # Signal 1: Championship odds ratio
     if champ_a + champ_b > 0:
         odds_ratio = champ_a / (champ_a + champ_b)
     else:
         odds_ratio = 0.5
 
-    # Signal 2: Seed-based prior (higher seed = lower number = better)
     seed_a = team_a["seed"]
     seed_b = team_b["seed"]
     if seed_a < seed_b:
@@ -166,7 +168,6 @@ def derive_game_probability(team_a: dict, team_b: dict, kalshi_odds: dict[str, f
     else:
         seed_prior = 0.5
 
-    # Weight: more championship liquidity → trust odds ratio more
     liquidity = champ_a + champ_b
     if liquidity >= 0.10:
         w_odds = 0.75
@@ -212,10 +213,49 @@ IMPORTANT: Respond in EXACTLY this JSON format, nothing else:
     return json.loads(text)
 
 
-def resolve_matchup(team_a: dict, team_b: dict, market_prob: float,
+def resolve_matchup(team_a: dict, team_b: dict, market_prob: float | None,
                     claude_prob: float, assessment: dict, region: str,
-                    game_num: int) -> dict:
-    """Compute divergence and pick for a single game."""
+                    game_num: int, signal_mode: str) -> dict:
+    """Compute pick for a single game. Handles both MARKET SIGNAL and CLAUDE ONLY modes."""
+
+    if signal_mode == "CLAUDE_ONLY":
+        # No market signal — Claude's assessment is the entire pick
+        if claude_prob >= 0.50:
+            pick = team_a["team"]
+            pick_seed = team_a["seed"]
+        else:
+            pick = team_b["team"]
+            pick_seed = team_b["seed"]
+
+        # Conviction = how far from 50/50 Claude is
+        conviction = abs(claude_prob - 0.50)
+        if conviction >= 0.25:
+            conviction_label = "HIGH"
+        elif conviction >= 0.12:
+            conviction_label = "MED"
+        else:
+            conviction_label = "LOW"
+
+        return {
+            "game": game_num,
+            "region": region,
+            "matchup": f"({team_a['seed']}) {team_a['team']} vs ({team_b['seed']}) {team_b['team']}",
+            "team_a": team_a,
+            "team_b": team_b,
+            "market_prob": None,
+            "claude_prob": round(claude_prob, 3),
+            "divergence": None,
+            "abs_divergence": None,
+            "pick": pick,
+            "pick_seed": pick_seed,
+            "pick_source": "CLAUDE_ONLY",
+            "conviction": round(conviction, 3),
+            "conviction_label": conviction_label,
+            "pick_rationale": f"No market signal — Claude conviction pick ({conviction_label})",
+            "claude_rationale": assessment["rationale"],
+        }
+
+    # MARKET SIGNAL mode — divergence logic
     divergence = claude_prob - market_prob
     abs_div = abs(divergence)
 
@@ -252,41 +292,65 @@ def resolve_matchup(team_a: dict, team_b: dict, market_prob: float,
         "pick": pick,
         "pick_seed": pick_seed,
         "pick_source": pick_source,
+        "conviction": None,
+        "conviction_label": None,
         "pick_rationale": rationale_prefix,
         "claude_rationale": assessment["rationale"],
     }
 
 
-def print_round_table(results: list[dict], round_name: str):
-    sorted_results = sorted(results, key=lambda r: r["abs_divergence"], reverse=True)
+def print_round_results(results: list[dict], round_name: str):
+    """Print round results split into MARKET SIGNAL and CLAUDE ONLY sections."""
+    market_games = [r for r in results if r["pick_source"] in ("CHALK", "DIVERGE")]
+    claude_games = [r for r in results if r["pick_source"] == "CLAUDE_ONLY"]
 
-    print(f"\n{'=' * 120}")
-    print(f" {round_name.upper()} — Divergence Table (sorted by biggest gaps)")
-    print(f"{'=' * 120}")
-    print(f" {'#':<4} {'Region':<10} {'Matchup':<44} {'Market':>7} {'Claude':>7} {'Gap':>7}  {'Pick':<22} {'Source':<8}")
-    print("-" * 120)
+    # --- MARKET SIGNAL section ---
+    if market_games:
+        sorted_market = sorted(market_games, key=lambda r: r["abs_divergence"], reverse=True)
+        print(f"\n{'=' * 120}")
+        print(f" {round_name.upper()} — MARKET SIGNAL ({len(market_games)} games with Kalshi spread)")
+        print(f"{'=' * 120}")
+        print(f" {'#':<4} {'Region':<10} {'Matchup':<44} {'Market':>7} {'Claude':>7} {'Gap':>7}  {'Pick':<22} {'Source':<8}")
+        print("-" * 120)
+        for r in sorted_market:
+            div_str = f"{r['divergence']:+.0%}"
+            flag = ""
+            if r["abs_divergence"] >= STRONG_DIVERGENCE:
+                flag = " <<<"
+            elif r["abs_divergence"] >= SIGNIFICANT_DIVERGENCE:
+                flag = " <"
+            print(
+                f" {r['game']:<4} "
+                f"{r['region']:<10} "
+                f"{r['matchup']:<44} "
+                f"{r['market_prob']:>6.0%} "
+                f"{r['claude_prob']:>6.0%} "
+                f"{div_str:>7}  "
+                f"{r['pick']:<22} "
+                f"{r['pick_source']:<8}"
+                f"{flag}"
+            )
+        print("-" * 120)
 
-    for r in sorted_results:
-        div_str = f"{r['divergence']:+.0%}"
-        flag = ""
-        if r["abs_divergence"] >= STRONG_DIVERGENCE:
-            flag = " <<<"
-        elif r["abs_divergence"] >= SIGNIFICANT_DIVERGENCE:
-            flag = " <"
-
-        print(
-            f" {r['game']:<4} "
-            f"{r['region']:<10} "
-            f"{r['matchup']:<44} "
-            f"{r['market_prob']:>6.0%} "
-            f"{r['claude_prob']:>6.0%} "
-            f"{div_str:>7}  "
-            f"{r['pick']:<22} "
-            f"{r['pick_source']:<8}"
-            f"{flag}"
-        )
-
-    print("-" * 120)
+    # --- CLAUDE ONLY section ---
+    if claude_games:
+        sorted_claude = sorted(claude_games, key=lambda r: r["conviction"], reverse=True)
+        print(f"\n{'=' * 120}")
+        print(f" {round_name.upper()} — CLAUDE ONLY ({len(claude_games)} games, no market signal — flying blind)")
+        print(f"{'=' * 120}")
+        print(f" {'#':<4} {'Region':<10} {'Matchup':<44} {'Claude':>7} {'Conv':>6}  {'Pick':<22} {'Conf':<5}")
+        print("-" * 120)
+        for r in sorted_claude:
+            print(
+                f" {r['game']:<4} "
+                f"{r['region']:<10} "
+                f"{r['matchup']:<44} "
+                f"{r['claude_prob']:>6.0%} "
+                f"{r['conviction']:>5.0%}  "
+                f"{r['pick']:<22} "
+                f"{r['conviction_label']:<5}"
+            )
+        print("-" * 120)
 
 
 def print_round_picks(results: list[dict], round_name: str):
@@ -302,16 +366,26 @@ def print_round_picks(results: list[dict], round_name: str):
         if round_name not in ("Final Four", "Championship"):
             print(f"    {region}:")
         for r in sorted(regions[region], key=lambda x: x["game"]):
-            marker = " *" if r["pick_source"] == "DIVERGE" else ""
-            print(f"      {r['matchup']:<44} -> {r['pick']:<20} [{r['pick_source']}]{marker}")
-            if r["pick_source"] == "DIVERGE":
+            source = r["pick_source"]
+            if source == "CLAUDE_ONLY":
+                tag = f"[CLAUDE {r['conviction_label']}]"
+            elif source == "DIVERGE":
+                tag = f"[DIVERGE]"
+            else:
+                tag = f"[CHALK]"
+            marker = " *" if source in ("DIVERGE", "CLAUDE_ONLY") else ""
+            print(f"      {r['matchup']:<44} -> {r['pick']:<20} {tag}{marker}")
+            if source == "DIVERGE":
                 print(f"        {r['pick_rationale']} (gap: {r['abs_divergence']:.0%})")
+                print(f"        Claude: {r['claude_rationale']}")
+            elif source == "CLAUDE_ONLY":
+                print(f"        No market signal — Claude conviction: {r['conviction']:.0%} ({r['conviction_label']})")
                 print(f"        Claude: {r['claude_rationale']}")
 
 
 def run_round(client: anthropic.Anthropic, matchups: list[dict], kalshi_odds: dict,
               round_name: str, game_start: int) -> list[dict]:
-    """Run a complete round: derive odds, assess with Claude, compute divergence."""
+    """Run a complete round: classify signal mode, assess with Claude, resolve picks."""
     print(f"\n{'#' * 120}")
     print(f"#  {round_name.upper()}")
     print(f"{'#' * 120}")
@@ -322,45 +396,58 @@ def run_round(client: anthropic.Anthropic, matchups: list[dict], kalshi_odds: di
         team_b = m["team_b"]
         region = m["region"]
 
-        market_prob = derive_game_probability(team_a, team_b, kalshi_odds)
+        signal = has_market_signal(team_a, team_b, kalshi_odds)
+        market_prob = derive_game_probability(team_a, team_b, kalshi_odds) if signal else None
+        signal_tag = "MKT" if signal else "CLO"
+
         label = f"({team_a['seed']}) {team_a['team']} vs ({team_b['seed']}) {team_b['team']}"
-        print(f"  [{i+1:>2}/{len(matchups)}] {label:<50}", end="", flush=True)
+        mkt_str = f"mkt:{market_prob:.0%}" if market_prob is not None else "mkt:---"
+        print(f"  [{i+1:>2}/{len(matchups)}] [{signal_tag}] {label:<48}", end="", flush=True)
 
         try:
             assessment = assess_game(client, team_a, team_b, region, round_name)
             claude_prob = assessment["team_a_win_prob"]
             winner = assessment["winner"]
             arrow = "->" if winner == team_a["team"] else "<-"
-            print(f" {arrow} {winner:<20} (mkt:{market_prob:.0%} cld:{claude_prob:.0%})")
+            print(f" {arrow} {winner:<20} ({mkt_str} cld:{claude_prob:.0%})")
         except Exception as e:
             print(f" ERROR: {e}")
-            assessment = {
-                "winner": team_a["team"] if market_prob >= 0.5 else team_b["team"],
-                "team_a_win_prob": market_prob,
-                "rationale": "Assessment failed; defaulting to market.",
-            }
-            claude_prob = market_prob
+            if signal:
+                assessment = {
+                    "winner": team_a["team"] if market_prob >= 0.5 else team_b["team"],
+                    "team_a_win_prob": market_prob,
+                    "rationale": "Assessment failed; defaulting to market.",
+                }
+                claude_prob = market_prob
+            else:
+                # No market, no Claude — fall back to seed
+                seed_prior = SEED_WIN_RATES.get(team_a["seed"], 0.5)
+                assessment = {
+                    "winner": team_a["team"] if seed_prior >= 0.5 else team_b["team"],
+                    "team_a_win_prob": seed_prior,
+                    "rationale": "Assessment failed; defaulting to seed-based prior.",
+                }
+                claude_prob = seed_prior
 
+        signal_mode = "MARKET_SIGNAL" if signal else "CLAUDE_ONLY"
         result = resolve_matchup(
             team_a, team_b, market_prob, claude_prob, assessment,
-            region, game_start + i,
+            region, game_start + i, signal_mode,
         )
         results.append(result)
 
         if i < len(matchups) - 1:
             time.sleep(0.3)
 
-    print_round_table(results, round_name)
+    print_round_results(results, round_name)
     print_round_picks(results, round_name)
     return results
 
 
 def build_next_round(results: list[dict], round_size: int) -> list[dict]:
-    """Pair winners from current round into next round matchups."""
     next_matchups = []
 
     if round_size == 4:
-        # Final Four: East champ vs West champ, South champ vs Midwest champ
         region_winners = {}
         for r in results:
             region_winners[r["region"]] = r
@@ -369,7 +456,6 @@ def build_next_round(results: list[dict], round_size: int) -> list[dict]:
             rb = region_winners[region_b]
             winner_a = ra["team_a"] if ra["pick"] == ra["team_a"]["team"] else ra["team_b"]
             winner_b = rb["team_a"] if rb["pick"] == rb["team_a"]["team"] else rb["team_b"]
-            # Lower seed number = team_a
             if winner_a["seed"] <= winner_b["seed"]:
                 next_matchups.append({"team_a": winner_a, "team_b": winner_b, "region": "Final Four"})
             else:
@@ -377,7 +463,6 @@ def build_next_round(results: list[dict], round_size: int) -> list[dict]:
         return next_matchups
 
     if round_size == 2:
-        # Championship: FF winner 1 vs FF winner 2
         r0, r1 = results[0], results[1]
         w0 = r0["team_a"] if r0["pick"] == r0["team_a"]["team"] else r0["team_b"]
         w1 = r1["team_a"] if r1["pick"] == r1["team_a"]["team"] else r1["team_b"]
@@ -387,15 +472,12 @@ def build_next_round(results: list[dict], round_size: int) -> list[dict]:
             next_matchups.append({"team_a": w1, "team_b": w0, "region": "Championship"})
         return next_matchups
 
-    # Standard bracket progression: pair adjacent winners
     for i in range(0, len(results), 2):
         r1 = results[i]
         r2 = results[i + 1]
         winner1 = r1["team_a"] if r1["pick"] == r1["team_a"]["team"] else r1["team_b"]
         winner2 = r2["team_a"] if r2["pick"] == r2["team_a"]["team"] else r2["team_b"]
         region = r1["region"]
-
-        # Lower seed = team_a
         if winner1["seed"] <= winner2["seed"]:
             next_matchups.append({"team_a": winner1, "team_b": winner2, "region": region})
         else:
@@ -420,13 +502,25 @@ def print_final_bracket(all_results: dict):
         print(f"  {'─' * 116}")
 
         for r in results:
-            marker = " *" if r["pick_source"] == "DIVERGE" else ""
+            source = r["pick_source"]
             region_tag = f"[{r['region']:<10}]" if r['region'] not in ("Final Four", "Championship") else f"[{r['region']}]"
-            gap_info = f" (gap:{r['abs_divergence']:.0%})" if r["pick_source"] == "DIVERGE" else ""
-            print(f"    {region_tag} {r['matchup']:<44} -> {r['pick']:<20} [{r['pick_source']}]{marker}{gap_info}")
+
+            if source == "CLAUDE_ONLY":
+                extra = f" (Claude {r['conviction_label']}, conv:{r['conviction']:.0%})"
+                marker = " ~"
+            elif source == "DIVERGE":
+                extra = f" (gap:{r['abs_divergence']:.0%})"
+                marker = " *"
+            else:
+                extra = ""
+                marker = ""
+
+            print(f"    {region_tag} {r['matchup']:<44} -> {r['pick']:<20} [{source}]{marker}{extra}")
 
     # Grand summary
     all_flat = [r for rr in all_results.values() for r in rr]
+    market_signal = [r for r in all_flat if r["pick_source"] in ("CHALK", "DIVERGE")]
+    claude_only = [r for r in all_flat if r["pick_source"] == "CLAUDE_ONLY"]
     diverge = [r for r in all_flat if r["pick_source"] == "DIVERGE"]
     chalk = [r for r in all_flat if r["pick_source"] == "CHALK"]
 
@@ -436,27 +530,43 @@ def print_final_bracket(all_results: dict):
     print(f"  TOURNAMENT SUMMARY")
     print(f"{'=' * 120}")
     print(f"   Total games:          {len(all_flat)}")
-    print(f"   Chalk picks:          {len(chalk)}")
-    print(f"   Divergence picks:     {len(diverge)}")
-
+    print(f"   ─────────────────────────────────────")
+    print(f"   MARKET SIGNAL games:  {len(market_signal)}")
+    print(f"     Chalk picks:        {len(chalk)}")
+    print(f"     Divergence picks:   {len(diverge)}")
     if diverge:
         avg = sum(r["abs_divergence"] for r in diverge) / len(diverge)
         biggest = max(diverge, key=lambda r: r["abs_divergence"])
-        print(f"   Avg divergence:       {avg:.1%}")
-        print(f"   Biggest gap:          {biggest['matchup']} ({biggest['abs_divergence']:.0%}) [{biggest['region']}]")
+        print(f"     Avg divergence:     {avg:.1%}")
+        print(f"     Biggest gap:        {biggest['matchup']} ({biggest['abs_divergence']:.0%})")
+    print(f"   ─────────────────────────────────────")
+    print(f"   CLAUDE ONLY games:    {len(claude_only)}  (no market signal)")
+    if claude_only:
+        high = [r for r in claude_only if r["conviction_label"] == "HIGH"]
+        med = [r for r in claude_only if r["conviction_label"] == "MED"]
+        low = [r for r in claude_only if r["conviction_label"] == "LOW"]
+        avg_conv = sum(r["conviction"] for r in claude_only) / len(claude_only)
+        print(f"     HIGH conviction:    {len(high)}")
+        print(f"     MED conviction:     {len(med)}")
+        print(f"     LOW conviction:     {len(low)}")
+        print(f"     Avg conviction:     {avg_conv:.0%}")
 
     if champ:
-        print(f"\n   CHAMPION:  {champ['pick']}")
-        print(f"   Source:    [{champ['pick_source']}]")
-        if champ["pick_source"] == "DIVERGE":
-            print(f"   Rationale: {champ['claude_rationale']}")
+        print(f"\n   {'=' * 37}")
+        print(f"   CHAMPION:  {champ['pick']}")
+        source = champ["pick_source"]
+        if source == "CLAUDE_ONLY":
+            print(f"   Source:    [CLAUDE ONLY — {champ['conviction_label']} conviction]")
+        else:
+            print(f"   Source:    [{source}]")
+        print(f"   Rationale: {champ['claude_rationale']}")
 
-    # Regional champions
     e8 = all_results.get(8, [])
     if e8:
         print(f"\n   FINAL FOUR:")
         for r in e8:
-            print(f"     {r['region']:<10} -> {r['pick']}")
+            src = "~" if r["pick_source"] == "CLAUDE_ONLY" else "*" if r["pick_source"] == "DIVERGE" else " "
+            print(f"     {r['region']:<10} -> {r['pick']} {src}")
 
     print()
 
@@ -470,7 +580,6 @@ def main():
     all_results = {}
     game_counter = 1
 
-    # Build Round of 64 matchups from BRACKET
     r64_matchups = []
     for m in BRACKET:
         r64_matchups.append({
@@ -479,7 +588,6 @@ def main():
             "region": m["region"],
         })
 
-    # Run all rounds
     current_matchups = r64_matchups
     for round_size in [64, 32, 16, 8, 4, 2]:
         round_name = ROUND_NAMES[round_size]
@@ -493,15 +601,12 @@ def main():
         all_results[round_size] = results
         game_counter += len(results)
 
-        # Build next round
         if round_size > 2:
             next_size = round_size // 2
             current_matchups = build_next_round(results, next_size)
 
-    # Print the complete bracket
     print_final_bracket(all_results)
 
-    # Save everything
     output_file = ROOT / "results.json"
     serializable = {}
     for k, v in all_results.items():

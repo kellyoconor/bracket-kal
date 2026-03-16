@@ -2,197 +2,37 @@
   "tournament": "2026 NCAA Men's Basketball Tournament",
   "round": "First Round",
   "matchups": [
-    {
-      "game": 1,
-      "region": "East",
-      "higher_seed": { "seed": 1, "team": "Duke", "kalshi_win_prob": 0.95 },
-      "lower_seed": { "seed": 16, "team": "Norfolk State", "kalshi_win_prob": 0.05 }
-    },
-    {
-      "game": 2,
-      "region": "East",
-      "higher_seed": { "seed": 8, "team": "Wisconsin", "kalshi_win_prob": 0.48 },
-      "lower_seed": { "seed": 9, "team": "Drake", "kalshi_win_prob": 0.52 }
-    },
-    {
-      "game": 3,
-      "region": "East",
-      "higher_seed": { "seed": 5, "team": "Michigan State", "kalshi_win_prob": 0.58 },
-      "lower_seed": { "seed": 12, "team": "UC San Diego", "kalshi_win_prob": 0.42 }
-    },
-    {
-      "game": 4,
-      "region": "East",
-      "higher_seed": { "seed": 4, "team": "Arizona", "kalshi_win_prob": 0.72 },
-      "lower_seed": { "seed": 13, "team": "Yale", "kalshi_win_prob": 0.28 }
-    },
-    {
-      "game": 5,
-      "region": "East",
-      "higher_seed": { "seed": 6, "team": "Illinois", "kalshi_win_prob": 0.62 },
-      "lower_seed": { "seed": 11, "team": "Texas", "kalshi_win_prob": 0.38 }
-    },
-    {
-      "game": 6,
-      "region": "East",
-      "higher_seed": { "seed": 3, "team": "Texas Tech", "kalshi_win_prob": 0.78 },
-      "lower_seed": { "seed": 14, "team": "Lipscomb", "kalshi_win_prob": 0.22 }
-    },
-    {
-      "game": 7,
-      "region": "East",
-      "higher_seed": { "seed": 7, "team": "UCLA", "kalshi_win_prob": 0.55 },
-      "lower_seed": { "seed": 10, "team": "Utah State", "kalshi_win_prob": 0.45 }
-    },
-    {
-      "game": 8,
-      "region": "East",
-      "higher_seed": { "seed": 2, "team": "Alabama", "kalshi_win_prob": 0.90 },
-      "lower_seed": { "seed": 16, "team": "Robert Morris", "kalshi_win_prob": 0.10 }
-    },
-    {
-      "game": 9,
-      "region": "West",
-      "higher_seed": { "seed": 1, "team": "Florida", "kalshi_win_prob": 0.94 },
-      "lower_seed": { "seed": 16, "team": "Wright State", "kalshi_win_prob": 0.06 }
-    },
-    {
-      "game": 10,
-      "region": "West",
-      "higher_seed": { "seed": 8, "team": "Gonzaga", "kalshi_win_prob": 0.50 },
-      "lower_seed": { "seed": 9, "team": "Georgia", "kalshi_win_prob": 0.50 }
-    },
-    {
-      "game": 11,
-      "region": "West",
-      "higher_seed": { "seed": 5, "team": "Clemson", "kalshi_win_prob": 0.60 },
-      "lower_seed": { "seed": 12, "team": "McNeese", "kalshi_win_prob": 0.40 }
-    },
-    {
-      "game": 12,
-      "region": "West",
-      "higher_seed": { "seed": 4, "team": "Purdue", "kalshi_win_prob": 0.73 },
-      "lower_seed": { "seed": 13, "team": "High Point", "kalshi_win_prob": 0.27 }
-    },
-    {
-      "game": 13,
-      "region": "West",
-      "higher_seed": { "seed": 6, "team": "Maryland", "kalshi_win_prob": 0.63 },
-      "lower_seed": { "seed": 11, "team": "Vanderbilt", "kalshi_win_prob": 0.37 }
-    },
-    {
-      "game": 14,
-      "region": "West",
-      "higher_seed": { "seed": 3, "team": "Marquette", "kalshi_win_prob": 0.80 },
-      "lower_seed": { "seed": 14, "team": "New Mexico", "kalshi_win_prob": 0.20 }
-    },
-    {
-      "game": 15,
-      "region": "West",
-      "higher_seed": { "seed": 7, "team": "Kansas", "kalshi_win_prob": 0.55 },
-      "lower_seed": { "seed": 10, "team": "Arkansas", "kalshi_win_prob": 0.45 }
-    },
-    {
-      "game": 16,
-      "region": "West",
-      "higher_seed": { "seed": 2, "team": "St. John's", "kalshi_win_prob": 0.88 },
-      "lower_seed": { "seed": 15, "team": "Omaha", "kalshi_win_prob": 0.12 }
-    },
-    {
-      "game": 17,
-      "region": "South",
-      "higher_seed": { "seed": 1, "team": "Auburn", "kalshi_win_prob": 0.96 },
-      "lower_seed": { "seed": 16, "team": "Alabama State", "kalshi_win_prob": 0.04 }
-    },
-    {
-      "game": 18,
-      "region": "South",
-      "higher_seed": { "seed": 8, "team": "Louisville", "kalshi_win_prob": 0.49 },
-      "lower_seed": { "seed": 9, "team": "Creighton", "kalshi_win_prob": 0.51 }
-    },
-    {
-      "game": 19,
-      "region": "South",
-      "higher_seed": { "seed": 5, "team": "Michigan", "kalshi_win_prob": 0.57 },
-      "lower_seed": { "seed": 12, "team": "UC Irvine", "kalshi_win_prob": 0.43 }
-    },
-    {
-      "game": 20,
-      "region": "South",
-      "higher_seed": { "seed": 4, "team": "Texas A&M", "kalshi_win_prob": 0.70 },
-      "lower_seed": { "seed": 13, "team": "Loyola Chicago", "kalshi_win_prob": 0.30 }
-    },
-    {
-      "game": 21,
-      "region": "South",
-      "higher_seed": { "seed": 6, "team": "Ole Miss", "kalshi_win_prob": 0.60 },
-      "lower_seed": { "seed": 11, "team": "San Diego State", "kalshi_win_prob": 0.40 }
-    },
-    {
-      "game": 22,
-      "region": "South",
-      "higher_seed": { "seed": 3, "team": "Iowa State", "kalshi_win_prob": 0.82 },
-      "lower_seed": { "seed": 14, "team": "Lipscomb", "kalshi_win_prob": 0.18 }
-    },
-    {
-      "game": 23,
-      "region": "South",
-      "higher_seed": { "seed": 7, "team": "Saint Mary's", "kalshi_win_prob": 0.54 },
-      "lower_seed": { "seed": 10, "team": "VCU", "kalshi_win_prob": 0.46 }
-    },
-    {
-      "game": 24,
-      "region": "South",
-      "higher_seed": { "seed": 2, "team": "Michigan State", "kalshi_win_prob": 0.89 },
-      "lower_seed": { "seed": 15, "team": "Bryant", "kalshi_win_prob": 0.11 }
-    },
-    {
-      "game": 25,
-      "region": "Midwest",
-      "higher_seed": { "seed": 1, "team": "Houston", "kalshi_win_prob": 0.95 },
-      "lower_seed": { "seed": 16, "team": "SIU Edwardsville", "kalshi_win_prob": 0.05 }
-    },
-    {
-      "game": 26,
-      "region": "Midwest",
-      "higher_seed": { "seed": 8, "team": "Connecticut", "kalshi_win_prob": 0.50 },
-      "lower_seed": { "seed": 9, "team": "Oklahoma", "kalshi_win_prob": 0.50 }
-    },
-    {
-      "game": 27,
-      "region": "Midwest",
-      "higher_seed": { "seed": 5, "team": "Memphis", "kalshi_win_prob": 0.58 },
-      "lower_seed": { "seed": 12, "team": "Colorado State", "kalshi_win_prob": 0.42 }
-    },
-    {
-      "game": 28,
-      "region": "Midwest",
-      "higher_seed": { "seed": 4, "team": "Tennessee", "kalshi_win_prob": 0.74 },
-      "lower_seed": { "seed": 13, "team": "Wofford", "kalshi_win_prob": 0.26 }
-    },
-    {
-      "game": 29,
-      "region": "Midwest",
-      "higher_seed": { "seed": 6, "team": "Missouri", "kalshi_win_prob": 0.61 },
-      "lower_seed": { "seed": 11, "team": "BYU", "kalshi_win_prob": 0.39 }
-    },
-    {
-      "game": 30,
-      "region": "Midwest",
-      "higher_seed": { "seed": 3, "team": "Kentucky", "kalshi_win_prob": 0.79 },
-      "lower_seed": { "seed": 14, "team": "Troy", "kalshi_win_prob": 0.21 }
-    },
-    {
-      "game": 31,
-      "region": "Midwest",
-      "higher_seed": { "seed": 7, "team": "Mississippi State", "kalshi_win_prob": 0.56 },
-      "lower_seed": { "seed": 10, "team": "Butler", "kalshi_win_prob": 0.44 }
-    },
-    {
-      "game": 32,
-      "region": "Midwest",
-      "higher_seed": { "seed": 2, "team": "Tennessee", "kalshi_win_prob": 0.91 },
-      "lower_seed": { "seed": 15, "team": "North Dakota State", "kalshi_win_prob": 0.09 }
-    }
+    { "game": 1, "region": "East", "higher_seed": { "seed": 1, "team": "Duke" }, "lower_seed": { "seed": 16, "team": "Siena" } },
+    { "game": 2, "region": "East", "higher_seed": { "seed": 8, "team": "Ohio State" }, "lower_seed": { "seed": 9, "team": "TCU" } },
+    { "game": 3, "region": "East", "higher_seed": { "seed": 5, "team": "St. John's" }, "lower_seed": { "seed": 12, "team": "Northern Iowa" } },
+    { "game": 4, "region": "East", "higher_seed": { "seed": 4, "team": "Kansas" }, "lower_seed": { "seed": 13, "team": "Cal Baptist" } },
+    { "game": 5, "region": "East", "higher_seed": { "seed": 6, "team": "Louisville" }, "lower_seed": { "seed": 11, "team": "South Florida" } },
+    { "game": 6, "region": "East", "higher_seed": { "seed": 3, "team": "Michigan State" }, "lower_seed": { "seed": 14, "team": "North Dakota State" } },
+    { "game": 7, "region": "East", "higher_seed": { "seed": 7, "team": "UCLA" }, "lower_seed": { "seed": 10, "team": "UCF" } },
+    { "game": 8, "region": "East", "higher_seed": { "seed": 2, "team": "UConn" }, "lower_seed": { "seed": 15, "team": "Furman" } },
+    { "game": 9, "region": "West", "higher_seed": { "seed": 1, "team": "Arizona" }, "lower_seed": { "seed": 16, "team": "LIU" } },
+    { "game": 10, "region": "West", "higher_seed": { "seed": 8, "team": "Villanova" }, "lower_seed": { "seed": 9, "team": "Utah State" } },
+    { "game": 11, "region": "West", "higher_seed": { "seed": 5, "team": "Wisconsin" }, "lower_seed": { "seed": 12, "team": "High Point" } },
+    { "game": 12, "region": "West", "higher_seed": { "seed": 4, "team": "Arkansas" }, "lower_seed": { "seed": 13, "team": "Hawaii" } },
+    { "game": 13, "region": "West", "higher_seed": { "seed": 6, "team": "BYU" }, "lower_seed": { "seed": 11, "team": "Texas" } },
+    { "game": 14, "region": "West", "higher_seed": { "seed": 3, "team": "Gonzaga" }, "lower_seed": { "seed": 14, "team": "Kennesaw State" } },
+    { "game": 15, "region": "West", "higher_seed": { "seed": 7, "team": "Miami (FL)" }, "lower_seed": { "seed": 10, "team": "Missouri" } },
+    { "game": 16, "region": "West", "higher_seed": { "seed": 2, "team": "Purdue" }, "lower_seed": { "seed": 15, "team": "Queens" } },
+    { "game": 17, "region": "South", "higher_seed": { "seed": 1, "team": "Florida" }, "lower_seed": { "seed": 16, "team": "Prairie View A&M" } },
+    { "game": 18, "region": "South", "higher_seed": { "seed": 8, "team": "Clemson" }, "lower_seed": { "seed": 9, "team": "Iowa" } },
+    { "game": 19, "region": "South", "higher_seed": { "seed": 5, "team": "Vanderbilt" }, "lower_seed": { "seed": 12, "team": "McNeese" } },
+    { "game": 20, "region": "South", "higher_seed": { "seed": 4, "team": "Nebraska" }, "lower_seed": { "seed": 13, "team": "Troy" } },
+    { "game": 21, "region": "South", "higher_seed": { "seed": 6, "team": "North Carolina" }, "lower_seed": { "seed": 11, "team": "VCU" } },
+    { "game": 22, "region": "South", "higher_seed": { "seed": 3, "team": "Illinois" }, "lower_seed": { "seed": 14, "team": "Penn" } },
+    { "game": 23, "region": "South", "higher_seed": { "seed": 7, "team": "Saint Mary's" }, "lower_seed": { "seed": 10, "team": "Texas A&M" } },
+    { "game": 24, "region": "South", "higher_seed": { "seed": 2, "team": "Houston" }, "lower_seed": { "seed": 15, "team": "Idaho" } },
+    { "game": 25, "region": "Midwest", "higher_seed": { "seed": 1, "team": "Michigan" }, "lower_seed": { "seed": 16, "team": "UMBC" } },
+    { "game": 26, "region": "Midwest", "higher_seed": { "seed": 8, "team": "Georgia" }, "lower_seed": { "seed": 9, "team": "Saint Louis" } },
+    { "game": 27, "region": "Midwest", "higher_seed": { "seed": 5, "team": "Texas Tech" }, "lower_seed": { "seed": 12, "team": "Akron" } },
+    { "game": 28, "region": "Midwest", "higher_seed": { "seed": 4, "team": "Alabama" }, "lower_seed": { "seed": 13, "team": "Hofstra" } },
+    { "game": 29, "region": "Midwest", "higher_seed": { "seed": 6, "team": "Tennessee" }, "lower_seed": { "seed": 11, "team": "SMU" } },
+    { "game": 30, "region": "Midwest", "higher_seed": { "seed": 3, "team": "Virginia" }, "lower_seed": { "seed": 14, "team": "Wright State" } },
+    { "game": 31, "region": "Midwest", "higher_seed": { "seed": 7, "team": "Kentucky" }, "lower_seed": { "seed": 10, "team": "Santa Clara" } },
+    { "game": 32, "region": "Midwest", "higher_seed": { "seed": 2, "team": "Iowa State" }, "lower_seed": { "seed": 15, "team": "Tennessee State" } }
   ]
 }
