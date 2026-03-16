@@ -14,9 +14,12 @@ for cross-validation context.
 Round of 64 -> Round of 32 -> Sweet 16 -> Elite 8 -> Final Four -> Championship
 """
 
+import argparse
 import json
+import subprocess
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import truststore
@@ -26,7 +29,9 @@ import anthropic
 
 ROOT = Path(__file__).parent
 KALSHI_FILE = ROOT / "kalshi_markets.json"
+HISTORY_FILE = ROOT / "bracket_history.json"
 MODEL = "claude-sonnet-4-6"
+WATCH_INTERVAL = 3600  # 60 minutes
 
 # Divergence thresholds (percentage points)
 SIGNIFICANT_DIVERGENCE = 0.08  # 8pp
@@ -655,7 +660,24 @@ def print_final_bracket(all_results: dict, props: dict):
 
 # ─── MAIN ────────────────────────────────────────────────────────────────────
 
-def main():
+def refresh_kalshi_data():
+    """Re-run kalshi_odds.py to pull fresh market data."""
+    print("  Refreshing Kalshi data...")
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "kalshi_odds.py")],
+        capture_output=True, text=True, cwd=str(ROOT),
+    )
+    if result.returncode != 0:
+        print(f"  Warning: kalshi_odds.py failed: {result.stderr[:200]}")
+    else:
+        # Count markets from output
+        for line in result.stdout.split("\n"):
+            if "markets" in line.lower() and ("KXMARMAD" in line or "KXNCAAMB" in line):
+                print(f"  {line.strip()}")
+
+
+def run_bracket() -> dict:
+    """Execute a full bracket run. Returns all_results dict."""
     print("Loading Kalshi markets (all series)...")
     raw = load_all_kalshi()
 
@@ -695,11 +717,130 @@ def main():
 
     print_final_bracket(all_results, props)
 
+    # Save results
     output_file = ROOT / "results.json"
     serializable = {str(k): v for k, v in all_results.items()}
     with open(output_file, "w") as f:
         json.dump(serializable, f, indent=2, default=str)
     print(f"Full results saved to {output_file}\n")
+
+    return all_results
+
+
+def extract_picks(all_results: dict) -> dict[int, str]:
+    """Extract {game_num: pick_team} from results."""
+    picks = {}
+    for round_results in all_results.values():
+        for r in round_results:
+            picks[r["game"]] = r["pick"]
+    return picks
+
+
+def diff_brackets(prev_picks: dict[int, str], curr_picks: dict[int, str]) -> list[dict]:
+    """Find games where picks changed between runs."""
+    changes = []
+    for game_num in curr_picks:
+        if game_num in prev_picks and prev_picks[game_num] != curr_picks[game_num]:
+            changes.append({
+                "game": game_num,
+                "was": prev_picks[game_num],
+                "now": curr_picks[game_num],
+            })
+    return changes
+
+
+def load_history() -> list[dict]:
+    if HISTORY_FILE.exists():
+        with open(HISTORY_FILE) as f:
+            return json.load(f)
+    return []
+
+
+def save_history(history: list[dict]):
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history, f, indent=2, default=str)
+
+
+def run_watch():
+    """Watch mode: re-run every 60 minutes, track changes."""
+    print("=" * 80)
+    print("WATCH MODE — Re-running every 60 minutes")
+    print("=" * 80)
+
+    history = load_history()
+    prev_picks = {}
+    if history:
+        prev_picks = history[-1].get("picks", {})
+        # Keys are strings in JSON
+        prev_picks = {int(k): v for k, v in prev_picks.items()}
+
+    run_num = len(history) + 1
+
+    while True:
+        now = datetime.now(timezone.utc)
+        ts = now.isoformat()
+        print(f"\n{'#' * 80}")
+        print(f"#  WATCH RUN #{run_num} — {now.strftime('%Y-%m-%d %H:%M UTC')}")
+        print(f"{'#' * 80}\n")
+
+        # Refresh Kalshi data
+        refresh_kalshi_data()
+
+        # Run full bracket
+        all_results = run_bracket()
+        curr_picks = extract_picks(all_results)
+
+        # Diff against previous run
+        changes = diff_brackets(prev_picks, curr_picks) if prev_picks else []
+
+        if changes:
+            print(f"\n{'!' * 80}")
+            print(f"  PICKS CHANGED FROM PREVIOUS RUN ({len(changes)} games)")
+            print(f"{'!' * 80}")
+            for c in changes:
+                print(f"  Game {c['game']:>2}: {c['was']:<20} -> {c['now']}")
+        elif prev_picks:
+            print(f"\n  No pick changes from previous run.")
+
+        # Extract champion
+        champ_games = all_results.get(2, [])
+        champion = champ_games[0]["pick"] if champ_games else "?"
+
+        # Log to history
+        entry = {
+            "run": run_num,
+            "timestamp": ts,
+            "champion": champion,
+            "picks": {str(k): v for k, v in curr_picks.items()},
+            "changes": changes,
+            "changes_count": len(changes),
+        }
+        history.append(entry)
+        save_history(history)
+        print(f"  Run #{run_num} logged to {HISTORY_FILE}")
+        print(f"  Champion: {champion}")
+
+        prev_picks = curr_picks
+        run_num += 1
+
+        print(f"\n  Next run in {WATCH_INTERVAL // 60} minutes...")
+        time.sleep(WATCH_INTERVAL)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Bracket Divergence Engine")
+    parser.add_argument("--watch", action="store_true",
+                        help="Watch mode: re-run every 60 min, track changes")
+    parser.add_argument("--refresh", action="store_true",
+                        help="Pull fresh Kalshi data before running")
+    args = parser.parse_args()
+
+    if args.watch:
+        run_watch()
+    else:
+        if args.refresh:
+            refresh_kalshi_data()
+        run_bracket()
 
 
 if __name__ == "__main__":

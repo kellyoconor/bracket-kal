@@ -6,6 +6,11 @@ dist/
 build/
 venv/
 .env
+.venv/
+*.pem
+trades.json
+monitor_score.json
+bracket_history.json
 
 # OS
 .DS_Store

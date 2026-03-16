@@ -1,0 +1,32 @@
+{
+  "_comment": "Trading rules for kalshi_trader.py. Adjust thresholds to your risk tolerance.",
+  "rules": [
+    {
+      "name": "strong_divergence_buy",
+      "description": "Buy YES on Claude's pick when divergence >= 15% and market price <= 0.70",
+      "condition": "divergence >= 0.15 and market_price <= 0.70",
+      "action": "buy_yes",
+      "target": "claude_pick",
+      "size_dollars": 10,
+      "enabled": true
+    },
+    {
+      "name": "extreme_divergence_buy",
+      "description": "Buy YES on Claude's pick when divergence >= 25% and market price <= 0.60",
+      "condition": "divergence >= 0.25 and market_price <= 0.60",
+      "action": "buy_yes",
+      "target": "claude_pick",
+      "size_dollars": 20,
+      "enabled": true
+    },
+    {
+      "name": "chalk_fade",
+      "description": "Buy NO on heavy chalk (>90%) when Claude has it < 80%",
+      "condition": "market_price >= 0.90 and claude_prob <= 0.80",
+      "action": "buy_no",
+      "target": "market_favorite",
+      "size_dollars": 5,
+      "enabled": false
+    }
+  ]
+}
