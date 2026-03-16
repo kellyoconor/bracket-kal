@@ -216,7 +216,7 @@ def main():
 
     telegram_send(
         f"Bracket monitor is live.\n\n"
-        f"Tracking {len(picks)} picks — {diverge_count} contrarian, {chalk_count} chalk.\n"
+        f"Tracking {len(picks)} picks — {diverge_count} Claude, {chalk_count} chalk.\n"
         f"I'll message you when odds move or games finish."
     )
 
@@ -285,10 +285,10 @@ def main():
                         msg = (
                             f"We nailed it. {team} wins.\n\n"
                             f"{matchup} ({region})\n\n"
-                            f"This was a contrarian pick — the market had them lower but "
+                            f"This was a Claude pick — the market had them lower but "
                             f"Claude saw the edge. That's the whole point.\n\n"
                             f"Record: {total_w}-{total_l} "
-                            f"({score['diverge_correct']}-{score['diverge_busted']} contrarian, "
+                            f"({score['diverge_correct']}-{score['diverge_busted']} Claude, "
                             f"{score['chalk_correct']}-{score['chalk_busted']} chalk)"
                         )
                     else:
@@ -304,12 +304,12 @@ def main():
                         div = pick.get("divergence")
                         div_str = f" (we saw a {div:.0%} gap)" if div else ""
                         msg = (
-                            f"{team} is out. Contrarian miss{div_str}.\n\n"
+                            f"{team} is out. Claude pick missed{div_str}.\n\n"
                             f"{matchup} ({region})\n\n"
                             f"{opponent.strip()} advances. Claude liked {team} more than "
                             f"the market did, but the market was right on this one.\n\n"
                             f"Record: {total_w}-{total_l} "
-                            f"({score['diverge_correct']}-{score['diverge_busted']} contrarian, "
+                            f"({score['diverge_correct']}-{score['diverge_busted']} Claude, "
                             f"{score['chalk_correct']}-{score['chalk_busted']} chalk)"
                         )
                     else:
@@ -339,7 +339,7 @@ def main():
                             f"Heads up — {team} is sliding.\n\n"
                             f"{matchup}\n"
                             f"Was {pct_was}, now {pct_now}.\n\n"
-                            f"This is one of our contrarian picks. The market is moving "
+                            f"This is a Claude pick — we overrode the market. It's moving "
                             f"against us. Could be injury news, could be sharp money. "
                             f"Worth watching."
                         )
