@@ -3,9 +3,9 @@
 Monitor your bracket picks against live Kalshi odds.
 
 - Polls Kalshi every 10 min for odds movement on your picked teams
-- Telegrams BelowTheFloorBot when a picked team drops >5%
-- After each game resolves, Telegrams: pick correct or busted
-- Tracks running score: divergence picks hitting vs Kalshi
+- Telegrams when a picked team drops >5% or a game resolves
+- Tracks running score: Claude picks vs Kalshi picks
+- Answers your questions via Telegram using Claude + bracket context
 - Single command: python monitor.py
 """
 
@@ -17,12 +17,19 @@ from pathlib import Path
 from urllib.request import urlopen, Request
 from urllib.parse import urlencode, quote
 
+try:
+    import truststore
+    truststore.inject_into_ssl()
+except ImportError:
+    pass
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 ROOT = Path(__file__).parent
 PICKS_FILE = ROOT / "bracket_picks.json"
+RESULTS_FILE = ROOT / "results.json"
 KALSHI_FILE = ROOT / "kalshi_markets.json"
 SCORE_FILE = ROOT / "monitor_score.json"
 POLL_INTERVAL = 600  # 10 minutes
@@ -30,19 +37,12 @@ POLL_INTERVAL = 600  # 10 minutes
 KALSHI_BASE = "https://api.elections.kalshi.com/trade-api/v2"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
 
-def kalshi_get(endpoint: str, params: dict | None = None) -> dict:
-    url = f"{KALSHI_BASE}{endpoint}"
-    if params:
-        url += "?" + urlencode(params)
-    req = Request(url, headers={"Accept": "application/json"})
-    with urlopen(req, timeout=15) as resp:
-        return json.loads(resp.read())
-
+# ─── TELEGRAM ────────────────────────────────────────────────────────────────
 
 def telegram_send(message: str):
-    """Send a message via Telegram bot."""
     if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
         print(f"  [TG] (not configured) {message}")
         return
@@ -61,57 +61,124 @@ def telegram_send(message: str):
         print(f"  [TG] Failed: {e}")
 
 
-def load_picks() -> list[dict]:
-    with open(PICKS_FILE) as f:
-        data = json.load(f)
-    return data["picks"]
+def telegram_get_updates(last_update_id: int) -> tuple[list[dict], int]:
+    """Fetch new Telegram messages since last_update_id."""
+    if not TELEGRAM_TOKEN:
+        return [], last_update_id
+    url = (
+        f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getUpdates"
+        f"?offset={last_update_id + 1}&limit=10&timeout=0"
+    )
+    try:
+        req = Request(url)
+        with urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read())
+        updates = data.get("result", [])
+        messages = []
+        new_id = last_update_id
+        for u in updates:
+            uid = u.get("update_id", 0)
+            if uid > new_id:
+                new_id = uid
+            msg = u.get("message", {})
+            chat_id = str(msg.get("chat", {}).get("id", ""))
+            text = msg.get("text", "").strip()
+            if chat_id == str(TELEGRAM_CHAT_ID) and text:
+                messages.append(text)
+        return messages, new_id
+    except Exception:
+        return [], last_update_id
 
 
-FRESH_SCORE = {
-    "correct": 0, "busted": 0, "pending": 0,
-    "diverge_correct": 0, "diverge_busted": 0,
-    "kalshi_correct": 0, "kalshi_busted": 0,
-    "resolved_games": [],
-}
+# ─── CLAUDE Q&A ──────────────────────────────────────────────────────────────
+
+def build_bracket_context(picks: list[dict], score: dict,
+                          game_odds: dict) -> str:
+    """Build a context string from current bracket state for Claude."""
+    lines = []
+    lines.append(f"BRACKET SCORE: {score['correct']}W / {score['busted']}L")
+    lines.append(f"Claude picks: {score['diverge_correct']}W/{score['diverge_busted']}L")
+    lines.append(f"Kalshi picks: {score['kalshi_correct']}W/{score['kalshi_busted']}L")
+    lines.append(f"Resolved: {len(score.get('resolved_games', []))} games")
+    lines.append("")
+
+    # Current round picks with live odds
+    for p in picks:
+        game_id = p["game"]
+        team = p["picked_team"]
+        source = p.get("pick_source", "?")
+        ens = p.get("ensemble_prob")
+        kal = p.get("kalshi_prob")
+        div = p.get("divergence")
+        resolved = game_id in score.get("resolved_games", [])
+
+        abbrev = ABBREV_MAP.get(team, "")
+        live = game_odds.get(abbrev, {})
+        live_prob = live.get("prob")
+        status = live.get("status", "")
+
+        status_str = "RESOLVED" if resolved else status
+        live_str = f" live:{live_prob:.0%}" if live_prob else ""
+        ens_str = f" ens:{ens:.0%}" if ens else ""
+        kal_str = f" kal:{kal:.0%}" if kal else ""
+        div_str = f" div:{div:.0%}" if div else ""
+
+        lines.append(
+            f"Game {game_id} [{p.get('round','')}] {p['matchup']} "
+            f"-> {team} [{source}]{ens_str}{kal_str}{div_str}{live_str} ({status_str})"
+        )
+
+    return "\n".join(lines)
 
 
-def load_score(reset: bool = False) -> dict:
-    if reset or not SCORE_FILE.exists():
-        return {**FRESH_SCORE}
-    with open(SCORE_FILE) as f:
-        return json.load(f)
+def answer_question(question: str, picks: list[dict], score: dict,
+                    game_odds: dict) -> str:
+    """Use Claude to answer a question about the bracket."""
+    if not ANTHROPIC_API_KEY:
+        return "Can't answer questions — ANTHROPIC_API_KEY not set."
+
+    import anthropic
+    client = anthropic.Anthropic()
+
+    context = build_bracket_context(picks, score, game_odds)
+
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=500,
+        messages=[{"role": "user", "content": f"""You are a March Madness bracket assistant. Answer the user's question using the bracket data below. Be concise and conversational — this is a Telegram message, keep it short. No markdown formatting (Telegram basic formatting only).
+
+BRACKET DATA:
+{context}
+
+USER QUESTION: {question}"""}],
+    )
+
+    return response.content[0].text.strip()
 
 
-def save_score(score: dict):
-    with open(SCORE_FILE, "w") as f:
-        json.dump(score, f, indent=2)
+# ─── KALSHI ──────────────────────────────────────────────────────────────────
+
+def kalshi_get(endpoint: str, params: dict | None = None) -> dict:
+    url = f"{KALSHI_BASE}{endpoint}"
+    if params:
+        url += "?" + urlencode(params)
+    req = Request(url, headers={"Accept": "application/json"})
+    with urlopen(req, timeout=15) as resp:
+        return json.loads(resp.read())
 
 
-# Tournament game dates (first round through championship)
-# Update these as the tournament progresses
 TOURNAMENT_DATES = [
-    "MAR17", "MAR18",  # First Four
-    "MAR19", "MAR20",  # Round of 64, Day 1-2
-    "MAR21", "MAR22",  # Round of 64, Day 3-4
-    "MAR23", "MAR24",  # Round of 32
-    "MAR27", "MAR28",  # Sweet 16
-    "MAR29", "MAR30",  # Elite 8
-    "APR05",            # Final Four
-    "APR07",            # Championship
+    "MAR17", "MAR18", "MAR19", "MAR20", "MAR21", "MAR22",
+    "MAR23", "MAR24", "MAR27", "MAR28", "MAR29", "MAR30",
+    "APR05", "APR07",
 ]
 
 
 def is_tournament_game(ticker: str) -> bool:
-    """Check if a market ticker is for a tournament game (not regular season)."""
     return any(date in ticker for date in TOURNAMENT_DATES)
 
 
 def pull_game_odds() -> dict[str, dict]:
-    """Pull tournament KXNCAAMBGAME markets, return {abbrev: {prob, status, ticker}}.
-
-    Only includes tournament-dated games to avoid collisions with
-    regular season markets that share the same team abbreviations.
-    """
     odds = {}
     try:
         cursor = None
@@ -123,11 +190,8 @@ def pull_game_odds() -> dict[str, dict]:
             markets = data.get("markets", [])
             for m in markets:
                 ticker = m.get("ticker", "")
-
-                # Skip non-tournament games
                 if not is_tournament_game(ticker):
                     continue
-
                 abbrev = ticker.rsplit("-", 1)[-1] if "-" in ticker else ""
                 status = m.get("status", "")
                 yb = float(m.get("yes_bid_dollars", "0") or "0")
@@ -139,10 +203,8 @@ def pull_game_odds() -> dict[str, dict]:
                     prob = lp
                 else:
                     prob = None
-
                 if prob is not None:
                     existing = odds.get(abbrev)
-                    # Prefer active/open games over finalized ones
                     if not existing or status in ("active", "open"):
                         odds[abbrev] = {
                             "prob": prob, "status": status,
@@ -156,7 +218,8 @@ def pull_game_odds() -> dict[str, dict]:
     return odds
 
 
-# Map team names to Kalshi abbreviations (reuse from bracket_divergence.py)
+# ─── DATA ────────────────────────────────────────────────────────────────────
+
 ABBREV_MAP = {
     "Duke": "DUKE", "Siena": "SIE", "Ohio State": "OSU", "TCU": "TCU",
     "St. John's": "SJU", "Northern Iowa": "UNI", "Kansas": "KU",
@@ -183,6 +246,33 @@ ABBREV_MAP = {
 }
 
 
+def load_picks() -> list[dict]:
+    with open(PICKS_FILE) as f:
+        return json.load(f)["picks"]
+
+
+FRESH_SCORE = {
+    "correct": 0, "busted": 0, "pending": 0,
+    "diverge_correct": 0, "diverge_busted": 0,
+    "kalshi_correct": 0, "kalshi_busted": 0,
+    "resolved_games": [],
+}
+
+
+def load_score(reset: bool = False) -> dict:
+    if reset or not SCORE_FILE.exists():
+        return {**FRESH_SCORE}
+    with open(SCORE_FILE) as f:
+        return json.load(f)
+
+
+def save_score(score: dict):
+    with open(SCORE_FILE, "w") as f:
+        json.dump(score, f, indent=2)
+
+
+# ─── MAIN LOOP ───────────────────────────────────────────────────────────────
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Bracket Monitor")
@@ -190,11 +280,11 @@ def main():
     args = parser.parse_args()
 
     print("=" * 70)
-    print("Bracket Monitor — Live Odds Tracking + Telegram Alerts")
+    print("Bracket Monitor — Live Odds + Telegram Q&A")
     print("=" * 70)
 
     if not TELEGRAM_TOKEN:
-        print("\n  Warning: TELEGRAM_BOT_TOKEN not set. Alerts will print to console only.")
+        print("\n  Warning: TELEGRAM_BOT_TOKEN not set.")
     if not TELEGRAM_CHAT_ID:
         print("  Warning: TELEGRAM_CHAT_ID not set.")
 
@@ -204,30 +294,57 @@ def main():
         save_score(score)
         print("\n  Score reset to 0-0.")
     print(f"\n  Loaded {len(picks)} picks from {PICKS_FILE}")
-    print(f"  Score: {score['correct']}W / {score['busted']}L / {score['pending']} pending")
-    print(f"  Polling every {POLL_INTERVAL // 60} minutes\n")
+    print(f"  Score: {score['correct']}W / {score['busted']}L")
+    print(f"  Polling every {POLL_INTERVAL // 60} minutes")
+    print(f"  Q&A enabled: {'yes' if ANTHROPIC_API_KEY else 'no (set ANTHROPIC_API_KEY)'}\n")
 
-    # Track previous odds for movement detection
     prev_odds: dict[str, float] = {}
+    last_update_id = 0
 
-    # Count pick types
+    # Get current update_id so we don't process old messages
+    _, last_update_id = telegram_get_updates(0)
+    # Bump to skip any existing messages
+    if last_update_id > 0:
+        _, last_update_id = telegram_get_updates(last_update_id)
+
     diverge_count = sum(1 for p in picks if p.get("pick_source") == "DIVERGE")
     kalshi_count = len(picks) - diverge_count
 
     telegram_send(
         f"Bracket monitor is live.\n\n"
         f"Tracking {len(picks)} picks — {diverge_count} Claude, {kalshi_count} Kalshi.\n"
-        f"I'll message you when odds move or games finish."
+        f"I'll message you when odds move or games finish.\n\n"
+        f"Ask me anything — \"how's my bracket?\", \"which games are closest?\", "
+        f"\"what's the score?\""
     )
 
     while True:
         now = datetime.now(timezone.utc)
         ts = now.strftime("%H:%M:%S UTC")
-        print(f"\n[{ts}] Polling Kalshi...")
+        print(f"\n[{ts}] Polling...")
 
         game_odds = pull_game_odds()
         print(f"  Loaded {len(game_odds)} team prices")
 
+        # ─── Check for incoming questions ────────────────────────────
+        messages, last_update_id = telegram_get_updates(last_update_id)
+        for msg_text in messages:
+            upper = msg_text.upper().strip()
+
+            # Skip the STOP command (that's for the trader)
+            if upper == "STOP":
+                continue
+
+            print(f"  [Q&A] Question: {msg_text}")
+            try:
+                answer = answer_question(msg_text, picks, score, game_odds)
+                telegram_send(answer)
+                print(f"  [Q&A] Answered.")
+            except Exception as e:
+                telegram_send(f"Sorry, couldn't process that: {e}")
+                print(f"  [Q&A] Error: {e}")
+
+        # ─── Check picks against live odds ───────────────────────────
         for pick in picks:
             team = pick["picked_team"]
             abbrev = ABBREV_MAP.get(team)
@@ -238,7 +355,6 @@ def main():
             matchup = pick["matchup"]
             source = pick.get("pick_source", "?")
 
-            # Skip already resolved
             if game_id in score.get("resolved_games", []):
                 continue
 
@@ -249,11 +365,9 @@ def main():
             current_prob = market["prob"]
             status = market["status"]
 
-            # --- Check for game resolution ---
+            # ─── Game resolution ─────────────────────────────────────
             if status in ("closed", "determined", "finalized"):
-                won = current_prob >= 0.90  # Settled at ~$1.00 = won
-                result = "CORRECT" if won else "BUSTED"
-
+                won = current_prob >= 0.90
                 score["resolved_games"].append(game_id)
                 if won:
                     score["correct"] += 1
@@ -269,14 +383,8 @@ def main():
                         score["kalshi_busted"] += 1
                 save_score(score)
 
-                # Build human-readable message
                 total_w = score["correct"]
                 total_l = score["busted"]
-                total = total_w + total_l
-                round_label = pick.get("round", "")
-                region = pick.get("region", "")
-
-                # Figure out who they lost to
                 parts = matchup.split(" vs ")
                 opponent = parts[1] if team in parts[0] else parts[0]
 
@@ -284,17 +392,17 @@ def main():
                     if source == "DIVERGE":
                         msg = (
                             f"We nailed it. {team} wins.\n\n"
-                            f"{matchup} ({region})\n\n"
+                            f"{matchup} ({pick.get('region', '')})\n\n"
                             f"This was a Claude pick — the market had them lower but "
                             f"Claude saw the edge. That's the whole point.\n\n"
                             f"Record: {total_w}-{total_l} "
                             f"({score['diverge_correct']}-{score['diverge_busted']} Claude, "
-                            f"{score['Kalshi_correct']}-{score['Kalshi_busted']} Kalshi)"
+                            f"{score['kalshi_correct']}-{score['kalshi_busted']} Kalshi)"
                         )
                     else:
                         msg = (
                             f"{team} wins as expected.\n\n"
-                            f"{matchup} ({region})\n\n"
+                            f"{matchup} ({pick.get('region', '')})\n\n"
                             f"Kalshi pick — market and Claude both liked them. "
                             f"No surprises here.\n\n"
                             f"Record: {total_w}-{total_l}"
@@ -305,17 +413,17 @@ def main():
                         div_str = f" (we saw a {div:.0%} gap)" if div else ""
                         msg = (
                             f"{team} is out. Claude pick missed{div_str}.\n\n"
-                            f"{matchup} ({region})\n\n"
+                            f"{matchup} ({pick.get('region', '')})\n\n"
                             f"{opponent.strip()} advances. Claude liked {team} more than "
                             f"the market did, but the market was right on this one.\n\n"
                             f"Record: {total_w}-{total_l} "
                             f"({score['diverge_correct']}-{score['diverge_busted']} Claude, "
-                            f"{score['Kalshi_correct']}-{score['Kalshi_busted']} Kalshi)"
+                            f"{score['kalshi_correct']}-{score['kalshi_busted']} Kalshi)"
                         )
                     else:
                         msg = (
                             f"Upset. {team} is out.\n\n"
-                            f"{matchup} ({region})\n\n"
+                            f"{matchup} ({pick.get('region', '')})\n\n"
                             f"{opponent.strip()} pulls the upset. This was a Kalshi pick — "
                             f"both the market and Claude had {team}. "
                             f"Sometimes the madness wins.\n\n"
@@ -326,11 +434,11 @@ def main():
                 telegram_send(msg)
                 continue
 
-            # --- Check for odds movement ---
+            # ─── Odds movement ───────────────────────────────────────
             prev = prev_odds.get(f"{game_id}:{abbrev}")
             if prev is not None:
                 drop = prev - current_prob
-                if drop >= 0.05:  # Dropped >5%
+                if drop >= 0.05:
                     pct_now = f"{current_prob:.0%}"
                     pct_was = f"{prev:.0%}"
 
@@ -355,8 +463,6 @@ def main():
                     telegram_send(msg)
 
             prev_odds[f"{game_id}:{abbrev}"] = current_prob
-
-            # Log current state
             print(f"  Game {game_id:>2}: {team:<20} {current_prob:>5.0%}  [{source}]  ({status})")
 
         # Score summary
