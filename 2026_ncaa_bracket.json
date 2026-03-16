@@ -1,0 +1,237 @@
+{
+  "tournament": "2026 NCAA Division I Men's Basketball Tournament",
+  "selection_sunday": "2026-03-15",
+  "first_four_dates": ["2026-03-17", "2026-03-18"],
+  "first_round_dates": ["2026-03-19", "2026-03-20"],
+  "second_round_dates": ["2026-03-21", "2026-03-22"],
+  "final_four_date": "2026-04-04",
+  "championship_date": "2026-04-06",
+  "final_four_venue": "Lucas Oil Stadium, Indianapolis",
+  "number_one_seeds": {
+    "overall": "Duke",
+    "east": "Duke",
+    "west": "Arizona",
+    "south": "Florida",
+    "midwest": "Michigan"
+  },
+  "first_four": [
+    {
+      "game_id": "FF1",
+      "seed": 16,
+      "team_a": "UMBC",
+      "team_b": "Howard",
+      "region": "Midwest",
+      "winner_plays": "1 Michigan"
+    },
+    {
+      "game_id": "FF2",
+      "seed": 16,
+      "team_a": "Prairie View A&M",
+      "team_b": "Lehigh",
+      "region": "South",
+      "winner_plays": "1 Florida"
+    },
+    {
+      "game_id": "FF3",
+      "seed": 11,
+      "team_a": "Texas",
+      "team_b": "NC State",
+      "region": "West",
+      "winner_plays": "6 BYU"
+    },
+    {
+      "game_id": "FF4",
+      "seed": 11,
+      "team_a": "SMU",
+      "team_b": "Miami (OH)",
+      "region": "Midwest",
+      "winner_plays": "6 Tennessee"
+    }
+  ],
+  "regions": {
+    "east": {
+      "region_name": "East",
+      "first_round_matchups": [
+        {
+          "game_id": "E1",
+          "top_seed": { "seed": 1, "team": "Duke" },
+          "bottom_seed": { "seed": 16, "team": "Siena" }
+        },
+        {
+          "game_id": "E2",
+          "top_seed": { "seed": 8, "team": "Ohio State" },
+          "bottom_seed": { "seed": 9, "team": "TCU" }
+        },
+        {
+          "game_id": "E3",
+          "top_seed": { "seed": 5, "team": "St. John's" },
+          "bottom_seed": { "seed": 12, "team": "Northern Iowa" }
+        },
+        {
+          "game_id": "E4",
+          "top_seed": { "seed": 4, "team": "Kansas" },
+          "bottom_seed": { "seed": 13, "team": "Cal Baptist" }
+        },
+        {
+          "game_id": "E5",
+          "top_seed": { "seed": 6, "team": "Louisville" },
+          "bottom_seed": { "seed": 11, "team": "South Florida" }
+        },
+        {
+          "game_id": "E6",
+          "top_seed": { "seed": 3, "team": "Michigan State" },
+          "bottom_seed": { "seed": 14, "team": "North Dakota State" }
+        },
+        {
+          "game_id": "E7",
+          "top_seed": { "seed": 7, "team": "UCLA" },
+          "bottom_seed": { "seed": 10, "team": "UCF" }
+        },
+        {
+          "game_id": "E8",
+          "top_seed": { "seed": 2, "team": "UConn" },
+          "bottom_seed": { "seed": 15, "team": "Furman" }
+        }
+      ]
+    },
+    "west": {
+      "region_name": "West",
+      "first_round_matchups": [
+        {
+          "game_id": "W1",
+          "top_seed": { "seed": 1, "team": "Arizona" },
+          "bottom_seed": { "seed": 16, "team": "Long Island" }
+        },
+        {
+          "game_id": "W2",
+          "top_seed": { "seed": 8, "team": "Villanova" },
+          "bottom_seed": { "seed": 9, "team": "Utah State" }
+        },
+        {
+          "game_id": "W3",
+          "top_seed": { "seed": 5, "team": "Wisconsin" },
+          "bottom_seed": { "seed": 12, "team": "High Point" }
+        },
+        {
+          "game_id": "W4",
+          "top_seed": { "seed": 4, "team": "Arkansas" },
+          "bottom_seed": { "seed": 13, "team": "Hawaii" }
+        },
+        {
+          "game_id": "W5",
+          "top_seed": { "seed": 6, "team": "BYU" },
+          "bottom_seed": { "seed": 11, "team": "Texas/NC State" },
+          "note": "First Four winner"
+        },
+        {
+          "game_id": "W6",
+          "top_seed": { "seed": 3, "team": "Gonzaga" },
+          "bottom_seed": { "seed": 14, "team": "Kennesaw State" }
+        },
+        {
+          "game_id": "W7",
+          "top_seed": { "seed": 7, "team": "Miami (FL)" },
+          "bottom_seed": { "seed": 10, "team": "Missouri" }
+        },
+        {
+          "game_id": "W8",
+          "top_seed": { "seed": 2, "team": "Purdue" },
+          "bottom_seed": { "seed": 15, "team": "Queens" }
+        }
+      ]
+    },
+    "south": {
+      "region_name": "South",
+      "first_round_matchups": [
+        {
+          "game_id": "S1",
+          "top_seed": { "seed": 1, "team": "Florida" },
+          "bottom_seed": { "seed": 16, "team": "Prairie View A&M/Lehigh" },
+          "note": "First Four winner"
+        },
+        {
+          "game_id": "S2",
+          "top_seed": { "seed": 8, "team": "Clemson" },
+          "bottom_seed": { "seed": 9, "team": "Iowa" }
+        },
+        {
+          "game_id": "S3",
+          "top_seed": { "seed": 5, "team": "Vanderbilt" },
+          "bottom_seed": { "seed": 12, "team": "McNeese" }
+        },
+        {
+          "game_id": "S4",
+          "top_seed": { "seed": 4, "team": "Nebraska" },
+          "bottom_seed": { "seed": 13, "team": "Troy" }
+        },
+        {
+          "game_id": "S5",
+          "top_seed": { "seed": 6, "team": "North Carolina" },
+          "bottom_seed": { "seed": 11, "team": "VCU" }
+        },
+        {
+          "game_id": "S6",
+          "top_seed": { "seed": 3, "team": "Illinois" },
+          "bottom_seed": { "seed": 14, "team": "Penn" }
+        },
+        {
+          "game_id": "S7",
+          "top_seed": { "seed": 7, "team": "Saint Mary's" },
+          "bottom_seed": { "seed": 10, "team": "Texas A&M" }
+        },
+        {
+          "game_id": "S8",
+          "top_seed": { "seed": 2, "team": "Houston" },
+          "bottom_seed": { "seed": 15, "team": "Idaho" }
+        }
+      ]
+    },
+    "midwest": {
+      "region_name": "Midwest",
+      "first_round_matchups": [
+        {
+          "game_id": "MW1",
+          "top_seed": { "seed": 1, "team": "Michigan" },
+          "bottom_seed": { "seed": 16, "team": "UMBC/Howard" },
+          "note": "First Four winner"
+        },
+        {
+          "game_id": "MW2",
+          "top_seed": { "seed": 8, "team": "Georgia" },
+          "bottom_seed": { "seed": 9, "team": "Saint Louis" }
+        },
+        {
+          "game_id": "MW3",
+          "top_seed": { "seed": 5, "team": "Texas Tech" },
+          "bottom_seed": { "seed": 12, "team": "Akron" }
+        },
+        {
+          "game_id": "MW4",
+          "top_seed": { "seed": 4, "team": "Alabama" },
+          "bottom_seed": { "seed": 13, "team": "Hofstra" }
+        },
+        {
+          "game_id": "MW5",
+          "top_seed": { "seed": 6, "team": "Tennessee" },
+          "bottom_seed": { "seed": 11, "team": "SMU/Miami (OH)" },
+          "note": "First Four winner"
+        },
+        {
+          "game_id": "MW6",
+          "top_seed": { "seed": 3, "team": "Virginia" },
+          "bottom_seed": { "seed": 14, "team": "Wright State" }
+        },
+        {
+          "game_id": "MW7",
+          "top_seed": { "seed": 7, "team": "Kentucky" },
+          "bottom_seed": { "seed": 10, "team": "Santa Clara" }
+        },
+        {
+          "game_id": "MW8",
+          "top_seed": { "seed": 2, "team": "Iowa State" },
+          "bottom_seed": { "seed": 15, "team": "Tennessee State" }
+        }
+      ]
+    }
+  }
+}
