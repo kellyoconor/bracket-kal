@@ -1,0 +1,48 @@
+[
+  {
+    "round": "round_of_64",
+    "matchup": "(8) Villanova vs (9) Utah State",
+    "region": "West",
+    "kalshi_pick": "Villanova",
+    "kalshi_seed": 8,
+    "claude_pick": "Utah State",
+    "claude_seed": 9,
+    "claude_prob": 0.58,
+    "claude_rationale": "Utah State has been a consistent Mountain West force under Danny Sprinkle's system, built around physical play and strong rebounding that can neutralize Villanova's guard-oriented offense. The Aggies' tournament experience and home-region familiarity in the West bracket gives them a slight edge. This is a classic 8-9 coin-flip game, but Utah State's frontcourt advantage tips the balance."
+  },
+  {
+    "round": "round_of_64",
+    "matchup": "(7) Miami (FL) vs (10) Missouri",
+    "region": "West",
+    "kalshi_pick": "Miami (FL)",
+    "kalshi_seed": 7,
+    "claude_pick": "Missouri",
+    "claude_seed": 10,
+    "claude_prob": 0.58,
+    "claude_rationale": "Missouri has shown strong mid-major to power conference development under Dennis Gates, with athletic guards capable of disrupting Miami's half-court offense. Miami has struggled with consistency in ACC play and lacks a dominant go-to scorer to carry tournament pressure. The 10-seed Tigers have the athleticism and coaching to pull this mild upset."
+  },
+  {
+    "round": "round_of_32",
+    "matchup": "(4) Arkansas vs (5) Wisconsin",
+    "region": "West",
+    "kalshi_pick": "Arkansas",
+    "kalshi_seed": 4,
+    "claude_pick": "Wisconsin",
+    "claude_seed": 5,
+    "kalshi_prob": 0.635,
+    "claude_prob": 0.56,
+    "claude_rationale": "Wisconsin's disciplined, slow-paced offense under Greg Gard historically neutralizes more athletic teams like Arkansas, grinding games into halfcourt battles that neutralize the Razorbacks' transition advantages. As a 5-seed, Wisconsin typically arrives battle-tested from a competitive Big Ten, and their experience and composure in close tournament games gives them a slight edge. Arkansas's uptempo style and potential inconsistency in halfcourt sets makes this a difficult matchup for the Razorbacks."
+  },
+  {
+    "round": "round_of_32",
+    "matchup": "(3) Virginia vs (6) Tennessee",
+    "region": "Midwest",
+    "kalshi_pick": "Virginia",
+    "kalshi_seed": 3,
+    "claude_pick": "Tennessee",
+    "claude_seed": 6,
+    "kalshi_prob": 0.766,
+    "claude_prob": 0.58,
+    "claude_rationale": "Tennessee's physical, aggressive defensive style and superior athleticism typically creates problems for Virginia's methodical pack-line defense and slow-tempo offense in tournament settings. The Volunteers' depth and ability to pressure the ball can disrupt Virginia's deliberate half-court execution. As a 6-seed, Tennessee has the talent profile to pull this upset against a Virginia team that can struggle to generate offense against elite defensive pressure."
+  }
+]

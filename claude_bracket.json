@@ -1,0 +1,614 @@
+{
+  "round_of_64": [
+    {
+      "game": 1,
+      "region": "East",
+      "matchup": "(1) Duke vs (16) Siena",
+      "pick": "Duke",
+      "seed": 1,
+      "claude_prob": 0.97,
+      "source": "CLAUDE",
+      "rationale": "Duke as a #1 seed brings elite recruiting, ACC tournament-tested talent, and Coach Scheyer's system that consistently produces NBA-caliber players who dominate at this level. Siena, as a MAAC program and #16 seed, faces an enormous talent and depth gap that historically makes 1 vs 16 matchups among the most lopsided in the tournament. #16 seeds have won only twice in tournament history, and Duke's program pedigree and resources make an upset exceptionally unlikely."
+    },
+    {
+      "game": 2,
+      "region": "East",
+      "matchup": "(8) Ohio State vs (9) TCU",
+      "pick": "Ohio State",
+      "seed": 8,
+      "claude_prob": 0.52,
+      "source": "CLAUDE",
+      "rationale": "This is a classic 8-9 coin-flip matchup where seeding differences are minimal. Ohio State's Big Ten tournament experience and typically strong frontcourt play give them a slight edge, but TCU's Big 12 battle-tested schedule makes them equally capable. Expect a close, competitive game decided in the final minutes."
+    },
+    {
+      "game": 3,
+      "region": "East",
+      "matchup": "(5) St. John's vs (12) Northern Iowa",
+      "pick": "St. John's",
+      "seed": 5,
+      "claude_prob": 0.62,
+      "source": "CLAUDE",
+      "rationale": "St. John's has been a consistent Big East contender with strong recruiting and coaching under Rick Pitino, giving them a talent edge over Northern Iowa. However, Northern Iowa is a prototypical 12-seed upset threat as a physical, well-coached Missouri Valley program that plays disciplined basketball and handles tournament pressure well. The Panthers' physicality and potential to disrupt St. John's perimeter-oriented offense makes this a genuine upset risk."
+    },
+    {
+      "game": 4,
+      "region": "East",
+      "matchup": "(4) Kansas vs (13) Cal Baptist",
+      "pick": "Kansas",
+      "seed": 4,
+      "claude_prob": 0.82,
+      "source": "CLAUDE",
+      "rationale": "Kansas brings elite Big 12 tournament pedigree, superior athleticism, and Bill Self's experienced coaching to this matchup. Cal Baptist, a mid-major from the WAC, would struggle to match Kansas's depth and physicality in the paint. While 13-seeds occasionally pull upsets, Kansas's talent advantage and tournament experience make them heavy favorites."
+    },
+    {
+      "game": 5,
+      "region": "East",
+      "matchup": "(6) Louisville vs (11) South Florida",
+      "pick": "Louisville",
+      "seed": 6,
+      "claude_prob": 0.62,
+      "source": "CLAUDE",
+      "rationale": "Louisville as a 6-seed carries the structural advantage and ACC tournament experience against an 11-seed South Florida from the AAC. The Cardinals' higher seed reflects better overall resume and likely superior depth and coaching pedigree under Pat Kelsey. However, 6 vs 11 matchups are historically competitive, with 11-seeds winning roughly 37% of the time, keeping this from being a lock."
+    },
+    {
+      "game": 6,
+      "region": "East",
+      "matchup": "(3) Michigan State vs (14) North Dakota State",
+      "pick": "Michigan State",
+      "seed": 3,
+      "claude_prob": 0.82,
+      "source": "CLAUDE",
+      "rationale": "Michigan State as a 3-seed brings significant Big Ten tournament experience, superior recruiting, and Tom Izzo's legendary March pedigree to this matchup. North Dakota State, as a 14-seed from the Summit League, typically lacks the depth and athleticism to compete with high-major programs, though 14-over-3 upsets do occur roughly 15% of the time historically. Izzo-coached teams are well-prepared and disciplined, making a first-round exit unlikely."
+    },
+    {
+      "game": 7,
+      "region": "East",
+      "matchup": "(7) UCLA vs (10) UCF",
+      "pick": "UCLA",
+      "seed": 7,
+      "claude_prob": 0.62,
+      "source": "CLAUDE",
+      "rationale": "UCLA as a #7 seed carries the higher pedigree and typically stronger Pac-12/Big Ten competition r\u00e9sum\u00e9, while UCF as a #10 seed from the Big 12 represents a dangerous upset threat with athleticism and perimeter shooting. The Bruins' coaching stability under Mick Cronin and tournament experience gives them a slight edge, but 7-10 matchups historically split close to 60-40 in favor of the higher seed."
+    },
+    {
+      "game": 8,
+      "region": "East",
+      "matchup": "(2) UConn vs (15) Furman",
+      "pick": "UConn",
+      "seed": 2,
+      "claude_prob": 0.93,
+      "source": "CLAUDE",
+      "rationale": "UConn remains one of college basketball's elite programs under Dan Hurley, bringing exceptional tournament pedigree following back-to-back national championships. As a #2 seed against a #15 Furman squad from the Southern Conference, the Huskies' superior talent, depth, and experienced coaching staff create an overwhelming structural advantage. Historical #2 vs #15 matchups result in upsets only about 6-7% of the time, and UConn's program caliber makes an upset even less likely."
+    },
+    {
+      "game": 9,
+      "region": "West",
+      "matchup": "(1) Arizona vs (16) LIU",
+      "pick": "Arizona",
+      "seed": 1,
+      "claude_prob": 0.97,
+      "source": "CLAUDE",
+      "rationale": "Arizona as a #1 seed brings elite talent, experienced coaching under Tommy Lloyd, and a high-powered offensive system that overwhelms mid-major competition. LIU as a #16 seed from the Northeast Conference faces an enormous talent and depth gap against a Pac-12/Big 12 powerhouse. #16 seeds have only beaten #1 seeds twice in NCAA Tournament history, making this a near-certain Arizona victory."
+    },
+    {
+      "game": 10,
+      "region": "West",
+      "matchup": "(8) Villanova vs (9) Utah State",
+      "pick": "Utah State",
+      "seed": 9,
+      "claude_prob": 0.58,
+      "source": "CLAUDE",
+      "rationale": "Utah State has been a consistent Mountain West force under Danny Sprinkle's system, built around physical play and strong rebounding that can neutralize Villanova's guard-oriented offense. The Aggies' tournament experience and home-region familiarity in the West bracket gives them a slight edge. This is a classic 8-9 coin-flip game, but Utah State's frontcourt advantage tips the balance."
+    },
+    {
+      "game": 11,
+      "region": "West",
+      "matchup": "(5) Wisconsin vs (12) High Point",
+      "pick": "Wisconsin",
+      "seed": 5,
+      "claude_prob": 0.68,
+      "source": "CLAUDE",
+      "rationale": "Wisconsin's disciplined, slow-paced offensive system under Greg Gard typically translates well to tournament settings, limiting upset potential through ball control and efficiency. High Point as a 12-seed represents a legitimate upset threat, as 12-over-5 upsets occur roughly 35% of the time historically, and mid-major teams with experienced scorers can exploit Wisconsin's methodical pace with pressure defense. The Badgers' Big Ten tournament experience and frontcourt depth should ultimately prove the difference in a close, low-possession game."
+    },
+    {
+      "game": 12,
+      "region": "West",
+      "matchup": "(4) Arkansas vs (13) Hawaii",
+      "pick": "Arkansas",
+      "seed": 4,
+      "claude_prob": 0.72,
+      "source": "CLAUDE",
+      "rationale": "Arkansas as a 4-seed brings SEC tournament experience, superior athleticism, and coaching pedigree under their staff that typically translates well to NCAA Tournament play. Hawaii as a 13-seed from the Big West faces a significant talent gap, though mid-major upsets in this range occur roughly 20-25% of the time historically. The Rainbow Warriors would need exceptional three-point shooting and a slow-paced game to pull the upset against Arkansas's physical, transition-oriented style."
+    },
+    {
+      "game": 13,
+      "region": "West",
+      "matchup": "(6) BYU vs (11) Texas",
+      "pick": "BYU",
+      "seed": 6,
+      "claude_prob": 0.58,
+      "source": "CLAUDE",
+      "rationale": "BYU as a #6 seed holds a meaningful seeding advantage over #11 Texas, suggesting a stronger regular season resume. However, Big 12 familiarity works both ways as these programs know each other well, and Texas as an 11-seed likely enters as a dangerous upset-capable team. BYU's home conference experience and slight talent edge should be enough to prevail in a competitive game."
+    },
+    {
+      "game": 14,
+      "region": "West",
+      "matchup": "(3) Gonzaga vs (14) Kennesaw State",
+      "pick": "Gonzaga",
+      "seed": 3,
+      "claude_prob": 0.87,
+      "source": "CLAUDE",
+      "rationale": "Gonzaga remains an elite program under Mark Few with consistent top-tier recruiting, superior athleticism, and deep tournament experience compared to a mid-major Kennesaw State program. The Bulldogs' frontcourt size and offensive efficiency typically overwhelm lower-seeded opponents in first-round matchups. While 14-seeds have pulled off upsets historically, Gonzaga's talent gap and coaching advantage make them a heavy favorite here."
+    },
+    {
+      "game": 15,
+      "region": "West",
+      "matchup": "(7) Miami (FL) vs (10) Missouri",
+      "pick": "Missouri",
+      "seed": 10,
+      "claude_prob": 0.58,
+      "source": "CLAUDE",
+      "rationale": "Missouri has shown strong mid-major to power conference development under Dennis Gates, with athletic guards capable of disrupting Miami's half-court offense. Miami has struggled with consistency in ACC play and lacks a dominant go-to scorer to carry tournament pressure. The 10-seed Tigers have the athleticism and coaching to pull this mild upset."
+    },
+    {
+      "game": 16,
+      "region": "West",
+      "matchup": "(2) Purdue vs (15) Queens",
+      "pick": "Purdue",
+      "seed": 2,
+      "claude_prob": 0.89,
+      "source": "CLAUDE",
+      "rationale": "Purdue as a #2 seed brings significant Big Ten regular season experience, superior athleticism, and proven tournament pedigree under Matt Painter. Queens, as a #15 seed from a mid-major conference, faces a massive talent and size disadvantage typical of these matchups. While 15-over-2 upsets occur roughly 20% of the time historically, Purdue's frontcourt depth and coaching experience make them a strong favorite."
+    },
+    {
+      "game": 17,
+      "region": "South",
+      "matchup": "(1) Florida vs (16) Prairie View A&M",
+      "pick": "Florida",
+      "seed": 1,
+      "claude_prob": 0.97,
+      "source": "CLAUDE",
+      "rationale": "Florida as a #1 seed brings elite talent, superior athleticism, and a proven high-major schedule that overwhelms mid-major SWAC competition. Prairie View A&M, as a #16 seed, faces an enormous talent gap typical of this matchup, where #1 seeds hold an all-time record of roughly 99% win rate historically. Florida's depth, coaching, and physical advantages make an upset virtually impossible barring extraordinary circumstances."
+    },
+    {
+      "game": 18,
+      "region": "South",
+      "matchup": "(8) Clemson vs (9) Iowa",
+      "pick": "Clemson",
+      "seed": 8,
+      "claude_prob": 0.52,
+      "source": "CLAUDE",
+      "rationale": "This is an extremely evenly matched 8-9 game where both teams have comparable profiles. Clemson's ACC tournament experience and Brad Brownell's veteran coaching give them a slight edge, but Iowa's size and scoring ability make this a true coin-flip matchup. The slight home-neutral court adjustment and ACC brand recognition in close games tips this marginally toward Clemson."
+    },
+    {
+      "game": 19,
+      "region": "South",
+      "matchup": "(5) Vanderbilt vs (12) McNeese",
+      "pick": "Vanderbilt",
+      "seed": 5,
+      "claude_prob": 0.64,
+      "source": "CLAUDE",
+      "rationale": "Vanderbilt as a 5-seed brings SEC competition experience and superior athleticism, but McNeese has historically been a dangerous 12-seed capable of upsets, continuing a trend where 12-seeds beat 5-seeds roughly 35% of the time. The Commodores' depth and coaching staff should prevail, but McNeese's potential offensive efficiency and tournament hunger make this closer than the seeding suggests."
+    },
+    {
+      "game": 20,
+      "region": "South",
+      "matchup": "(4) Nebraska vs (13) Troy",
+      "pick": "Nebraska",
+      "seed": 4,
+      "claude_prob": 0.72,
+      "source": "CLAUDE",
+      "rationale": "Nebraska as a 4-seed brings Big Ten tournament experience and superior athleticism that should overwhelm a Sun Belt Troy squad. However, 13-seeds historically upset 4-seeds at a meaningful rate (~20-21%), and Troy's tempo-control style can keep games close. Nebraska's depth and coaching under Fred Hoiberg should be enough to advance, but this is a watchable game."
+    },
+    {
+      "game": 21,
+      "region": "South",
+      "matchup": "(6) North Carolina vs (11) VCU",
+      "pick": "North Carolina",
+      "seed": 6,
+      "claude_prob": 0.58,
+      "source": "CLAUDE",
+      "rationale": "North Carolina as a 6-seed brings ACC tournament experience and typically superior recruiting talent, but VCU's aggressive havoc-style defense historically creates problems for higher seeds in the first round. VCU's press and trapping schemes can force turnovers and disrupt UNC's halfcourt offense, making this a closer game than the seeding suggests. The Tar Heels' size advantage and depth should ultimately prevail, but this is a classic dangerous 11-seed matchup."
+    },
+    {
+      "game": 22,
+      "region": "South",
+      "matchup": "(3) Illinois vs (14) Penn",
+      "pick": "Illinois",
+      "seed": 3,
+      "claude_prob": 0.82,
+      "source": "CLAUDE",
+      "rationale": "Illinois as a 3-seed brings significantly superior athleticism, depth, and Big Ten tournament experience compared to Penn, an Ivy League program. The Illini's coaching under Brad Underwood and their physicality should overwhelm Penn's half-court system. While 14-seeds occasionally upset 3-seeds historically (~15% of the time), Illinois's talent advantage makes this a likely comfortable win."
+    },
+    {
+      "game": 23,
+      "region": "South",
+      "matchup": "(7) Saint Mary's vs (10) Texas A&M",
+      "pick": "Saint Mary's",
+      "seed": 7,
+      "claude_prob": 0.54,
+      "source": "CLAUDE",
+      "rationale": "Saint Mary's brings its trademark slow-paced, disciplined offensive system under Randy Bennett that consistently limits opponents' possessions and keeps games close, which historically benefits the Gaels in tournament settings. Texas A&M has athleticism and SEC battle-testing but can struggle against teams that control tempo. This is a near coin-flip with Saint Mary's slight edge coming from their cohesive system and experience in these tight tournament games."
+    },
+    {
+      "game": 24,
+      "region": "South",
+      "matchup": "(2) Houston vs (15) Idaho",
+      "pick": "Houston",
+      "seed": 2,
+      "claude_prob": 0.94,
+      "source": "CLAUDE",
+      "rationale": "Houston under Kelvin Sampson consistently fields one of the nation's elite defensive programs with superior athleticism, size, and tournament experience compared to a mid-major Idaho program from the Big Sky Conference. The Cougars' physical, grind-it-out defensive style typically neutralizes lower-seeded opponents who lack the personnel to match their intensity. Historical 2-vs-15 matchups heavily favor the higher seed, and Houston's program depth makes an upset extremely unlikely."
+    },
+    {
+      "game": 25,
+      "region": "Midwest",
+      "matchup": "(1) Michigan vs (16) UMBC",
+      "pick": "Michigan",
+      "seed": 1,
+      "claude_prob": 0.97,
+      "source": "CLAUDE",
+      "rationale": "As a #1 seed, Michigan carries significant talent, depth, and tournament experience advantages over a #16 seed UMBC squad from a mid-major conference. #1 seeds have historically dominated #16 seeds, winning the vast majority of these matchups, with only two upsets ever occurring in tournament history. Michigan's superior athleticism, coaching, and preparation should translate to a comfortable victory."
+    },
+    {
+      "game": 26,
+      "region": "Midwest",
+      "matchup": "(8) Georgia vs (9) Saint Louis",
+      "pick": "Georgia",
+      "seed": 8,
+      "claude_prob": 0.52,
+      "source": "CLAUDE",
+      "rationale": "This is a classic 8-9 matchup where the seeds are nearly interchangeable in terms of talent level. Georgia brings SEC tournament experience and athleticism, while Saint Louis has been competitive in the Atlantic 10. The slight edge goes to Georgia based on conference strength, but this is essentially a coin flip game."
+    },
+    {
+      "game": 27,
+      "region": "Midwest",
+      "matchup": "(5) Texas Tech vs (12) Akron",
+      "pick": "Texas Tech",
+      "seed": 5,
+      "claude_prob": 0.68,
+      "source": "CLAUDE",
+      "rationale": "Texas Tech brings superior Big 12 competition experience and typically fields a well-coached, defensively disciplined team under their system that matches up well against mid-major opponents. Akron as a #12 seed represents a real upset threat, as 12-over-5 is historically one of the most common upset seeds in the tournament. The Red Raiders' talent advantage and tournament experience should prevail, but this figures to be a competitive game."
+    },
+    {
+      "game": 28,
+      "region": "Midwest",
+      "matchup": "(4) Alabama vs (13) Hofstra",
+      "pick": "Alabama",
+      "seed": 4,
+      "claude_prob": 0.79,
+      "source": "CLAUDE",
+      "rationale": "Alabama under Nate Oats typically fields a high-powered offense with elite athleticism and SEC tournament experience, making them a significant favorite over a mid-major Hofstra squad. However, the Pride from the CAA can be dangerous with sharp perimeter shooting and disciplined schemes that have historically given higher seeds trouble. The talent gap and depth advantage should carry Alabama through, though a double-digit upset remains plausible if Hofstra's offense gets hot from three."
+    },
+    {
+      "game": 29,
+      "region": "Midwest",
+      "matchup": "(6) Tennessee vs (11) SMU",
+      "pick": "Tennessee",
+      "seed": 6,
+      "claude_prob": 0.63,
+      "source": "CLAUDE",
+      "rationale": "Tennessee's physical, defense-first style under Rick Barnes typically translates well to tournament play, and as a 6-seed they carry significant SEC pedigree and experience. SMU as an 11-seed represents a dangerous mid-major threat with capable offensive weapons, and the double-digit seed line historically produces upsets at a notable rate. Tennessee's size and defensive pressure should be the difference, but SMU's guard play could keep this competitive."
+    },
+    {
+      "game": 30,
+      "region": "Midwest",
+      "matchup": "(3) Virginia vs (14) Wright State",
+      "pick": "Virginia",
+      "seed": 3,
+      "claude_prob": 0.79,
+      "source": "CLAUDE",
+      "rationale": "Virginia's disciplined pack-line defense and methodical half-court offense under Tony Bennett's system (or his successor) traditionally makes them a tough out for mid-majors who rely on pace and transition. Wright State, as a Horizon League representative, would face significant challenges executing against Virginia's suffocating defensive scheme. However, #14 seeds have historically pulled off upsets roughly 15% of the time, and Virginia themselves famously lost to a #16 seed in 2018, keeping some upset probability alive."
+    },
+    {
+      "game": 31,
+      "region": "Midwest",
+      "matchup": "(7) Kentucky vs (10) Santa Clara",
+      "pick": "Kentucky",
+      "seed": 7,
+      "claude_prob": 0.62,
+      "source": "CLAUDE",
+      "rationale": "Kentucky's traditional recruiting advantages and SEC tournament experience give them an edge, but as a 7-10 matchup this is historically one of the most upset-prone in the bracket. Santa Clara's ability to play disciplined, system-based basketball under Mark Edwards could exploit any inconsistency from a Kentucky team that has shown vulnerability against organized offenses. The Wildcats' athleticism and depth should prevail, but this is far from a safe pick."
+    },
+    {
+      "game": 32,
+      "region": "Midwest",
+      "matchup": "(2) Iowa State vs (15) Tennessee State",
+      "pick": "Iowa State",
+      "seed": 2,
+      "claude_prob": 0.93,
+      "source": "CLAUDE",
+      "rationale": "Iowa State under T.J. Otzelberger has built a perennial Big 12 contender with elite defense, veteran leadership, and consistent tournament experience, making them a formidable 2-seed. Tennessee State, as a 15-seed from a mid-major conference, lacks the athleticism, depth, and offensive firepower to compete with Iowa State's suffocating defensive schemes. Historical 2 vs 15 matchups result in upsets only about 6-7% of the time, and Iowa State's program caliber makes an upset even less likely."
+    }
+  ],
+  "round_of_32": [
+    {
+      "game": 33,
+      "region": "East",
+      "matchup": "(1) Duke vs (8) Ohio State",
+      "pick": "Duke",
+      "seed": 1,
+      "claude_prob": 0.68,
+      "source": "CLAUDE",
+      "rationale": "Duke as a #1 seed carries significant advantages in talent, coaching under Jon Scheyer, and tournament preparation, but Ohio State as an #8 seed has already proven itself by winning a Round of 64 game and arrives battle-tested. The Blue Devils' superior recruiting class and ACC regular season experience should prevail, though an 8-vs-1 upset is historically possible at a roughly 20-25% clip."
+    },
+    {
+      "game": 34,
+      "region": "East",
+      "matchup": "(4) Kansas vs (5) St. John's",
+      "pick": "Kansas",
+      "seed": 4,
+      "claude_prob": 0.54,
+      "source": "CLAUDE",
+      "rationale": "This is a near pick-em matchup between two bluebloods with strong tournament pedigrees. Kansas brings Bill Self's experienced tournament coaching and typically reliable big-game execution, but St. John's under Rick Pitino has re-established itself as a legitimate contender with elite guard play and defensive intensity. The slight edge goes to Kansas based on historical tournament experience, but St. John's has the talent and coaching to pull the upset."
+    },
+    {
+      "game": 35,
+      "region": "East",
+      "matchup": "(3) Michigan State vs (6) Louisville",
+      "pick": "Michigan State",
+      "seed": 3,
+      "claude_prob": 0.62,
+      "source": "CLAUDE",
+      "rationale": "Michigan State's tournament pedigree under Tom Izzo gives them a meaningful edge in high-pressure elimination games, as Izzo consistently over-performs seeding in March. Louisville as a 6-seed represents a dangerous mid-major threat with athleticism and defensive intensity that could trouble the Spartans. However, Michigan State's experience and Izzo's preparation advantage should carry them through a competitive game."
+    },
+    {
+      "game": 36,
+      "region": "East",
+      "matchup": "(2) UConn vs (7) UCLA",
+      "pick": "UConn",
+      "seed": 2,
+      "claude_prob": 0.63,
+      "source": "CLAUDE",
+      "rationale": "UConn's tournament pedigree under Dan Hurley remains elite, with disciplined defense and experienced roster construction giving them a structural edge. However, UCLA's athleticism and Pac-12/Big Ten caliber competition make them a dangerous 7-seed capable of an upset. UConn's home-region familiarity in the East bracket and superior depth should carry them through a competitive game."
+    },
+    {
+      "game": 37,
+      "region": "West",
+      "matchup": "(1) Arizona vs (9) Utah State",
+      "pick": "Arizona",
+      "seed": 1,
+      "claude_prob": 0.72,
+      "source": "CLAUDE",
+      "rationale": "Arizona as a #1 seed carries significant talent and coaching advantages under Tommy Lloyd, with a high-powered offense and experienced roster capable of handling tournament pressure. Utah State as a #9 seed from the Mountain West is a dangerous mid-major program with strong coaching under Nate Oats's successor, capable of pulling upsets with disciplined play and three-point shooting. However, Arizona's superior athleticism and depth should prevail in a competitive but manageable victory."
+    },
+    {
+      "game": 38,
+      "region": "West",
+      "matchup": "(4) Arkansas vs (5) Wisconsin",
+      "pick": "Wisconsin",
+      "seed": 5,
+      "claude_prob": 0.56,
+      "source": "CLAUDE",
+      "rationale": "Wisconsin's disciplined, slow-paced offense under Greg Gard historically neutralizes more athletic teams like Arkansas, grinding games into halfcourt battles that neutralize the Razorbacks' transition advantages. As a 5-seed, Wisconsin typically arrives battle-tested from a competitive Big Ten, and their experience and composure in close tournament games gives them a slight edge. Arkansas's uptempo style and potential inconsistency in halfcourt sets makes this a difficult matchup for the Razorbacks."
+    },
+    {
+      "game": 39,
+      "region": "West",
+      "matchup": "(3) Gonzaga vs (6) BYU",
+      "pick": "Gonzaga",
+      "seed": 3,
+      "claude_prob": 0.62,
+      "source": "CLAUDE",
+      "rationale": "Gonzaga's tournament pedigree and Mark Few's coaching experience give them a structural edge, but BYU as a 6-seed represents a dangerous mid-major threat capable of an upset. The Bulldogs' interior presence and half-court execution typically shine in tournament settings, though BYU's physicality and Big 12 battle-tested roster make this a competitive game. Gonzaga's deeper tournament experience and home-region familiarity in the West bracket tips the balance in their favor."
+    },
+    {
+      "game": 40,
+      "region": "West",
+      "matchup": "(2) Purdue vs (10) Missouri",
+      "pick": "Purdue",
+      "seed": 2,
+      "claude_prob": 0.64,
+      "source": "CLAUDE",
+      "rationale": "Purdue as a #2 seed carries significant structural advantages in talent and seeding, but Missouri as a #10 seed has demonstrated enough regular season quality to earn their bid and poses a credible upset threat. The Boilermakers' size and frontcourt depth should be decisive factors, though Missouri's athleticism and tempo could create problems. Historical #10 vs #2 upsets occur roughly 30-35% of the time, keeping this competitive."
+    },
+    {
+      "game": 41,
+      "region": "South",
+      "matchup": "(1) Florida vs (8) Clemson",
+      "pick": "Florida",
+      "seed": 1,
+      "claude_prob": 0.72,
+      "source": "CLAUDE",
+      "rationale": "Florida as a #1 seed carries significant advantages in talent, depth, and coaching under Todd Golden, who has built the Gators into an elite program. Clemson as an #8 seed is a dangerous opponent capable of upsetting higher seeds, and the Tigers' physical, defensive style under Brad Brownell can disrupt Florida's rhythm. However, Florida's superior roster and home-region familiarity in the South bracket should be enough to advance."
+    },
+    {
+      "game": 42,
+      "region": "South",
+      "matchup": "(4) Nebraska vs (5) Vanderbilt",
+      "pick": "Nebraska",
+      "seed": 4,
+      "claude_prob": 0.52,
+      "source": "CLAUDE",
+      "rationale": "This is an extremely tight matchup between two evenly seeded Big Ten and SEC programs. Nebraska's higher seed gives them a slight edge, but Vanderbilt's perimeter shooting and SEC tournament experience make this a genuine toss-up. The one-seed difference suggests marginal Nebraska advantage, but either team is capable of advancing."
+    },
+    {
+      "game": 43,
+      "region": "South",
+      "matchup": "(3) Illinois vs (6) North Carolina",
+      "pick": "Illinois",
+      "seed": 3,
+      "claude_prob": 0.58,
+      "source": "CLAUDE",
+      "rationale": "Illinois as a #3 seed holds a meaningful seeding advantage and typically benefits from Big Ten tournament experience and strong frontcourt play under Brad Underwood's system. North Carolina's perimeter shooting and transition offense make them a dangerous #6 seed capable of an upset, and the Tar Heels' blue-blood tournament pedigree keeps this competitive. The slight edge goes to Illinois based on seeding and projected defensive efficiency, but this figures to be a closely contested game."
+    },
+    {
+      "game": 44,
+      "region": "South",
+      "matchup": "(2) Houston vs (7) Saint Mary's",
+      "pick": "Houston",
+      "seed": 2,
+      "claude_prob": 0.64,
+      "source": "CLAUDE",
+      "rationale": "Houston's defensive identity under Kelvin Sampson typically makes them a difficult out in March, and as a 2-seed they carry superior talent and depth. However, Saint Mary's under Randy Bennett is a perennially disciplined program that slows tempo, executes efficiently, and consistently overachieves in the tournament, making this a dangerous matchup for Houston. The Gaels' deliberate pace could neutralize Houston's athleticism, but the Cougars' defensive pressure and interior size should ultimately prove the difference."
+    },
+    {
+      "game": 45,
+      "region": "Midwest",
+      "matchup": "(1) Michigan vs (8) Georgia",
+      "pick": "Michigan",
+      "seed": 1,
+      "claude_prob": 0.72,
+      "source": "CLAUDE",
+      "rationale": "As a #1 seed, Michigan enters with superior resume, depth, and coaching advantages that typically translate well in tournament settings. Georgia as an #8 seed presents a credible threat given SEC tournament experience and athleticism, but Michigan's home-region familiarity in the Midwest bracket and presumed regular season dominance give them a clear edge. The #1 vs #8 matchup historically favors the higher seed at roughly 75-80%, though Georgia's SEC pedigree keeps this from being a blowout projection."
+    },
+    {
+      "game": 46,
+      "region": "Midwest",
+      "matchup": "(4) Alabama vs (5) Texas Tech",
+      "pick": "Alabama",
+      "seed": 4,
+      "claude_prob": 0.52,
+      "source": "CLAUDE",
+      "rationale": "This is a near pick-em matchup between two quality SEC and Big 12 programs with comparable tournament pedigree. Alabama's athleticism and perimeter scoring give them a slight edge, but Texas Tech's defensive discipline under their system historically makes them dangerous in close tournament games. The one-seed line difference is minimal and either team could advance comfortably."
+    },
+    {
+      "game": 47,
+      "region": "Midwest",
+      "matchup": "(3) Virginia vs (6) Tennessee",
+      "pick": "Tennessee",
+      "seed": 6,
+      "claude_prob": 0.58,
+      "source": "CLAUDE",
+      "rationale": "Tennessee's physical, aggressive defensive style and superior athleticism typically creates problems for Virginia's methodical pack-line defense and slow-tempo offense in tournament settings. The Volunteers' depth and ability to pressure the ball can disrupt Virginia's deliberate half-court execution. As a 6-seed, Tennessee has the talent profile to pull this upset against a Virginia team that can struggle to generate offense against elite defensive pressure."
+    },
+    {
+      "game": 48,
+      "region": "Midwest",
+      "matchup": "(2) Iowa State vs (7) Kentucky",
+      "pick": "Iowa State",
+      "seed": 2,
+      "claude_prob": 0.62,
+      "source": "CLAUDE",
+      "rationale": "Iowa State under T.J. Otzelberger has built a program with elite defensive discipline and tournament toughness, making them a reliable higher seed in the Midwest region. Kentucky, however, is perpetually dangerous with John Calipari's (or his successor's) recruiting talent and the Wildcats' history of tournament upsets as a 7-seed. Iowa State's structural advantages as a 2-seed with home-region familiarity give them the edge, but Kentucky's athleticism and depth keep this closer than the seeding suggests."
+    }
+  ],
+  "sweet_16": [
+    {
+      "game": 49,
+      "region": "East",
+      "matchup": "(1) Duke vs (4) Kansas",
+      "pick": "Duke",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 50,
+      "region": "East",
+      "matchup": "(2) UConn vs (3) Michigan State",
+      "pick": "UConn",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 51,
+      "region": "West",
+      "matchup": "(1) Arizona vs (5) Wisconsin",
+      "pick": "Arizona",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 52,
+      "region": "West",
+      "matchup": "(2) Purdue vs (3) Gonzaga",
+      "pick": "Purdue",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 53,
+      "region": "South",
+      "matchup": "(1) Florida vs (4) Nebraska",
+      "pick": "Florida",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 54,
+      "region": "South",
+      "matchup": "(2) Houston vs (3) Illinois",
+      "pick": "Houston",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 55,
+      "region": "Midwest",
+      "matchup": "(1) Michigan vs (4) Alabama",
+      "pick": "Michigan",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 56,
+      "region": "Midwest",
+      "matchup": "(2) Iowa State vs (6) Tennessee",
+      "pick": "Iowa State",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    }
+  ],
+  "elite_8": [
+    {
+      "game": 57,
+      "region": "East",
+      "matchup": "(1) Duke vs (2) UConn",
+      "pick": "Duke",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 58,
+      "region": "West",
+      "matchup": "(1) Arizona vs (2) Purdue",
+      "pick": "Arizona",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 59,
+      "region": "South",
+      "matchup": "(1) Florida vs (2) Houston",
+      "pick": "Florida",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 60,
+      "region": "Midwest",
+      "matchup": "(1) Michigan vs (2) Iowa State",
+      "pick": "Michigan",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    }
+  ],
+  "final_four": [
+    {
+      "game": 61,
+      "region": "Final Four",
+      "matchup": "(1) Duke vs (1) Arizona",
+      "pick": "Duke",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 62,
+      "region": "Final Four",
+      "matchup": "(1) Florida vs (1) Michigan",
+      "pick": "Florida",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    }
+  ],
+  "championship": [
+    {
+      "game": 63,
+      "region": "Championship",
+      "matchup": "(1) Duke vs (1) Florida",
+      "pick": "Duke",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    }
+  ]
+}

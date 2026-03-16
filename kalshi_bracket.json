@@ -1,0 +1,564 @@
+{
+  "round_of_64": [
+    {
+      "game": 1,
+      "region": "East",
+      "matchup": "(1) Duke vs (16) Siena",
+      "pick": "Duke",
+      "seed": 1,
+      "market_prob": 0.965,
+      "source": "KALSHI"
+    },
+    {
+      "game": 2,
+      "region": "East",
+      "matchup": "(8) Ohio State vs (9) TCU",
+      "pick": "Ohio State",
+      "seed": 8,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 3,
+      "region": "East",
+      "matchup": "(5) St. John's vs (12) Northern Iowa",
+      "pick": "St. John's",
+      "seed": 5,
+      "market_prob": 0.629,
+      "source": "KALSHI"
+    },
+    {
+      "game": 4,
+      "region": "East",
+      "matchup": "(4) Kansas vs (13) Cal Baptist",
+      "pick": "Kansas",
+      "seed": 4,
+      "market_prob": 0.73,
+      "source": "KALSHI"
+    },
+    {
+      "game": 5,
+      "region": "East",
+      "matchup": "(6) Louisville vs (11) South Florida",
+      "pick": "Louisville",
+      "seed": 6,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 6,
+      "region": "East",
+      "matchup": "(3) Michigan State vs (14) North Dakota State",
+      "pick": "Michigan State",
+      "seed": 3,
+      "market_prob": 0.766,
+      "source": "KALSHI"
+    },
+    {
+      "game": 7,
+      "region": "East",
+      "matchup": "(7) UCLA vs (10) UCF",
+      "pick": "UCLA",
+      "seed": 7,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 8,
+      "region": "East",
+      "matchup": "(2) UConn vs (15) Furman",
+      "pick": "UConn",
+      "seed": 2,
+      "market_prob": 0.852,
+      "source": "KALSHI"
+    },
+    {
+      "game": 9,
+      "region": "West",
+      "matchup": "(1) Arizona vs (16) LIU",
+      "pick": "Arizona",
+      "seed": 1,
+      "market_prob": 0.958,
+      "source": "KALSHI"
+    },
+    {
+      "game": 10,
+      "region": "West",
+      "matchup": "(8) Villanova vs (9) Utah State",
+      "pick": "Villanova",
+      "seed": 8,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 11,
+      "region": "West",
+      "matchup": "(5) Wisconsin vs (12) High Point",
+      "pick": "Wisconsin",
+      "seed": 5,
+      "market_prob": 0.629,
+      "source": "KALSHI"
+    },
+    {
+      "game": 12,
+      "region": "West",
+      "matchup": "(4) Arkansas vs (13) Hawaii",
+      "pick": "Arkansas",
+      "seed": 4,
+      "market_prob": 0.73,
+      "source": "KALSHI"
+    },
+    {
+      "game": 13,
+      "region": "West",
+      "matchup": "(6) BYU vs (11) Texas",
+      "pick": "BYU",
+      "seed": 6,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 14,
+      "region": "West",
+      "matchup": "(3) Gonzaga vs (14) Kennesaw State",
+      "pick": "Gonzaga",
+      "seed": 3,
+      "market_prob": 0.766,
+      "source": "KALSHI"
+    },
+    {
+      "game": 15,
+      "region": "West",
+      "matchup": "(7) Miami (FL) vs (10) Missouri",
+      "pick": "Miami (FL)",
+      "seed": 7,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 16,
+      "region": "West",
+      "matchup": "(2) Purdue vs (15) Queens",
+      "pick": "Purdue",
+      "seed": 2,
+      "market_prob": 0.852,
+      "source": "KALSHI"
+    },
+    {
+      "game": 17,
+      "region": "South",
+      "matchup": "(1) Florida vs (16) Prairie View A&M",
+      "pick": "Florida",
+      "seed": 1,
+      "market_prob": 0.933,
+      "source": "KALSHI"
+    },
+    {
+      "game": 18,
+      "region": "South",
+      "matchup": "(8) Clemson vs (9) Iowa",
+      "pick": "Clemson",
+      "seed": 8,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 19,
+      "region": "South",
+      "matchup": "(5) Vanderbilt vs (12) McNeese",
+      "pick": "Vanderbilt",
+      "seed": 5,
+      "market_prob": 0.629,
+      "source": "KALSHI"
+    },
+    {
+      "game": 20,
+      "region": "South",
+      "matchup": "(4) Nebraska vs (13) Troy",
+      "pick": "Nebraska",
+      "seed": 4,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 21,
+      "region": "South",
+      "matchup": "(6) North Carolina vs (11) VCU",
+      "pick": "North Carolina",
+      "seed": 6,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 22,
+      "region": "South",
+      "matchup": "(3) Illinois vs (14) Penn",
+      "pick": "Illinois",
+      "seed": 3,
+      "market_prob": 0.813,
+      "source": "KALSHI"
+    },
+    {
+      "game": 23,
+      "region": "South",
+      "matchup": "(7) Saint Mary's vs (10) Texas A&M",
+      "pick": "Saint Mary's",
+      "seed": 7,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 24,
+      "region": "South",
+      "matchup": "(2) Houston vs (15) Idaho",
+      "pick": "Houston",
+      "seed": 2,
+      "market_prob": 0.901,
+      "source": "KALSHI"
+    },
+    {
+      "game": 25,
+      "region": "Midwest",
+      "matchup": "(1) Michigan vs (16) UMBC",
+      "pick": "Michigan",
+      "seed": 1,
+      "market_prob": 0.958,
+      "source": "KALSHI"
+    },
+    {
+      "game": 26,
+      "region": "Midwest",
+      "matchup": "(8) Georgia vs (9) Saint Louis",
+      "pick": "Georgia",
+      "seed": 8,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 27,
+      "region": "Midwest",
+      "matchup": "(5) Texas Tech vs (12) Akron",
+      "pick": "Texas Tech",
+      "seed": 5,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 28,
+      "region": "Midwest",
+      "matchup": "(4) Alabama vs (13) Hofstra",
+      "pick": "Alabama",
+      "seed": 4,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 29,
+      "region": "Midwest",
+      "matchup": "(6) Tennessee vs (11) SMU",
+      "pick": "Tennessee",
+      "seed": 6,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 30,
+      "region": "Midwest",
+      "matchup": "(3) Virginia vs (14) Wright State",
+      "pick": "Virginia",
+      "seed": 3,
+      "market_prob": 0.766,
+      "source": "KALSHI"
+    },
+    {
+      "game": 31,
+      "region": "Midwest",
+      "matchup": "(7) Kentucky vs (10) Santa Clara",
+      "pick": "Kentucky",
+      "seed": 7,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 32,
+      "region": "Midwest",
+      "matchup": "(2) Iowa State vs (15) Tennessee State",
+      "pick": "Iowa State",
+      "seed": 2,
+      "market_prob": 0.852,
+      "source": "KALSHI"
+    }
+  ],
+  "round_of_32": [
+    {
+      "game": 33,
+      "region": "East",
+      "matchup": "(1) Duke vs (8) Ohio State",
+      "pick": "Duke",
+      "seed": 1,
+      "market_prob": 0.965,
+      "source": "KALSHI"
+    },
+    {
+      "game": 34,
+      "region": "East",
+      "matchup": "(4) Kansas vs (5) St. John's",
+      "pick": "Kansas",
+      "seed": 4,
+      "market_prob": 0.635,
+      "source": "KALSHI"
+    },
+    {
+      "game": 35,
+      "region": "East",
+      "matchup": "(3) Michigan State vs (6) Louisville",
+      "pick": "Michigan State",
+      "seed": 3,
+      "market_prob": 0.766,
+      "source": "KALSHI"
+    },
+    {
+      "game": 36,
+      "region": "East",
+      "matchup": "(2) UConn vs (7) UCLA",
+      "pick": "UConn",
+      "seed": 2,
+      "market_prob": 0.852,
+      "source": "KALSHI"
+    },
+    {
+      "game": 37,
+      "region": "West",
+      "matchup": "(1) Arizona vs (8) Villanova",
+      "pick": "Arizona",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 38,
+      "region": "West",
+      "matchup": "(4) Arkansas vs (5) Wisconsin",
+      "pick": "Arkansas",
+      "seed": 4,
+      "market_prob": 0.635,
+      "source": "KALSHI"
+    },
+    {
+      "game": 39,
+      "region": "West",
+      "matchup": "(3) Gonzaga vs (6) BYU",
+      "pick": "Gonzaga",
+      "seed": 3,
+      "market_prob": 0.766,
+      "source": "KALSHI"
+    },
+    {
+      "game": 40,
+      "region": "West",
+      "matchup": "(2) Purdue vs (7) Miami (FL)",
+      "pick": "Purdue",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 41,
+      "region": "South",
+      "matchup": "(1) Florida vs (8) Clemson",
+      "pick": "Florida",
+      "seed": 1,
+      "market_prob": 0.933,
+      "source": "KALSHI"
+    },
+    {
+      "game": 42,
+      "region": "South",
+      "matchup": "(4) Nebraska vs (5) Vanderbilt",
+      "pick": "Nebraska",
+      "seed": 4,
+      "market_prob": 0.66,
+      "source": "KALSHI"
+    },
+    {
+      "game": 43,
+      "region": "South",
+      "matchup": "(3) Illinois vs (6) North Carolina",
+      "pick": "Illinois",
+      "seed": 3,
+      "market_prob": 0.813,
+      "source": "KALSHI"
+    },
+    {
+      "game": 44,
+      "region": "South",
+      "matchup": "(2) Houston vs (7) Saint Mary's",
+      "pick": "Houston",
+      "seed": 2,
+      "market_prob": 0.901,
+      "source": "KALSHI"
+    },
+    {
+      "game": 45,
+      "region": "Midwest",
+      "matchup": "(1) Michigan vs (8) Georgia",
+      "pick": "Michigan",
+      "seed": 1,
+      "market_prob": 0.958,
+      "source": "KALSHI"
+    },
+    {
+      "game": 46,
+      "region": "Midwest",
+      "matchup": "(4) Alabama vs (5) Texas Tech",
+      "pick": "Alabama",
+      "seed": 4,
+      "market_prob": null,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 47,
+      "region": "Midwest",
+      "matchup": "(3) Virginia vs (6) Tennessee",
+      "pick": "Virginia",
+      "seed": 3,
+      "market_prob": 0.766,
+      "source": "KALSHI"
+    },
+    {
+      "game": 48,
+      "region": "Midwest",
+      "matchup": "(2) Iowa State vs (7) Kentucky",
+      "pick": "Iowa State",
+      "seed": 2,
+      "market_prob": 0.852,
+      "source": "KALSHI"
+    }
+  ],
+  "sweet_16": [
+    {
+      "game": 49,
+      "region": "East",
+      "matchup": "(1) Duke vs (4) Kansas",
+      "pick": "Duke",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 50,
+      "region": "East",
+      "matchup": "(2) UConn vs (3) Michigan State",
+      "pick": "UConn",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 51,
+      "region": "West",
+      "matchup": "(1) Arizona vs (4) Arkansas",
+      "pick": "Arizona",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 52,
+      "region": "West",
+      "matchup": "(2) Purdue vs (3) Gonzaga",
+      "pick": "Purdue",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 53,
+      "region": "South",
+      "matchup": "(1) Florida vs (4) Nebraska",
+      "pick": "Florida",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 54,
+      "region": "South",
+      "matchup": "(2) Houston vs (3) Illinois",
+      "pick": "Houston",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 55,
+      "region": "Midwest",
+      "matchup": "(1) Michigan vs (4) Alabama",
+      "pick": "Michigan",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 56,
+      "region": "Midwest",
+      "matchup": "(2) Iowa State vs (3) Virginia",
+      "pick": "Iowa State",
+      "seed": 2,
+      "source": "SEED_DEFAULT"
+    }
+  ],
+  "elite_8": [
+    {
+      "game": 57,
+      "region": "East",
+      "matchup": "(1) Duke vs (2) UConn",
+      "pick": "Duke",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 58,
+      "region": "West",
+      "matchup": "(1) Arizona vs (2) Purdue",
+      "pick": "Arizona",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 59,
+      "region": "South",
+      "matchup": "(1) Florida vs (2) Houston",
+      "pick": "Florida",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 60,
+      "region": "Midwest",
+      "matchup": "(1) Michigan vs (2) Iowa State",
+      "pick": "Michigan",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    }
+  ],
+  "final_four": [
+    {
+      "game": 61,
+      "region": "Final Four",
+      "matchup": "(1) Duke vs (1) Arizona",
+      "pick": "Duke",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    },
+    {
+      "game": 62,
+      "region": "Final Four",
+      "matchup": "(1) Florida vs (1) Michigan",
+      "pick": "Florida",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    }
+  ],
+  "championship": [
+    {
+      "game": 63,
+      "region": "Championship",
+      "matchup": "(1) Duke vs (1) Florida",
+      "pick": "Duke",
+      "seed": 1,
+      "source": "SEED_DEFAULT"
+    }
+  ]
+}
