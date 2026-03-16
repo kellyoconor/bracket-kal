@@ -5,7 +5,7 @@ Monitor your bracket picks against live Kalshi odds.
 - Polls Kalshi every 10 min for odds movement on your picked teams
 - Telegrams BelowTheFloorBot when a picked team drops >5%
 - After each game resolves, Telegrams: pick correct or busted
-- Tracks running score: divergence picks hitting vs chalk
+- Tracks running score: divergence picks hitting vs Kalshi
 - Single command: python monitor.py
 """
 
@@ -70,7 +70,7 @@ def load_picks() -> list[dict]:
 FRESH_SCORE = {
     "correct": 0, "busted": 0, "pending": 0,
     "diverge_correct": 0, "diverge_busted": 0,
-    "chalk_correct": 0, "chalk_busted": 0,
+    "kalshi_correct": 0, "kalshi_busted": 0,
     "resolved_games": [],
 }
 
@@ -212,11 +212,11 @@ def main():
 
     # Count pick types
     diverge_count = sum(1 for p in picks if p.get("pick_source") == "DIVERGE")
-    chalk_count = len(picks) - diverge_count
+    kalshi_count = len(picks) - diverge_count
 
     telegram_send(
         f"Bracket monitor is live.\n\n"
-        f"Tracking {len(picks)} picks — {diverge_count} Claude, {chalk_count} chalk.\n"
+        f"Tracking {len(picks)} picks — {diverge_count} Claude, {kalshi_count} Kalshi.\n"
         f"I'll message you when odds move or games finish."
     )
 
@@ -260,13 +260,13 @@ def main():
                     if source == "DIVERGE":
                         score["diverge_correct"] += 1
                     else:
-                        score["chalk_correct"] += 1
+                        score["kalshi_correct"] += 1
                 else:
                     score["busted"] += 1
                     if source == "DIVERGE":
                         score["diverge_busted"] += 1
                     else:
-                        score["chalk_busted"] += 1
+                        score["kalshi_busted"] += 1
                 save_score(score)
 
                 # Build human-readable message
@@ -289,13 +289,13 @@ def main():
                             f"Claude saw the edge. That's the whole point.\n\n"
                             f"Record: {total_w}-{total_l} "
                             f"({score['diverge_correct']}-{score['diverge_busted']} Claude, "
-                            f"{score['chalk_correct']}-{score['chalk_busted']} chalk)"
+                            f"{score['Kalshi_correct']}-{score['Kalshi_busted']} Kalshi)"
                         )
                     else:
                         msg = (
                             f"{team} wins as expected.\n\n"
                             f"{matchup} ({region})\n\n"
-                            f"Chalk pick — market and Claude both liked them. "
+                            f"Kalshi pick — market and Claude both liked them. "
                             f"No surprises here.\n\n"
                             f"Record: {total_w}-{total_l}"
                         )
@@ -310,13 +310,13 @@ def main():
                             f"the market did, but the market was right on this one.\n\n"
                             f"Record: {total_w}-{total_l} "
                             f"({score['diverge_correct']}-{score['diverge_busted']} Claude, "
-                            f"{score['chalk_correct']}-{score['chalk_busted']} chalk)"
+                            f"{score['Kalshi_correct']}-{score['Kalshi_busted']} Kalshi)"
                         )
                     else:
                         msg = (
                             f"Upset. {team} is out.\n\n"
                             f"{matchup} ({region})\n\n"
-                            f"{opponent.strip()} pulls the upset. This was a chalk pick — "
+                            f"{opponent.strip()} pulls the upset. This was a Kalshi pick — "
                             f"both the market and Claude had {team}. "
                             f"Sometimes the madness wins.\n\n"
                             f"Record: {total_w}-{total_l}"
@@ -348,7 +348,7 @@ def main():
                             f"{team} odds are dropping.\n\n"
                             f"{matchup}\n"
                             f"Was {pct_was}, now {pct_now}.\n\n"
-                            f"Chalk pick — might be getting less chalky."
+                            f"Kalshi pick — the market is softening on them."
                         )
 
                     print(f"  Drop: {team} {pct_was} -> {pct_now}")
@@ -363,8 +363,8 @@ def main():
         total = score["correct"] + score["busted"]
         pct = f"{score['correct']/total:.0%}" if total > 0 else "n/a"
         print(f"\n  Running score: {score['correct']}W / {score['busted']}L ({pct})")
-        print(f"  Diverge: {score['diverge_correct']}W/{score['diverge_busted']}L | "
-              f"Chalk: {score['chalk_correct']}W/{score['chalk_busted']}L")
+        print(f"  Claude: {score['diverge_correct']}W/{score['diverge_busted']}L | "
+              f"Kalshi: {score['kalshi_correct']}W/{score['kalshi_busted']}L")
         print(f"  Next poll in {POLL_INTERVAL // 60} min...")
 
         time.sleep(POLL_INTERVAL)
