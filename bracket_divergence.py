@@ -22,8 +22,11 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-import truststore
-truststore.inject_into_ssl()
+try:
+    import truststore
+    truststore.inject_into_ssl()
+except ImportError:
+    pass  # Not needed on Linux/Railway — only macOS Python 3.14 SSL fix
 
 import anthropic
 
