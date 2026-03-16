@@ -2,38 +2,52 @@
 
 Compare Kalshi prediction market odds against Claude's independent game assessments to find divergence — and make picks from it.
 
+Pulls 11,000+ live Kalshi markets across 7 series, has Claude blindly assess every matchup, computes the gap, and picks from it. All 63 games. All 6 rounds.
+
 ## How It Works
 
-The tool operates in three stages:
-
 ### 1. Pull Market Data
-`kalshi_odds.py` hits the Kalshi public API (no auth required) and pulls championship winner market prices for all NCAA tournament teams. Raw data is saved to `kalshi_markets.json`.
 
-### 2. Derive Game-Level Odds
-`derive_odds.py` takes those championship prices and normalizes them into head-to-head first-round win probabilities. For each matchup, if Team A has a 17.5% championship price and Team B has 1.0%, Team A's implied H2H win probability is `17.5 / (17.5 + 1.0) = 94.6%`.
+`kalshi_odds.py` hits the Kalshi public API (no auth required) and pulls every NCAA tournament market across 7 series:
 
-Output is saved to `matchups_with_odds.json`.
+| Series | Ticker | What it is |
+|--------|--------|-----------|
+| Championship Winner | `KXMARMAD` | "Will Duke win the national championship?" |
+| Per-Game Winner | `KXNCAAMBGAME` | "Duke at Siena Winner?" — direct H2H odds |
+| Seed Upset Props | `KXMARMADSEEDWIN` | "Will a #16 seed win in R64?" |
+| Seed Advancement | `KXMARMADSEED` | "Will a #1 seed win the championship?" |
+| Upset Totals | `KXMARMADUPSET` | "At least 7 upsets in R64?" |
+| Player Points | `KXMARMADPTS` | "Will any player score 40+ points?" |
+| 1-Seed Props | `KXMARMAD1SEED` | "Will Duke be a 1 seed?" |
 
-### 3. Run the Divergence Engine
-`bracket_divergence.py` is the main engine. It runs all 63 tournament games across 6 rounds:
+### 2. Run the Divergence Engine
 
-- **Classifies each game** into one of two modes:
-  - **MARKET SIGNAL** — At least one team has meaningful Kalshi championship odds (>1.2%). The market has an opinion. Divergence logic applies.
-  - **CLAUDE ONLY** — Both teams are at the Kalshi floor price. The market has no differentiation. Claude's blind assessment is the entire pick.
+`bracket_divergence.py` runs all 63 tournament games across 6 rounds with a 3-tier signal priority:
 
-- **Claude assesses each matchup blind** (no odds shown) and returns a win probability + rationale.
+**Tier 1: GAME_MARKET** — Direct per-game H2H winner contracts from `KXNCAAMBGAME`. Best signal. Currently covers 61 of 63 games.
 
-- **For MARKET SIGNAL games**, computes divergence:
-  - `divergence >= 8pp` → take Claude's contrarian pick (DIVERGE)
-  - `divergence >= 15pp` → flagged as strong divergence
-  - `divergence < 8pp` → take the market favorite (CHALK)
+**Tier 2: DERIVED** — Championship odds (`KXMARMAD`) normalized into H2H probabilities with seed-based Bayesian priors. Fallback when no game market exists.
 
-- **For CLAUDE ONLY games**, Claude's probability IS the pick, tagged with conviction level:
-  - **HIGH** — Claude is 25+ pp from 50/50
-  - **MED** — Claude is 12-25 pp from 50/50
-  - **LOW** — Claude is <12 pp from 50/50
+**Tier 3: CLAUDE_ONLY** — Both teams at Kalshi floor with no game market. Claude's blind assessment is the entire pick. Currently 0 games (eliminated with live game data).
 
-Winners from each round feed into the next. The full bracket cascades through Round of 64 → Round of 32 → Sweet 16 → Elite 8 → Final Four → Championship.
+For each game:
+- Claude assesses the matchup blind (no odds shown) and returns a win probability + rationale
+- The engine computes divergence: `Claude's prob - Market's prob`
+- `divergence >= 8pp` = take Claude's contrarian pick (**DIVERGE**)
+- `divergence >= 15pp` = flagged as strong divergence
+- `divergence < 8pp` = take the market favorite (**CHALK**)
+
+Winners cascade through Round of 64 -> Round of 32 -> Sweet 16 -> Elite 8 -> Final Four -> Championship.
+
+Props/futures markets (upset totals, seed advancement, player points) are displayed alongside results for cross-validation.
+
+### 3. Generate Bracket Comparisons
+
+`split_brackets.py` generates three independent brackets from results:
+- **kalshi_bracket.json** — Pure market odds, no Claude input
+- **claude_bracket.json** — Pure Claude assessment, no market input
+- **divergence_bracket.json** — Hybrid: aligned = take favorite, diverge = take Claude
+- **comparison_table.json** — Every game where Kalshi and Claude disagree
 
 ## Quick Start
 
@@ -44,57 +58,115 @@ source .venv/bin/activate
 pip install -r requirements.txt
 export ANTHROPIC_API_KEY="your-key"
 
-# Pull fresh Kalshi odds
+# Pull fresh Kalshi odds (all 7 series, ~11K markets)
 python kalshi_odds.py
 
-# Derive game-level probabilities
-python derive_odds.py
-
-# Run the full tournament
+# Run the full 63-game tournament
 python bracket_divergence.py
+
+# Generate comparison brackets
+python split_brackets.py
+```
+
+### Other tools
+
+```bash
+# Derive H2H probabilities from championship odds alone
+python derive_odds.py
 ```
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `bracket_divergence.py` | Main engine — all 6 rounds, dual-mode picks, full output |
-| `kalshi_odds.py` | Pulls championship market data from Kalshi API |
+| `bracket_divergence.py` | Main engine — 3-tier signal, all 6 rounds, props context |
+| `kalshi_odds.py` | Pulls all 7 Kalshi NCAA tournament series |
 | `derive_odds.py` | Derives H2H game probabilities from championship odds |
-| `matchups.json` | First-round bracket with seeds and teams |
-| `kalshi_markets.json` | Raw Kalshi market data (auto-generated) |
-| `matchups_with_odds.json` | Matchups enriched with derived probabilities |
-| `results.json` | Full tournament results (auto-generated) |
-| `requirements.txt` | Python dependencies |
+| `split_brackets.py` | Generates pure-Kalshi, pure-Claude, and hybrid bracket files |
+| `matchups.json` | 2026 first-round bracket (32 games, real Selection Sunday data) |
+| `kalshi_markets.json` | Raw Kalshi market data across all series (auto-generated) |
+| `results.json` | Full 63-game tournament results with assessments (auto-generated) |
+| `kalshi_bracket.json` | Pure market bracket (auto-generated) |
+| `claude_bracket.json` | Pure Claude bracket (auto-generated) |
+| `divergence_bracket.json` | Hybrid divergence bracket (auto-generated) |
+| `comparison_table.json` | Games where Kalshi and Claude disagree (auto-generated) |
+| `requirements.txt` | Python dependencies (`anthropic`) |
 
 ## 2026 Tournament Results
 
-**Champion: (6) Tennessee** — CLAUDE ONLY pick, MED conviction
+**Champion: (6) BYU** — divergence pick over (1) Florida, 29% gap
 
 **Final Four:**
-- East: (8) Ohio State
-- West: (6) BYU
-- South: (6) North Carolina
-- Midwest: (6) Tennessee
+| Region | Champion | Seed | Signal Source |
+|--------|----------|------|---------------|
+| East | Ohio State | 8 | GAME_MARKET |
+| West | BYU | 6 | GAME_MARKET |
+| South | Florida | 1 | GAME_MARKET |
+| Midwest | Michigan | 1 | GAME_MARKET |
 
 **Pick Distribution (63 games):**
-- MARKET SIGNAL: 35 games (15 chalk, 20 divergence, avg gap 18.4%)
-- CLAUDE ONLY: 28 games (1 high, 8 med, 19 low conviction)
+```
+Signal sources:
+  Game market (H2H):    61
+  Derived (champ odds):  2
+  No signal:             0
 
-**Biggest divergence:** (3) Virginia vs (6) Tennessee — 35% gap, Claude took Tennessee
+Pick types:
+  Chalk:                24
+  Divergence:           39  (avg gap 22.6%)
+  Claude only:           0
+```
+
+**Biggest divergence:** (1) Michigan vs (16) UMBC — 50% gap
+
+## Kalshi Market Coverage
+
+As of March 2026, Kalshi has:
+- **68** championship winner markets
+- **10,450+** per-game winner contracts (regular season + tournament)
+- **28** live first-round tournament H2H markets
+- **59** seed advancement futures
+- **42** upset total props
+- **8** seed upset props
+- **5** player points props
+- **15** 1-seed props
+
+Per-game markets (`KXNCAAMBGAME`) are the primary signal — direct H2H winner contracts with real bid/ask spreads. Championship markets (`KXMARMAD`) serve as fallback for later rounds where game markets haven't been created yet.
+
+Kalshi does **not** offer: player props (rebounds, assists), Most Outstanding Player, over/unders, margin of victory, or conference-level props. Those would require a sportsbook API.
 
 ## Configuration
 
 Tunable constants at the top of `bracket_divergence.py`:
 
-- `SIGNIFICANT_DIVERGENCE` — Minimum gap to override market (default: 8pp)
-- `STRONG_DIVERGENCE` — Threshold for strong divergence flag (default: 15pp)
-- `FLOOR_THRESHOLD` — Championship odds below this = no market signal (default: 1.2%)
-- `MODEL` — Claude model for assessments (default: `claude-sonnet-4-6`)
+| Constant | Default | What it does |
+|----------|---------|-------------|
+| `SIGNIFICANT_DIVERGENCE` | 0.08 | Minimum gap to override market (8pp) |
+| `STRONG_DIVERGENCE` | 0.15 | Threshold for strong divergence flag (15pp) |
+| `FLOOR_THRESHOLD` | 0.012 | Championship odds below this = no signal for derivation |
+| `MODEL` | `claude-sonnet-4-6` | Claude model for blind assessments |
 
-## Notes
+## Architecture
 
-- Kalshi's public API requires no authentication for market data reads
-- Championship odds are the only Kalshi markets available for NCAA — no individual game lines
-- Many mid-to-low seed teams sit at Kalshi's $0.01 minimum, providing no spread signal
-- The CLAUDE ONLY category is where the tool adds the most unique value — these are games the prediction market can't price
+```
+kalshi_odds.py          bracket_divergence.py          split_brackets.py
+     |                         |                              |
+     v                         v                              v
+ Kalshi API  ──>  kalshi_markets.json  ──>  results.json  ──>  3 bracket files
+ (7 series)       (11K+ markets)            (63 games)         + comparison table
+                       |
+                       v
+              3-tier signal resolution:
+              1. KXNCAAMBGAME (H2H)
+              2. KXMARMAD (derived)
+              3. Claude-only (fallback)
+                       |
+                       v
+              Claude blind assessment
+              (Anthropic API)
+                       |
+                       v
+              Divergence calculation
+              + pick resolution
+              + bracket cascading
+```
