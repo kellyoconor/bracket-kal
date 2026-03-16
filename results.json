@@ -12,17 +12,18 @@
         "seed": 16,
         "team": "Siena"
       },
-      "market_prob": 0.965,
+      "market_prob": 0.995,
       "claude_prob": 0.97,
-      "divergence": 0.005,
-      "abs_divergence": 0.005,
+      "divergence": -0.025,
+      "abs_divergence": 0.025,
       "pick": "Duke",
       "pick_seed": 1,
       "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Duke as a #1 seed brings elite recruiting, ACC tournament-tested talent, and Coach Scheyer's system that consistently produces NBA-caliber players who dominate at this level. Siena, as a MAAC program and #16 seed, faces an enormous talent and depth gap that historically makes 1 vs 16 matchups among the most lopsided in the tournament. #16 seeds have won only twice in tournament history, and Duke's program pedigree and resources make an upset exceptionally unlikely."
+      "claude_rationale": "Duke as a #1 seed brings elite coaching under Jon Scheyer, superior athleticism, and ACC-tested depth against a mid-major Siena program from the MAAC. #16 seeds have only beaten #1 seeds twice in tournament history, and Duke's talent advantage at every position makes an upset extremely unlikely. Siena would need a near-perfect performance combined with Duke having a historically off night for any upset scenario to materialize."
     },
     {
       "game": 2,
@@ -36,17 +37,18 @@
         "seed": 9,
         "team": "TCU"
       },
-      "market_prob": null,
+      "market_prob": 0.565,
       "claude_prob": 0.52,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.045,
+      "abs_divergence": 0.045,
       "pick": "Ohio State",
       "pick_seed": 8,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.02,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "This is a classic 8-9 coin-flip matchup where seeding differences are minimal. Ohio State's Big Ten tournament experience and typically strong frontcourt play give them a slight edge, but TCU's Big 12 battle-tested schedule makes them equally capable. Expect a close, competitive game decided in the final minutes."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "This is a classic 8-9 coin-flip matchup where seeding differences are minimal. Ohio State's Big Ten tournament experience and home-court familiarity with high-pressure games gives them a slight edge, but TCU's athleticism and Big 12 battle-tested schedule make this extremely competitive. Expect a close game decided in the final minutes."
     },
     {
       "game": 3,
@@ -60,17 +62,18 @@
         "seed": 12,
         "team": "Northern Iowa"
       },
-      "market_prob": 0.629,
+      "market_prob": 0.835,
       "claude_prob": 0.62,
-      "divergence": -0.009,
-      "abs_divergence": 0.009,
-      "pick": "St. John's",
-      "pick_seed": 5,
-      "pick_source": "CHALK",
+      "divergence": -0.215,
+      "abs_divergence": 0.215,
+      "pick": "Northern Iowa",
+      "pick_seed": 12,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "St. John's has been a consistent Big East contender with strong recruiting and coaching under Rick Pitino, giving them a talent edge over Northern Iowa. However, Northern Iowa is a prototypical 12-seed upset threat as a physical, well-coached Missouri Valley program that plays disciplined basketball and handles tournament pressure well. The Panthers' physicality and potential to disrupt St. John's perimeter-oriented offense makes this a genuine upset risk."
+      "pick_rationale": "Claude likes Northern Iowa MORE than market",
+      "claude_rationale": "St. John's has been a consistent Big East program under Rick Pitino with strong guard play and tournament experience. Northern Iowa is a dangerous 12-seed from the Missouri Valley Conference known for physical, disciplined play that can neutralize higher-seeded opponents. The 5-12 upset rate historically runs around 35%, and UNI's defensive identity and tournament savvy make them a legitimate threat to pull the upset."
     },
     {
       "game": 4,
@@ -84,17 +87,18 @@
         "seed": 13,
         "team": "Cal Baptist"
       },
-      "market_prob": 0.73,
+      "market_prob": 0.895,
       "claude_prob": 0.82,
-      "divergence": 0.09,
-      "abs_divergence": 0.09,
+      "divergence": -0.075,
+      "abs_divergence": 0.075,
       "pick": "Kansas",
       "pick_seed": 4,
-      "pick_source": "DIVERGE",
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Kansas MORE than market",
-      "claude_rationale": "Kansas brings elite Big 12 tournament pedigree, superior athleticism, and Bill Self's experienced coaching to this matchup. Cal Baptist, a mid-major from the WAC, would struggle to match Kansas's depth and physicality in the paint. While 13-seeds occasionally pull upsets, Kansas's talent advantage and tournament experience make them heavy favorites."
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Kansas brings elite Big 12 competition experience, superior athleticism, and Bill Self's proven tournament pedigree to this matchup. Cal Baptist, as a 13-seed from the WAC, would need a massive upset against Kansas's depth and coaching advantage. While 13-over-4 upsets happen roughly 20% of the time historically, Kansas's program caliber makes them a stronger-than-average 4-seed."
     },
     {
       "game": 5,
@@ -108,17 +112,18 @@
         "seed": 11,
         "team": "South Florida"
       },
-      "market_prob": null,
+      "market_prob": 0.675,
       "claude_prob": 0.62,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.055,
+      "abs_divergence": 0.055,
       "pick": "Louisville",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.12,
-      "conviction_label": "MED",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (MED)",
-      "claude_rationale": "Louisville as a 6-seed carries the structural advantage and ACC tournament experience against an 11-seed South Florida from the AAC. The Cardinals' higher seed reflects better overall resume and likely superior depth and coaching pedigree under Pat Kelsey. However, 6 vs 11 matchups are historically competitive, with 11-seeds winning roughly 37% of the time, keeping this from being a lock."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Louisville as a 6-seed carries the seeding advantage and typically benefits from ACC experience and stronger overall resume heading into March. South Florida as an 11-seed from the AAC would need to execute a classic mid-major upset, which happens roughly 37% of the time historically for 11-seeds. The Cardinals' coaching stability under Pat Kelsey and presumed depth should be enough to navigate this first-round matchup."
     },
     {
       "game": 6,
@@ -132,17 +137,18 @@
         "seed": 14,
         "team": "North Dakota State"
       },
-      "market_prob": 0.766,
+      "market_prob": 0.925,
       "claude_prob": 0.82,
-      "divergence": 0.054,
-      "abs_divergence": 0.054,
-      "pick": "Michigan State",
-      "pick_seed": 3,
-      "pick_source": "CHALK",
+      "divergence": -0.105,
+      "abs_divergence": 0.105,
+      "pick": "North Dakota State",
+      "pick_seed": 14,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Michigan State as a 3-seed brings significant Big Ten tournament experience, superior recruiting, and Tom Izzo's legendary March pedigree to this matchup. North Dakota State, as a 14-seed from the Summit League, typically lacks the depth and athleticism to compete with high-major programs, though 14-over-3 upsets do occur roughly 15% of the time historically. Izzo-coached teams are well-prepared and disciplined, making a first-round exit unlikely."
+      "pick_rationale": "Claude likes North Dakota State MORE than market",
+      "claude_rationale": "Michigan State as a 3-seed brings significant Big Ten tournament experience, strong coaching under Tom Izzo, and superior athleticism compared to a mid-major North Dakota State squad. Izzo's teams are historically well-prepared for NCAA Tournament play, and the talent gap between a Power Conference 3-seed and a 14-seed Summit League champion is typically substantial. However, 14-seeds win roughly 15% of the time historically, keeping a small upset probability in play."
     },
     {
       "game": 7,
@@ -156,17 +162,18 @@
         "seed": 10,
         "team": "UCF"
       },
-      "market_prob": null,
+      "market_prob": 0.68,
       "claude_prob": 0.62,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.06,
+      "abs_divergence": 0.06,
       "pick": "UCLA",
       "pick_seed": 7,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.12,
-      "conviction_label": "MED",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (MED)",
-      "claude_rationale": "UCLA as a #7 seed carries the higher pedigree and typically stronger Pac-12/Big Ten competition r\u00e9sum\u00e9, while UCF as a #10 seed from the Big 12 represents a dangerous upset threat with athleticism and perimeter shooting. The Bruins' coaching stability under Mick Cronin and tournament experience gives them a slight edge, but 7-10 matchups historically split close to 60-40 in favor of the higher seed."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "UCLA carries the traditional brand advantage and typically fields experienced Pac-12/Big Ten caliber talent with strong coaching under Mick Cronin, who has proven tournament acumen. UCF has developed into a competitive AAC program capable of upsets, making this a dangerous 7-10 matchup where the Knights could exploit any UCLA inconsistencies. The slight edge goes to UCLA based on overall roster depth and defensive discipline, but this is far from a sure thing."
     },
     {
       "game": 8,
@@ -180,17 +187,18 @@
         "seed": 15,
         "team": "Furman"
       },
-      "market_prob": 0.852,
+      "market_prob": 0.955,
       "claude_prob": 0.93,
-      "divergence": 0.078,
-      "abs_divergence": 0.078,
+      "divergence": -0.025,
+      "abs_divergence": 0.025,
       "pick": "UConn",
       "pick_seed": 2,
       "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "UConn remains one of college basketball's elite programs under Dan Hurley, bringing exceptional tournament pedigree following back-to-back national championships. As a #2 seed against a #15 Furman squad from the Southern Conference, the Huskies' superior talent, depth, and experienced coaching staff create an overwhelming structural advantage. Historical #2 vs #15 matchups result in upsets only about 6-7% of the time, and UConn's program caliber makes an upset even less likely."
+      "claude_rationale": "UConn remains an elite program under Dan Hurley with tournament pedigree, superior athleticism, and top-tier recruiting that overwhelms mid-major competition. Furman, while a capable Southern Conference program, lacks the depth and athleticism to compete with a bluechip Big East squad. Historical trends show #2 seeds defeat #15 seeds roughly 93% of the time, and UConn's program caliber reinforces that baseline."
     },
     {
       "game": 9,
@@ -204,17 +212,18 @@
         "seed": 16,
         "team": "LIU"
       },
-      "market_prob": 0.958,
+      "market_prob": 0.995,
       "claude_prob": 0.97,
-      "divergence": 0.012,
-      "abs_divergence": 0.012,
+      "divergence": -0.025,
+      "abs_divergence": 0.025,
       "pick": "Arizona",
       "pick_seed": 1,
       "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Arizona as a #1 seed brings elite talent, experienced coaching under Tommy Lloyd, and a high-powered offensive system that overwhelms mid-major competition. LIU as a #16 seed from the Northeast Conference faces an enormous talent and depth gap against a Pac-12/Big 12 powerhouse. #16 seeds have only beaten #1 seeds twice in NCAA Tournament history, making this a near-certain Arizona victory."
+      "claude_rationale": "Arizona as a #1 seed brings elite Pac-12/Big 12 competition experience, superior athleticism, and deep recruiting to overwhelm a mid-major LIU program. The Sharks from the Northeast Conference rarely have the talent or depth to compete with a top-tier Arizona squad. Historical precedent strongly favors #1 seeds in this matchup, with upsets occurring less than 5% of the time."
     },
     {
       "game": 10,
@@ -228,17 +237,18 @@
         "seed": 9,
         "team": "Utah State"
       },
-      "market_prob": null,
+      "market_prob": 0.445,
       "claude_prob": 0.42,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.025,
+      "abs_divergence": 0.025,
       "pick": "Utah State",
       "pick_seed": 9,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.08,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "Utah State has been a consistent Mountain West force under Danny Sprinkle's system, built around physical play and strong rebounding that can neutralize Villanova's guard-oriented offense. The Aggies' tournament experience and home-region familiarity in the West bracket gives them a slight edge. This is a classic 8-9 coin-flip game, but Utah State's frontcourt advantage tips the balance."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Utah State has been a consistently strong Mountain West program with excellent coaching under Danny Sprinkle's successor and a physical, defense-oriented style that translates well to tournament play. Villanova, while a storied program, has faced roster rebuilding challenges post-Wright era and the 8-9 matchup is historically nearly a coin flip. Utah State's recent tournament experience and cohesive team identity gives them a slight edge in this neutral-site contest."
     },
     {
       "game": 11,
@@ -252,17 +262,18 @@
         "seed": 12,
         "team": "High Point"
       },
-      "market_prob": 0.629,
+      "market_prob": 0.805,
       "claude_prob": 0.68,
-      "divergence": 0.051,
-      "abs_divergence": 0.051,
-      "pick": "Wisconsin",
-      "pick_seed": 5,
-      "pick_source": "CHALK",
+      "divergence": -0.125,
+      "abs_divergence": 0.125,
+      "pick": "High Point",
+      "pick_seed": 12,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Wisconsin's disciplined, slow-paced offensive system under Greg Gard typically translates well to tournament settings, limiting upset potential through ball control and efficiency. High Point as a 12-seed represents a legitimate upset threat, as 12-over-5 upsets occur roughly 35% of the time historically, and mid-major teams with experienced scorers can exploit Wisconsin's methodical pace with pressure defense. The Badgers' Big Ten tournament experience and frontcourt depth should ultimately prove the difference in a close, low-possession game."
+      "pick_rationale": "Claude likes High Point MORE than market",
+      "claude_rationale": "Wisconsin's deliberate, disciplined offensive system and Big Ten tournament experience give them a structural advantage over High Point, a mid-major from the Big South. However, 5-vs-12 upsets occur roughly 35% of the time historically, and High Point's style could create tempo problems for the Badgers. Wisconsin's defensive efficiency and frontcourt size should ultimately be the difference in a competitive game."
     },
     {
       "game": 12,
@@ -276,17 +287,18 @@
         "seed": 13,
         "team": "Hawaii"
       },
-      "market_prob": 0.73,
+      "market_prob": 0.905,
       "claude_prob": 0.72,
-      "divergence": -0.01,
-      "abs_divergence": 0.01,
-      "pick": "Arkansas",
-      "pick_seed": 4,
-      "pick_source": "CHALK",
+      "divergence": -0.185,
+      "abs_divergence": 0.185,
+      "pick": "Hawaii",
+      "pick_seed": 13,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Arkansas as a 4-seed brings SEC tournament experience, superior athleticism, and coaching pedigree under their staff that typically translates well to NCAA Tournament play. Hawaii as a 13-seed from the Big West faces a significant talent gap, though mid-major upsets in this range occur roughly 20-25% of the time historically. The Rainbow Warriors would need exceptional three-point shooting and a slow-paced game to pull the upset against Arkansas's physical, transition-oriented style."
+      "pick_rationale": "Claude likes Hawaii MORE than market",
+      "claude_rationale": "Arkansas as a 4-seed brings SEC tournament experience, superior athleticism, and typically strong frontcourt play under their coaching staff. Hawaii, as a 13-seed from the Big West, faces a significant talent and depth gap against high-major competition. However, 13-over-4 upsets occur roughly 20-23% of the time historically, and Hawaii's system-based play and three-point shooting could create problems if Arkansas has a cold shooting night."
     },
     {
       "game": 13,
@@ -300,17 +312,18 @@
         "seed": 11,
         "team": "Texas"
       },
-      "market_prob": null,
+      "market_prob": 0.505,
       "claude_prob": 0.58,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": 0.075,
+      "abs_divergence": 0.075,
       "pick": "BYU",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.08,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "BYU as a #6 seed holds a meaningful seeding advantage over #11 Texas, suggesting a stronger regular season resume. However, Big 12 familiarity works both ways as these programs know each other well, and Texas as an 11-seed likely enters as a dangerous upset-capable team. BYU's home conference experience and slight talent edge should be enough to prevail in a competitive game."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "BYU as a 6-seed holds a meaningful seeding advantage over Texas's 11-seed, suggesting the committee viewed them as the stronger team heading into the tournament. BYU's Big 12 experience and coaching under Kevin Young gives them a solid foundation, though Texas's program history and potential tournament-tested players make this a competitive matchup. The slight edge goes to BYU based on seeding differential, but this figures to be a closely contested game."
     },
     {
       "game": 14,
@@ -324,17 +337,18 @@
         "seed": 14,
         "team": "Kennesaw State"
       },
-      "market_prob": 0.766,
-      "claude_prob": 0.87,
-      "divergence": 0.104,
-      "abs_divergence": 0.104,
+      "market_prob": 0.955,
+      "claude_prob": 0.88,
+      "divergence": -0.075,
+      "abs_divergence": 0.075,
       "pick": "Gonzaga",
       "pick_seed": 3,
-      "pick_source": "DIVERGE",
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Gonzaga MORE than market",
-      "claude_rationale": "Gonzaga remains an elite program under Mark Few with consistent top-tier recruiting, superior athleticism, and deep tournament experience compared to a mid-major Kennesaw State program. The Bulldogs' frontcourt size and offensive efficiency typically overwhelm lower-seeded opponents in first-round matchups. While 14-seeds have pulled off upsets historically, Gonzaga's talent gap and coaching advantage make them a heavy favorite here."
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Gonzaga remains an elite program under Mark Few with consistent high-major talent, experienced tournament play, and superior depth compared to a mid-major Kennesaw State program. The Bulldogs' size, athleticism, and offensive firepower should overwhelm a smaller KSU roster that rarely faces this level of competition. A 14-seed upset is always possible but Gonzaga's program continuity and recruiting edge make this a comfortable expected win."
     },
     {
       "game": 15,
@@ -348,17 +362,18 @@
         "seed": 10,
         "team": "Missouri"
       },
-      "market_prob": null,
+      "market_prob": 0.545,
       "claude_prob": 0.42,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.125,
+      "abs_divergence": 0.125,
       "pick": "Missouri",
       "pick_seed": 10,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.08,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "Missouri has shown strong mid-major to power conference development under Dennis Gates, with athletic guards capable of disrupting Miami's half-court offense. Miami has struggled with consistency in ACC play and lacks a dominant go-to scorer to carry tournament pressure. The 10-seed Tigers have the athleticism and coaching to pull this mild upset."
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Missouri MORE than market",
+      "claude_rationale": "Missouri has shown strong mid-major to Power conference transition resilience and typically matches up well against ACC teams in neutral-site games. Miami has struggled with consistency in close games and the 7-10 matchup historically favors upsets roughly 40% of the time. Missouri's physicality and tournament-tested roster gives them a slight edge in this evenly matched contest."
     },
     {
       "game": 16,
@@ -372,17 +387,18 @@
         "seed": 15,
         "team": "Queens"
       },
-      "market_prob": 0.852,
-      "claude_prob": 0.89,
-      "divergence": 0.038,
-      "abs_divergence": 0.038,
-      "pick": "Purdue",
-      "pick_seed": 2,
-      "pick_source": "CHALK",
+      "market_prob": 0.975,
+      "claude_prob": 0.88,
+      "divergence": -0.095,
+      "abs_divergence": 0.095,
+      "pick": "Queens",
+      "pick_seed": 15,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Purdue as a #2 seed brings significant Big Ten regular season experience, superior athleticism, and proven tournament pedigree under Matt Painter. Queens, as a #15 seed from a mid-major conference, faces a massive talent and size disadvantage typical of these matchups. While 15-over-2 upsets occur roughly 20% of the time historically, Purdue's frontcourt depth and coaching experience make them a strong favorite."
+      "pick_rationale": "Claude likes Queens MORE than market",
+      "claude_rationale": "Purdue as a #2 seed brings significant Big Ten experience, superior athleticism, and coaching pedigree under Matt Painter against a #15 seed Queens program from a mid-major conference. The talent and depth disparity heavily favors Purdue, and while 15-over-2 upsets do occasionally occur, they remain historically rare at roughly 6-7% frequency. Queens would need a near-perfect performance combined with Purdue having an unusually poor shooting day to pull the upset."
     },
     {
       "game": 17,
@@ -396,17 +412,18 @@
         "seed": 16,
         "team": "Prairie View A&M"
       },
-      "market_prob": 0.933,
+      "market_prob": 0.6,
       "claude_prob": 0.97,
-      "divergence": 0.037,
-      "abs_divergence": 0.037,
+      "divergence": 0.37,
+      "abs_divergence": 0.37,
       "pick": "Florida",
       "pick_seed": 1,
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Florida as a #1 seed brings elite talent, superior athleticism, and a proven high-major schedule that overwhelms mid-major SWAC competition. Prairie View A&M, as a #16 seed, faces an enormous talent gap typical of this matchup, where #1 seeds hold an all-time record of roughly 99% win rate historically. Florida's depth, coaching, and physical advantages make an upset virtually impossible barring extraordinary circumstances."
+      "pick_rationale": "Claude likes Florida MORE than market",
+      "claude_rationale": "Florida as a #1 seed brings elite talent, superior depth, and a high-powered offense that should overwhelm Prairie View A&M, a 16-seed from the SWAC. No 16-seed has ever beaten a 1-seed with any consistency, and the talent gap between a top-tier Power conference program and a mid-major HBCU program is vast. Prairie View would need a historically unprecedented combination of Florida off-day and perfect execution to have any realistic chance."
     },
     {
       "game": 18,
@@ -420,17 +437,18 @@
         "seed": 9,
         "team": "Iowa"
       },
-      "market_prob": null,
+      "market_prob": 0.44,
       "claude_prob": 0.52,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": 0.08,
+      "abs_divergence": 0.08,
       "pick": "Clemson",
       "pick_seed": 8,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.02,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "This is an extremely evenly matched 8-9 game where both teams have comparable profiles. Clemson's ACC tournament experience and Brad Brownell's veteran coaching give them a slight edge, but Iowa's size and scoring ability make this a true coin-flip matchup. The slight home-neutral court adjustment and ACC brand recognition in close games tips this marginally toward Clemson."
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Clemson MORE than market",
+      "claude_rationale": "This is an extremely even 8-9 matchup where both teams are evenly matched by definition of their seeding. Clemson's ACC tournament experience and Brad Brownell's veteran coaching give them a slight edge, but Iowa's size and Big Ten physicality could neutralize Clemson's athleticism. Essentially a coin flip with marginal advantage to Clemson on neutral court."
     },
     {
       "game": 19,
@@ -444,17 +462,18 @@
         "seed": 12,
         "team": "McNeese"
       },
-      "market_prob": 0.629,
-      "claude_prob": 0.64,
-      "divergence": 0.011,
-      "abs_divergence": 0.011,
-      "pick": "Vanderbilt",
-      "pick_seed": 5,
-      "pick_source": "CHALK",
+      "market_prob": 0.845,
+      "claude_prob": 0.63,
+      "divergence": -0.215,
+      "abs_divergence": 0.215,
+      "pick": "McNeese",
+      "pick_seed": 12,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Vanderbilt as a 5-seed brings SEC competition experience and superior athleticism, but McNeese has historically been a dangerous 12-seed capable of upsets, continuing a trend where 12-seeds beat 5-seeds roughly 35% of the time. The Commodores' depth and coaching staff should prevail, but McNeese's potential offensive efficiency and tournament hunger make this closer than the seeding suggests."
+      "pick_rationale": "Claude likes McNeese MORE than market",
+      "claude_rationale": "Vanderbilt as a 5-seed brings SEC tournament experience and superior overall talent, but McNeese has historically been a dangerous 12-seed capable of upsets in this classic bracket spot. The 5-12 matchup is notoriously volatile, and McNeese's cohesive Southland/WAC-style system could exploit any Vanderbilt defensive lapses. Vanderbilt's depth and recruiting advantage should ultimately carry them through, but this is far from a safe pick."
     },
     {
       "game": 20,
@@ -468,17 +487,18 @@
         "seed": 13,
         "team": "Troy"
       },
-      "market_prob": null,
+      "market_prob": 0.895,
       "claude_prob": 0.72,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "Nebraska",
-      "pick_seed": 4,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.22,
-      "conviction_label": "MED",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (MED)",
-      "claude_rationale": "Nebraska as a 4-seed brings Big Ten tournament experience and superior athleticism that should overwhelm a Sun Belt Troy squad. However, 13-seeds historically upset 4-seeds at a meaningful rate (~20-21%), and Troy's tempo-control style can keep games close. Nebraska's depth and coaching under Fred Hoiberg should be enough to advance, but this is a watchable game."
+      "divergence": -0.175,
+      "abs_divergence": 0.175,
+      "pick": "Troy",
+      "pick_seed": 13,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Troy MORE than market",
+      "claude_rationale": "Nebraska as a #4 seed carries a significant seeding advantage and the Big Ten pedigree that typically translates well to tournament play. Troy, as a Sun Belt representative, would need a strong shooting performance to pull off this upset, which historically succeeds for #13 seeds roughly 20-25% of the time. Nebraska's size and defensive structure should be enough to control the game, though mid-major upsets at this seed line are always a real threat."
     },
     {
       "game": 21,
@@ -492,17 +512,18 @@
         "seed": 11,
         "team": "VCU"
       },
-      "market_prob": null,
+      "market_prob": 0.555,
       "claude_prob": 0.58,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": 0.025,
+      "abs_divergence": 0.025,
       "pick": "North Carolina",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.08,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "North Carolina as a 6-seed brings ACC tournament experience and typically superior recruiting talent, but VCU's aggressive havoc-style defense historically creates problems for higher seeds in the first round. VCU's press and trapping schemes can force turnovers and disrupt UNC's halfcourt offense, making this a closer game than the seeding suggests. The Tar Heels' size advantage and depth should ultimately prevail, but this is a classic dangerous 11-seed matchup."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "North Carolina's ACC pedigree and recruiting talent give them an edge, but VCU's signature havoc-style defense historically makes them dangerous as an 11-seed against power conference opponents. The Rams' pressure defense can disrupt UNC's rhythm and force turnovers, keeping this competitive. UNC's size advantage and tournament experience should ultimately prevail, but this is a classic dangerous mid-major matchup."
     },
     {
       "game": 22,
@@ -516,17 +537,18 @@
         "seed": 14,
         "team": "Penn"
       },
-      "market_prob": 0.813,
-      "claude_prob": 0.82,
-      "divergence": 0.007,
-      "abs_divergence": 0.007,
-      "pick": "Illinois",
-      "pick_seed": 3,
-      "pick_source": "CHALK",
+      "market_prob": 0.965,
+      "claude_prob": 0.79,
+      "divergence": -0.175,
+      "abs_divergence": 0.175,
+      "pick": "Penn",
+      "pick_seed": 14,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Illinois as a 3-seed brings significantly superior athleticism, depth, and Big Ten tournament experience compared to Penn, an Ivy League program. The Illini's coaching under Brad Underwood and their physicality should overwhelm Penn's half-court system. While 14-seeds occasionally upset 3-seeds historically (~15% of the time), Illinois's talent advantage makes this a likely comfortable win."
+      "pick_rationale": "Claude likes Penn MORE than market",
+      "claude_rationale": "Illinois as a 3-seed brings significantly superior talent, depth, and Big Ten battle-tested experience compared to Penn's Ivy League schedule. The Illini's size and athleticism should create matchup problems that Penn's defense cannot consistently handle. While 14-seeds occasionally pull upsets, Illinois's coaching staff and tournament experience make a first-round exit unlikely."
     },
     {
       "game": 23,
@@ -540,17 +562,18 @@
         "seed": 10,
         "team": "Texas A&M"
       },
-      "market_prob": null,
+      "market_prob": 0.575,
       "claude_prob": 0.54,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.035,
+      "abs_divergence": 0.035,
       "pick": "Saint Mary's",
       "pick_seed": 7,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.04,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "Saint Mary's brings its trademark slow-paced, disciplined offensive system under Randy Bennett that consistently limits opponents' possessions and keeps games close, which historically benefits the Gaels in tournament settings. Texas A&M has athleticism and SEC battle-testing but can struggle against teams that control tempo. This is a near coin-flip with Saint Mary's slight edge coming from their cohesive system and experience in these tight tournament games."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Saint Mary's brings their characteristic disciplined, slow-paced offense under Randy Bennett that can neutralize higher-seeded athletic teams, but as a 7-seed they hold only a marginal edge. Texas A&M's size and SEC battle-tested experience makes this a competitive matchup, and the Aggies as a 10-seed suggest they had a strong enough resume to threaten upset. This is essentially a coin-flip game with a slight edge to the higher seed."
     },
     {
       "game": 24,
@@ -564,17 +587,18 @@
         "seed": 15,
         "team": "Idaho"
       },
-      "market_prob": 0.901,
-      "claude_prob": 0.94,
-      "divergence": 0.039,
-      "abs_divergence": 0.039,
+      "market_prob": 0.975,
+      "claude_prob": 0.93,
+      "divergence": -0.045,
+      "abs_divergence": 0.045,
       "pick": "Houston",
       "pick_seed": 2,
       "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Houston under Kelvin Sampson consistently fields one of the nation's elite defensive programs with superior athleticism, size, and tournament experience compared to a mid-major Idaho program from the Big Sky Conference. The Cougars' physical, grind-it-out defensive style typically neutralizes lower-seeded opponents who lack the personnel to match their intensity. Historical 2-vs-15 matchups heavily favor the higher seed, and Houston's program depth makes an upset extremely unlikely."
+      "claude_rationale": "Houston under Kelvin Sampson consistently fields one of the nation's elite defensive programs with exceptional physicality, toughness, and tournament experience as a perennial Big 12 contender. Idaho, as a #15 seed from a mid-major conference, faces an enormous talent and athleticism gap against Houston's highly recruited and battle-tested roster. Historical #2 vs #15 matchups heavily favor the higher seed, and Houston's defensive identity makes them particularly difficult to upset."
     },
     {
       "game": 25,
@@ -588,17 +612,18 @@
         "seed": 16,
         "team": "UMBC"
       },
-      "market_prob": 0.958,
+      "market_prob": 0.475,
       "claude_prob": 0.97,
-      "divergence": 0.012,
-      "abs_divergence": 0.012,
+      "divergence": 0.495,
+      "abs_divergence": 0.495,
       "pick": "Michigan",
       "pick_seed": 1,
-      "pick_source": "CHALK",
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "As a #1 seed, Michigan carries significant talent, depth, and tournament experience advantages over a #16 seed UMBC squad from a mid-major conference. #1 seeds have historically dominated #16 seeds, winning the vast majority of these matchups, with only two upsets ever occurring in tournament history. Michigan's superior athleticism, coaching, and preparation should translate to a comfortable victory."
+      "pick_rationale": "Claude likes Michigan MORE than market",
+      "claude_rationale": "As a #1 seed, Michigan enters with elite talent, coaching, and a dominant regular season resume that earns top seeding. UMBC, despite their historic 2018 upset of Virginia, faces an enormous talent and depth disadvantage typical of 1-vs-16 matchups, which historically see the 1-seed win over 99% of the time. Michigan's size, athleticism, and tournament experience should allow them to control this game from the opening tip."
     },
     {
       "game": 26,
@@ -612,17 +637,18 @@
         "seed": 9,
         "team": "Saint Louis"
       },
-      "market_prob": null,
-      "claude_prob": 0.52,
-      "divergence": null,
-      "abs_divergence": null,
+      "market_prob": 0.585,
+      "claude_prob": 0.54,
+      "divergence": -0.045,
+      "abs_divergence": 0.045,
       "pick": "Georgia",
       "pick_seed": 8,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.02,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "This is a classic 8-9 matchup where the seeds are nearly interchangeable in terms of talent level. Georgia brings SEC tournament experience and athleticism, while Saint Louis has been competitive in the Atlantic 10. The slight edge goes to Georgia based on conference strength, but this is essentially a coin flip game."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "This is a classic 8-9 matchup where the seeds are nearly interchangeable in terms of team quality. Georgia brings SEC tournament experience and typically stronger recruiting under their coaching staff, but Saint Louis has historically been a tough mid-major program capable of competing with Power conference teams. The slight edge goes to Georgia based on conference strength and athleticism, but this is essentially a coin flip."
     },
     {
       "game": 27,
@@ -636,17 +662,18 @@
         "seed": 12,
         "team": "Akron"
       },
-      "market_prob": null,
+      "market_prob": 0.725,
       "claude_prob": 0.68,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.045,
+      "abs_divergence": 0.045,
       "pick": "Texas Tech",
       "pick_seed": 5,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.18,
-      "conviction_label": "MED",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (MED)",
-      "claude_rationale": "Texas Tech brings superior Big 12 competition experience and typically fields a well-coached, defensively disciplined team under their system that matches up well against mid-major opponents. Akron as a #12 seed represents a real upset threat, as 12-over-5 is historically one of the most common upset seeds in the tournament. The Red Raiders' talent advantage and tournament experience should prevail, but this figures to be a competitive game."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Texas Tech's defensive identity under their coaching staff typically translates well to tournament settings, and as a Big 12 team they bring stronger competition-tested experience. Akron as a #12 seed represents a mid-major program capable of an upset, and 12-over-5 is historically one of the most upset-prone matchups in the tournament. The Red Raiders' superior athleticism and depth should prevail, but Akron's disciplined MAC-tested system keeps this closer than the seeding suggests."
     },
     {
       "game": 28,
@@ -660,17 +687,18 @@
         "seed": 13,
         "team": "Hofstra"
       },
-      "market_prob": null,
+      "market_prob": 0.875,
       "claude_prob": 0.79,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "Alabama",
-      "pick_seed": 4,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.29,
-      "conviction_label": "HIGH",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (HIGH)",
-      "claude_rationale": "Alabama under Nate Oats typically fields a high-powered offense with elite athleticism and SEC tournament experience, making them a significant favorite over a mid-major Hofstra squad. However, the Pride from the CAA can be dangerous with sharp perimeter shooting and disciplined schemes that have historically given higher seeds trouble. The talent gap and depth advantage should carry Alabama through, though a double-digit upset remains plausible if Hofstra's offense gets hot from three."
+      "divergence": -0.085,
+      "abs_divergence": 0.085,
+      "pick": "Hofstra",
+      "pick_seed": 13,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Hofstra MORE than market",
+      "claude_rationale": "Alabama under Nate Oats typically fields an athletic, high-tempo offense with elite perimeter shooting that creates serious problems for mid-major defenses. Hofstra, as a CAA representative, lacks the depth and athleticism to consistently contain Alabama's guards over 40 minutes. However, 13-seeds upset 4-seeds at a non-trivial rate historically (~20%), so some upset equity remains."
     },
     {
       "game": 29,
@@ -684,17 +712,18 @@
         "seed": 11,
         "team": "SMU"
       },
-      "market_prob": null,
+      "market_prob": 0.275,
       "claude_prob": 0.63,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": 0.355,
+      "abs_divergence": 0.355,
       "pick": "Tennessee",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.13,
-      "conviction_label": "MED",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (MED)",
-      "claude_rationale": "Tennessee's physical, defense-first style under Rick Barnes typically translates well to tournament play, and as a 6-seed they carry significant SEC pedigree and experience. SMU as an 11-seed represents a dangerous mid-major threat with capable offensive weapons, and the double-digit seed line historically produces upsets at a notable rate. Tennessee's size and defensive pressure should be the difference, but SMU's guard play could keep this competitive."
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Tennessee MORE than market",
+      "claude_rationale": "Tennessee's physical, defensive-minded style under Rick Barnes typically translates well to tournament play, and as a 6-seed they carry meaningful seeding advantages and SEC battle-tested experience. SMU as an 11-seed has shown enough quality to earn a bid, and the First Four or play-in caliber teams can be dangerous, but Tennessee's depth and defensive intensity should be the difference. This is a competitive matchup but Tennessee's roster talent and coaching edge give them a reasonable advantage."
     },
     {
       "game": 30,
@@ -708,17 +737,18 @@
         "seed": 14,
         "team": "Wright State"
       },
-      "market_prob": 0.766,
-      "claude_prob": 0.79,
-      "divergence": 0.024,
-      "abs_divergence": 0.024,
-      "pick": "Virginia",
-      "pick_seed": 3,
-      "pick_source": "CHALK",
+      "market_prob": 0.945,
+      "claude_prob": 0.78,
+      "divergence": -0.165,
+      "abs_divergence": 0.165,
+      "pick": "Wright State",
+      "pick_seed": 14,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Virginia's disciplined pack-line defense and methodical half-court offense under Tony Bennett's system (or his successor) traditionally makes them a tough out for mid-majors who rely on pace and transition. Wright State, as a Horizon League representative, would face significant challenges executing against Virginia's suffocating defensive scheme. However, #14 seeds have historically pulled off upsets roughly 15% of the time, and Virginia themselves famously lost to a #16 seed in 2018, keeping some upset probability alive."
+      "pick_rationale": "Claude likes Wright State MORE than market",
+      "claude_rationale": "Virginia's disciplined pack-line defense and methodical half-court offense under Tony Bennett's system (or his successor) typically neutralizes mid-major offenses like Wright State's. As a #3 seed, Virginia has the talent and tournament experience advantage, though their slow-paced style can occasionally allow upset-minded teams to stay close. Wright State, as a #14 seed, faces a significant talent gap but could threaten if they execute efficiently from three and limit turnovers."
     },
     {
       "game": 31,
@@ -732,17 +762,18 @@
         "seed": 10,
         "team": "Santa Clara"
       },
-      "market_prob": null,
-      "claude_prob": 0.62,
-      "divergence": null,
-      "abs_divergence": null,
+      "market_prob": 0.605,
+      "claude_prob": 0.63,
+      "divergence": 0.025,
+      "abs_divergence": 0.025,
       "pick": "Kentucky",
       "pick_seed": 7,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.12,
-      "conviction_label": "MED",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (MED)",
-      "claude_rationale": "Kentucky's traditional recruiting advantages and SEC tournament experience give them an edge, but as a 7-10 matchup this is historically one of the most upset-prone in the bracket. Santa Clara's ability to play disciplined, system-based basketball under Mark Edwards could exploit any inconsistency from a Kentucky team that has shown vulnerability against organized offenses. The Wildcats' athleticism and depth should prevail, but this is far from a safe pick."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Kentucky's combination of SEC tournament experience, superior recruiting talent, and John Calipari's replacement coaching in a high-pressure environment gives them an edge, though the Wildcats have shown inconsistency this season. Santa Clara as a 10-seed from the WCC presents a credible upset threat with disciplined play and tournament-ready experience, making this a competitive but ultimately Kentucky-favored matchup. The 7-10 seed line historically produces frequent upsets, keeping Santa Clara very much in play."
     },
     {
       "game": 32,
@@ -756,17 +787,18 @@
         "seed": 15,
         "team": "Tennessee State"
       },
-      "market_prob": 0.852,
+      "market_prob": 0.975,
       "claude_prob": 0.93,
-      "divergence": 0.078,
-      "abs_divergence": 0.078,
+      "divergence": -0.045,
+      "abs_divergence": 0.045,
       "pick": "Iowa State",
       "pick_seed": 2,
       "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Market and Claude aligned",
-      "claude_rationale": "Iowa State under T.J. Otzelberger has built a perennial Big 12 contender with elite defense, veteran leadership, and consistent tournament experience, making them a formidable 2-seed. Tennessee State, as a 15-seed from a mid-major conference, lacks the athleticism, depth, and offensive firepower to compete with Iowa State's suffocating defensive schemes. Historical 2 vs 15 matchups result in upsets only about 6-7% of the time, and Iowa State's program caliber makes an upset even less likely."
+      "claude_rationale": "Iowa State under T.J. Otzelberger has built a defensive powerhouse program that consistently competes at the elite level of the Big 12, giving them enormous advantages in athleticism, depth, and coaching. Tennessee State, as a mid-major from the Ohio Valley/ASUN region, would face significant talent and experience gaps against a program accustomed to deep tournament runs. Historical trends strongly favor 2-seeds in this matchup, with 15-seeds winning only about 15% of first-round games."
     }
   ],
   "32": [
@@ -782,65 +814,68 @@
         "seed": 8,
         "team": "Ohio State"
       },
-      "market_prob": 0.965,
-      "claude_prob": 0.68,
-      "divergence": -0.285,
-      "abs_divergence": 0.285,
+      "market_prob": 0.995,
+      "claude_prob": 0.72,
+      "divergence": -0.275,
+      "abs_divergence": 0.275,
       "pick": "Ohio State",
       "pick_seed": 8,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Claude likes Ohio State MORE than market",
-      "claude_rationale": "Duke as a #1 seed carries significant advantages in talent, coaching under Jon Scheyer, and tournament preparation, but Ohio State as an #8 seed has already proven itself by winning a Round of 64 game and arrives battle-tested. The Blue Devils' superior recruiting class and ACC regular season experience should prevail, though an 8-vs-1 upset is historically possible at a roughly 20-25% clip."
+      "claude_rationale": "Duke as a #1 seed carries significant advantages in talent, coaching under Jon Scheyer, and tournament pedigree. Ohio State as an #8 seed is dangerous and capable of an upset, but Duke's depth and recruiting class typically give them an edge in this spot. The Round of 32 setting slightly increases upset risk compared to a Round of 64 game, keeping Ohio State competitive."
     },
     {
       "game": 34,
       "region": "East",
-      "matchup": "(4) Kansas vs (5) St. John's",
+      "matchup": "(4) Kansas vs (12) Northern Iowa",
       "team_a": {
         "seed": 4,
         "team": "Kansas"
       },
       "team_b": {
-        "seed": 5,
-        "team": "St. John's"
+        "seed": 12,
+        "team": "Northern Iowa"
       },
-      "market_prob": 0.635,
-      "claude_prob": 0.54,
-      "divergence": -0.095,
-      "abs_divergence": 0.095,
-      "pick": "St. John's",
-      "pick_seed": 5,
+      "market_prob": 0.895,
+      "claude_prob": 0.68,
+      "divergence": -0.215,
+      "abs_divergence": 0.215,
+      "pick": "Northern Iowa",
+      "pick_seed": 12,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes St. John's MORE than market",
-      "claude_rationale": "This is a near pick-em matchup between two bluebloods with strong tournament pedigrees. Kansas brings Bill Self's experienced tournament coaching and typically reliable big-game execution, but St. John's under Rick Pitino has re-established itself as a legitimate contender with elite guard play and defensive intensity. The slight edge goes to Kansas based on historical tournament experience, but St. John's has the talent and coaching to pull the upset."
+      "pick_rationale": "Claude likes Northern Iowa MORE than market",
+      "claude_rationale": "Kansas brings superior talent, Big 12 battle-tested experience, and Bill Self's deep tournament pedigree as a consistent program. However, Northern Iowa has a history of pulling off upsets as a physical, well-coached mid-major under Steve Forbes's system, and the #12 vs #5 upset rate historically hovers around 35% \u2014 this is a #12 vs #4 matchup where mid-majors have proven dangerous. Kansas's depth and NBA-caliber talent should ultimately prevail, but this figures to be a competitive, physical game."
     },
     {
       "game": 35,
       "region": "East",
-      "matchup": "(3) Michigan State vs (6) Louisville",
+      "matchup": "(6) Louisville vs (14) North Dakota State",
       "team_a": {
-        "seed": 3,
-        "team": "Michigan State"
-      },
-      "team_b": {
         "seed": 6,
         "team": "Louisville"
       },
-      "market_prob": 0.766,
-      "claude_prob": 0.62,
-      "divergence": -0.146,
-      "abs_divergence": 0.146,
+      "team_b": {
+        "seed": 14,
+        "team": "North Dakota State"
+      },
+      "market_prob": 0.675,
+      "claude_prob": 0.72,
+      "divergence": 0.045,
+      "abs_divergence": 0.045,
       "pick": "Louisville",
       "pick_seed": 6,
-      "pick_source": "DIVERGE",
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Louisville MORE than market",
-      "claude_rationale": "Michigan State's tournament pedigree under Tom Izzo gives them a meaningful edge in high-pressure elimination games, as Izzo consistently over-performs seeding in March. Louisville as a 6-seed represents a dangerous mid-major threat with athleticism and defensive intensity that could trouble the Spartans. However, Michigan State's experience and Izzo's preparation advantage should carry them through a competitive game."
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Louisville as a #6 seed carries a significant seeding advantage and typically reflects a quality high-major program with superior athleticism and depth compared to a #14 seed from the Summit League. North Dakota State would need an exceptional performance to pull the upset, as mid-major programs at this seed face steep odds against ACC-caliber competition. Historical data shows #6 seeds win roughly 70-75% of Round of 32 matchups against #14 seeds."
     },
     {
       "game": 36,
@@ -854,17 +889,18 @@
         "seed": 7,
         "team": "UCLA"
       },
-      "market_prob": 0.852,
+      "market_prob": 0.955,
       "claude_prob": 0.63,
-      "divergence": -0.222,
-      "abs_divergence": 0.222,
+      "divergence": -0.325,
+      "abs_divergence": 0.325,
       "pick": "UCLA",
       "pick_seed": 7,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Claude likes UCLA MORE than market",
-      "claude_rationale": "UConn's tournament pedigree under Dan Hurley remains elite, with disciplined defense and experienced roster construction giving them a structural edge. However, UCLA's athleticism and Pac-12/Big Ten caliber competition make them a dangerous 7-seed capable of an upset. UConn's home-region familiarity in the East bracket and superior depth should carry them through a competitive game."
+      "claude_rationale": "UConn brings elite tournament pedigree and typically fields a disciplined, experienced roster under Dan Hurley that thrives in March settings. However, UCLA is a historically strong program capable of pulling upsets, and a 7-seed matchup in the Round of 32 is always dangerous for higher seeds. UConn's defensive continuity and depth should be the difference, but this figures to be a competitive game."
     },
     {
       "game": 37,
@@ -878,41 +914,43 @@
         "seed": 9,
         "team": "Utah State"
       },
-      "market_prob": 0.958,
+      "market_prob": 0.995,
       "claude_prob": 0.72,
-      "divergence": -0.238,
-      "abs_divergence": 0.238,
+      "divergence": -0.275,
+      "abs_divergence": 0.275,
       "pick": "Utah State",
       "pick_seed": 9,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Claude likes Utah State MORE than market",
-      "claude_rationale": "Arizona as a #1 seed carries significant talent and coaching advantages under Tommy Lloyd, with a high-powered offense and experienced roster capable of handling tournament pressure. Utah State as a #9 seed from the Mountain West is a dangerous mid-major program with strong coaching under Nate Oats's successor, capable of pulling upsets with disciplined play and three-point shooting. However, Arizona's superior athleticism and depth should prevail in a competitive but manageable victory."
+      "claude_rationale": "Arizona as a #1 seed brings elite Pac-12/Big 12 competition experience, superior recruiting, and typically strong frontcourt depth that creates matchup problems for Mountain West opponents. Utah State is a dangerous #9 seed capable of pulling upsets with disciplined play and strong coaching under Danny Sprinkle's system, making this a legitimate threat game. However, Arizona's talent advantage and home-region familiarity in the West bracket should prevail in what figures to be a competitive but ultimately one-sided finish."
     },
     {
       "game": 38,
       "region": "West",
-      "matchup": "(4) Arkansas vs (5) Wisconsin",
+      "matchup": "(12) High Point vs (13) Hawaii",
       "team_a": {
-        "seed": 4,
-        "team": "Arkansas"
+        "seed": 12,
+        "team": "High Point"
       },
       "team_b": {
-        "seed": 5,
-        "team": "Wisconsin"
+        "seed": 13,
+        "team": "Hawaii"
       },
-      "market_prob": 0.635,
-      "claude_prob": 0.44,
-      "divergence": -0.195,
-      "abs_divergence": 0.195,
-      "pick": "Wisconsin",
-      "pick_seed": 5,
+      "market_prob": 0.205,
+      "claude_prob": 0.52,
+      "divergence": 0.315,
+      "abs_divergence": 0.315,
+      "pick": "High Point",
+      "pick_seed": 12,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Wisconsin MORE than market",
-      "claude_rationale": "Wisconsin's disciplined, slow-paced offense under Greg Gard historically neutralizes more athletic teams like Arkansas, grinding games into halfcourt battles that neutralize the Razorbacks' transition advantages. As a 5-seed, Wisconsin typically arrives battle-tested from a competitive Big Ten, and their experience and composure in close tournament games gives them a slight edge. Arkansas's uptempo style and potential inconsistency in halfcourt sets makes this a difficult matchup for the Razorbacks."
+      "pick_rationale": "Claude likes High Point MORE than market",
+      "claude_rationale": "This is an extremely even matchup between two mid-major programs that both earned double-digit seeds, suggesting similar overall profiles. High Point has built a competitive program under Tubby Smith's successors in the Big South/CAA orbit, while Hawaii brings a strong home-court culture but faces travel disadvantages in neutral-site play. With nearly identical seed lines, this is essentially a coin flip with a slight edge to High Point based on typical mainland travel advantages."
     },
     {
       "game": 39,
@@ -926,41 +964,43 @@
         "seed": 6,
         "team": "BYU"
       },
-      "market_prob": 0.766,
+      "market_prob": 0.955,
       "claude_prob": 0.62,
-      "divergence": -0.146,
-      "abs_divergence": 0.146,
+      "divergence": -0.335,
+      "abs_divergence": 0.335,
       "pick": "BYU",
       "pick_seed": 6,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Claude likes BYU MORE than market",
-      "claude_rationale": "Gonzaga's tournament pedigree and Mark Few's coaching experience give them a structural edge, but BYU as a 6-seed represents a dangerous mid-major threat capable of an upset. The Bulldogs' interior presence and half-court execution typically shine in tournament settings, though BYU's physicality and Big 12 battle-tested roster make this a competitive game. Gonzaga's deeper tournament experience and home-region familiarity in the West bracket tips the balance in their favor."
+      "claude_rationale": "Gonzaga's tournament pedigree and Mark Few's experienced coaching give them a structural edge, but BYU has proven itself as a competitive Big 12 program capable of upsetting higher seeds. The Bulldogs' frontcourt depth and perimeter shooting typically travel well in March, though BYU's physical Big 12 style could neutralize Gonzaga's interior advantages and make this a closer game than the seeding suggests."
     },
     {
       "game": 40,
       "region": "West",
-      "matchup": "(2) Purdue vs (10) Missouri",
+      "matchup": "(10) Missouri vs (15) Queens",
       "team_a": {
-        "seed": 2,
-        "team": "Purdue"
-      },
-      "team_b": {
         "seed": 10,
         "team": "Missouri"
       },
-      "market_prob": 0.852,
-      "claude_prob": 0.64,
-      "divergence": -0.212,
-      "abs_divergence": 0.212,
+      "team_b": {
+        "seed": 15,
+        "team": "Queens"
+      },
+      "market_prob": 0.465,
+      "claude_prob": 0.72,
+      "divergence": 0.255,
+      "abs_divergence": 0.255,
       "pick": "Missouri",
       "pick_seed": 10,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Claude likes Missouri MORE than market",
-      "claude_rationale": "Purdue as a #2 seed carries significant structural advantages in talent and seeding, but Missouri as a #10 seed has demonstrated enough regular season quality to earn their bid and poses a credible upset threat. The Boilermakers' size and frontcourt depth should be decisive factors, though Missouri's athleticism and tempo could create problems. Historical #10 vs #2 upsets occur roughly 30-35% of the time, keeping this competitive."
+      "claude_rationale": "Missouri as a #10 seed carries significant Big 12 Conference experience and athleticism that should overwhelm a #15 seed Queens program from a mid-major conference. The Tigers' superior recruiting, depth, and tournament experience give them a clear advantage in this Round of 32 matchup. While upsets happen, the talent gap between a power conference #10 and a #15 seed makes Missouri the strong favorite."
     },
     {
       "game": 41,
@@ -974,65 +1014,68 @@
         "seed": 8,
         "team": "Clemson"
       },
-      "market_prob": 0.933,
+      "market_prob": 0.56,
       "claude_prob": 0.72,
-      "divergence": -0.213,
-      "abs_divergence": 0.213,
-      "pick": "Clemson",
-      "pick_seed": 8,
+      "divergence": 0.16,
+      "abs_divergence": 0.16,
+      "pick": "Florida",
+      "pick_seed": 1,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Clemson MORE than market",
-      "claude_rationale": "Florida as a #1 seed carries significant advantages in talent, depth, and coaching under Todd Golden, who has built the Gators into an elite program. Clemson as an #8 seed is a dangerous opponent capable of upsetting higher seeds, and the Tigers' physical, defensive style under Brad Brownell can disrupt Florida's rhythm. However, Florida's superior roster and home-region familiarity in the South bracket should be enough to advance."
+      "pick_rationale": "Claude likes Florida MORE than market",
+      "claude_rationale": "Florida as a #1 seed carries significant advantages in talent depth, coaching, and regular season performance under Todd Golden, who has built the Gators into an elite program. Clemson as a #8 seed is dangerous and tournament-tested under Brad Brownell, capable of winning on any given night. However, Florida's superior athleticism and homecourt-caliber preparation as a top seed should prevail in what figures to be a competitive but manageable win."
     },
     {
       "game": 42,
       "region": "South",
-      "matchup": "(4) Nebraska vs (5) Vanderbilt",
+      "matchup": "(12) McNeese vs (13) Troy",
       "team_a": {
-        "seed": 4,
-        "team": "Nebraska"
+        "seed": 12,
+        "team": "McNeese"
       },
       "team_b": {
-        "seed": 5,
-        "team": "Vanderbilt"
+        "seed": 13,
+        "team": "Troy"
       },
-      "market_prob": 0.66,
-      "claude_prob": 0.52,
-      "divergence": -0.14,
-      "abs_divergence": 0.14,
-      "pick": "Vanderbilt",
-      "pick_seed": 5,
+      "market_prob": 0.155,
+      "claude_prob": 0.58,
+      "divergence": 0.425,
+      "abs_divergence": 0.425,
+      "pick": "McNeese",
+      "pick_seed": 12,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Vanderbilt MORE than market",
-      "claude_rationale": "This is an extremely tight matchup between two evenly seeded Big Ten and SEC programs. Nebraska's higher seed gives them a slight edge, but Vanderbilt's perimeter shooting and SEC tournament experience make this a genuine toss-up. The one-seed difference suggests marginal Nebraska advantage, but either team is capable of advancing."
+      "pick_rationale": "Claude likes McNeese MORE than market",
+      "claude_rationale": "McNeese has been a consistent performer in the Southland/WAC conference space with solid tournament pedigree under their coaching staff, while Troy competing out of the Sun Belt brings athleticism but inconsistency. As a 12-seed versus a 13-seed, McNeese holds a slight seeding advantage reflecting their marginally stronger r\u00e9sum\u00e9. This is a close matchup between mid-major programs where McNeese's experience and depth likely prove decisive."
     },
     {
       "game": 43,
       "region": "South",
-      "matchup": "(3) Illinois vs (6) North Carolina",
+      "matchup": "(6) North Carolina vs (14) Penn",
       "team_a": {
-        "seed": 3,
-        "team": "Illinois"
-      },
-      "team_b": {
         "seed": 6,
         "team": "North Carolina"
       },
-      "market_prob": 0.813,
-      "claude_prob": 0.58,
-      "divergence": -0.233,
-      "abs_divergence": 0.233,
+      "team_b": {
+        "seed": 14,
+        "team": "Penn"
+      },
+      "market_prob": 0.555,
+      "claude_prob": 0.78,
+      "divergence": 0.225,
+      "abs_divergence": 0.225,
       "pick": "North Carolina",
       "pick_seed": 6,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Claude likes North Carolina MORE than market",
-      "claude_rationale": "Illinois as a #3 seed holds a meaningful seeding advantage and typically benefits from Big Ten tournament experience and strong frontcourt play under Brad Underwood's system. North Carolina's perimeter shooting and transition offense make them a dangerous #6 seed capable of an upset, and the Tar Heels' blue-blood tournament pedigree keeps this competitive. The slight edge goes to Illinois based on seeding and projected defensive efficiency, but this figures to be a closely contested game."
+      "claude_rationale": "North Carolina's superior athleticism, ACC tournament experience, and recruiting depth give them a significant edge over an Ivy League champion Penn. The Tar Heels' ability to exploit mismatches in transition and on the glass typically overwhelms mid-major opponents in the Round of 32. However, Penn's disciplined Princeton-style offense and tournament first-round momentum make them a credible upset threat worth respecting."
     },
     {
       "game": 44,
@@ -1046,17 +1089,18 @@
         "seed": 7,
         "team": "Saint Mary's"
       },
-      "market_prob": 0.901,
-      "claude_prob": 0.64,
-      "divergence": -0.261,
-      "abs_divergence": 0.261,
+      "market_prob": 0.975,
+      "claude_prob": 0.68,
+      "divergence": -0.295,
+      "abs_divergence": 0.295,
       "pick": "Saint Mary's",
       "pick_seed": 7,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Claude likes Saint Mary's MORE than market",
-      "claude_rationale": "Houston's defensive identity under Kelvin Sampson typically makes them a difficult out in March, and as a 2-seed they carry superior talent and depth. However, Saint Mary's under Randy Bennett is a perennially disciplined program that slows tempo, executes efficiently, and consistently overachieves in the tournament, making this a dangerous matchup for Houston. The Gaels' deliberate pace could neutralize Houston's athleticism, but the Cougars' defensive pressure and interior size should ultimately prove the difference."
+      "claude_rationale": "Houston's defensive identity under Kelvin Sampson typically makes them a difficult out in the tournament, with superior athleticism and depth compared to most mid-major opponents. Saint Mary's under Randy Bennett is a disciplined, efficient program that plays slow and methodical basketball, which could neutralize Houston's pressure and keep the game close. However, Houston's talent advantage and tournament experience as a 2-seed should prevail in a lower-scoring, physical contest."
     },
     {
       "game": 45,
@@ -1070,65 +1114,68 @@
         "seed": 8,
         "team": "Georgia"
       },
-      "market_prob": 0.958,
+      "market_prob": 0.415,
       "claude_prob": 0.72,
-      "divergence": -0.238,
-      "abs_divergence": 0.238,
-      "pick": "Georgia",
-      "pick_seed": 8,
+      "divergence": 0.305,
+      "abs_divergence": 0.305,
+      "pick": "Michigan",
+      "pick_seed": 1,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Georgia MORE than market",
-      "claude_rationale": "As a #1 seed, Michigan enters with superior resume, depth, and coaching advantages that typically translate well in tournament settings. Georgia as an #8 seed presents a credible threat given SEC tournament experience and athleticism, but Michigan's home-region familiarity in the Midwest bracket and presumed regular season dominance give them a clear edge. The #1 vs #8 matchup historically favors the higher seed at roughly 75-80%, though Georgia's SEC pedigree keeps this from being a blowout projection."
+      "pick_rationale": "Claude likes Michigan MORE than market",
+      "claude_rationale": "As a #1 seed, Michigan carries significant advantages in talent depth, coaching resources, and regular season dominance that typically translate to tournament success. Georgia as an #8 seed represents a dangerous mid-major or mid-tier SEC threat capable of an upset, but the Wolverines' superior roster and home-court energy usually prevail in this matchup. The 1-vs-8 matchup historically favors the top seed at roughly 75-80% of the time, though Georgia's athleticism could keep this competitive."
     },
     {
       "game": 46,
       "region": "Midwest",
-      "matchup": "(4) Alabama vs (5) Texas Tech",
+      "matchup": "(5) Texas Tech vs (13) Hofstra",
       "team_a": {
-        "seed": 4,
-        "team": "Alabama"
-      },
-      "team_b": {
         "seed": 5,
         "team": "Texas Tech"
       },
-      "market_prob": null,
-      "claude_prob": 0.52,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "Alabama",
-      "pick_seed": 4,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.02,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "This is a near pick-em matchup between two quality SEC and Big 12 programs with comparable tournament pedigree. Alabama's athleticism and perimeter scoring give them a slight edge, but Texas Tech's defensive discipline under their system historically makes them dangerous in close tournament games. The one-seed line difference is minimal and either team could advance comfortably."
+      "team_b": {
+        "seed": 13,
+        "team": "Hofstra"
+      },
+      "market_prob": 0.725,
+      "claude_prob": 0.79,
+      "divergence": 0.065,
+      "abs_divergence": 0.065,
+      "pick": "Texas Tech",
+      "pick_seed": 5,
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Texas Tech's Big 12 battle-testing and Mark Adams' defensive system give them a significant structural advantage over a CAA program in Hofstra. The Red Raiders' physicality and depth should neutralize any mid-major momentum Hofstra brings, though double-digit seeds from smaller conferences can occasionally exploit zone-busting or three-point shooting against Big 12 defenses. Texas Tech's tournament pedigree and superior athleticism make them a comfortable favorite in this round."
     },
     {
       "game": 47,
       "region": "Midwest",
-      "matchup": "(3) Virginia vs (6) Tennessee",
+      "matchup": "(6) Tennessee vs (14) Wright State",
       "team_a": {
-        "seed": 3,
-        "team": "Virginia"
-      },
-      "team_b": {
         "seed": 6,
         "team": "Tennessee"
       },
-      "market_prob": 0.766,
-      "claude_prob": 0.42,
-      "divergence": -0.346,
-      "abs_divergence": 0.346,
-      "pick": "Tennessee",
-      "pick_seed": 6,
+      "team_b": {
+        "seed": 14,
+        "team": "Wright State"
+      },
+      "market_prob": 0.945,
+      "claude_prob": 0.82,
+      "divergence": -0.125,
+      "abs_divergence": 0.125,
+      "pick": "Wright State",
+      "pick_seed": 14,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Tennessee MORE than market",
-      "claude_rationale": "Tennessee's physical, aggressive defensive style and superior athleticism typically creates problems for Virginia's methodical pack-line defense and slow-tempo offense in tournament settings. The Volunteers' depth and ability to pressure the ball can disrupt Virginia's deliberate half-court execution. As a 6-seed, Tennessee has the talent profile to pull this upset against a Virginia team that can struggle to generate offense against elite defensive pressure."
+      "pick_rationale": "Claude likes Wright State MORE than market",
+      "claude_rationale": "Tennessee's elite defensive identity under Rick Barnes consistently translates well to tournament settings, and their SEC experience and athleticism creates significant advantages against a Horizon League opponent. Wright State, while capable of first-round upsets, faces a steep climb against Tennessee's length and physicality that typically neutralizes mid-major offensive systems. The talent gap and coaching experience heavily favor the Volunteers in this Round of 32 matchup."
     },
     {
       "game": 48,
@@ -1142,43 +1189,45 @@
         "seed": 7,
         "team": "Kentucky"
       },
-      "market_prob": 0.852,
+      "market_prob": 0.975,
       "claude_prob": 0.62,
-      "divergence": -0.232,
-      "abs_divergence": 0.232,
+      "divergence": -0.355,
+      "abs_divergence": 0.355,
       "pick": "Kentucky",
       "pick_seed": 7,
       "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
       "pick_rationale": "Claude likes Kentucky MORE than market",
-      "claude_rationale": "Iowa State under T.J. Otzelberger has built a program with elite defensive discipline and tournament toughness, making them a reliable higher seed in the Midwest region. Kentucky, however, is perpetually dangerous with John Calipari's (or his successor's) recruiting talent and the Wildcats' history of tournament upsets as a 7-seed. Iowa State's structural advantages as a 2-seed with home-region familiarity give them the edge, but Kentucky's athleticism and depth keep this closer than the seeding suggests."
+      "claude_rationale": "Iowa State under T.J. Otzelberger has built a consistently elite defensive program and earned a 2-seed for good reason, giving them a structural advantage. However, Kentucky's superior recruiting talent and John Calipari's (or his successor's) ability to reload with NBA-caliber athletes makes the Wildcats a dangerous 7-seed capable of an upset. The edge goes to Iowa State's system and tournament experience, but Kentucky's raw talent keeps this close."
     }
   ],
   "16": [
     {
       "game": 49,
       "region": "East",
-      "matchup": "(5) St. John's vs (8) Ohio State",
+      "matchup": "(8) Ohio State vs (12) Northern Iowa",
       "team_a": {
-        "seed": 5,
-        "team": "St. John's"
-      },
-      "team_b": {
         "seed": 8,
         "team": "Ohio State"
       },
-      "market_prob": 0.629,
+      "team_b": {
+        "seed": 12,
+        "team": "Northern Iowa"
+      },
+      "market_prob": 0.565,
       "claude_prob": 0.54,
-      "divergence": -0.089,
-      "abs_divergence": 0.089,
+      "divergence": -0.025,
+      "abs_divergence": 0.025,
       "pick": "Ohio State",
       "pick_seed": 8,
-      "pick_source": "DIVERGE",
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Ohio State MORE than market",
-      "claude_rationale": "St. John's under Rick Pitino has rebuilt into a Big East powerhouse with strong guard play and tournament savvy, giving them a slight edge as the higher seed in a competitive matchup. Ohio State as an 8-seed likely navigated a tough Big Ten schedule and brings size and athleticism that could challenge the Red Storm. This figures to be a closely contested game where St. John's home-region familiarity in the East bracket provides a marginal advantage."
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "As a #8 seed reaching the Sweet 16, Ohio State has demonstrated resilience but faces a battle-tested Northern Iowa squad that earned a #12 seed through consistent mid-major excellence. Northern Iowa's disciplined, physical style under experienced coaching makes them a dangerous opponent, but Ohio State's Big Ten seasoning and talent advantage should narrowly prevail in a closely contested game."
     },
     {
       "game": 50,
@@ -1192,41 +1241,43 @@
         "seed": 7,
         "team": "UCLA"
       },
-      "market_prob": null,
+      "market_prob": 0.675,
       "claude_prob": 0.42,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.255,
+      "abs_divergence": 0.255,
       "pick": "UCLA",
       "pick_seed": 7,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.08,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "UCLA's consistent Pac-12/Big Ten pedigree and tournament experience give them a slight edge in a close Sweet 16 matchup. The Bruins typically deploy superior depth and coaching adaptability under Mick Cronin, making them difficult to beat in neutral-site games. Louisville has shown improvement but faces a tough test against UCLA's disciplined defensive schemes."
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes UCLA MORE than market",
+      "claude_rationale": "UCLA's experienced coaching under Mick Cronin and their Pac-12/Big Ten tradition gives them a slight edge in close tournament matchups. Louisville has shown improvement under Pat Kelsey but UCLA's depth and defensive discipline tend to shine in high-stakes Sweet 16 settings. This is a coin-flip game between two evenly matched mid-seeds, with UCLA's tournament pedigree tipping the balance."
     },
     {
       "game": 51,
       "region": "West",
-      "matchup": "(5) Wisconsin vs (9) Utah State",
+      "matchup": "(9) Utah State vs (12) High Point",
       "team_a": {
-        "seed": 5,
-        "team": "Wisconsin"
-      },
-      "team_b": {
         "seed": 9,
         "team": "Utah State"
       },
-      "market_prob": 0.629,
-      "claude_prob": 0.54,
-      "divergence": -0.089,
-      "abs_divergence": 0.089,
+      "team_b": {
+        "seed": 12,
+        "team": "High Point"
+      },
+      "market_prob": 0.565,
+      "claude_prob": 0.62,
+      "divergence": 0.055,
+      "abs_divergence": 0.055,
       "pick": "Utah State",
       "pick_seed": 9,
-      "pick_source": "DIVERGE",
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Utah State MORE than market",
-      "claude_rationale": "Wisconsin's methodical, half-court offensive system under Greg Gard typically grinds opponents down in tournament settings, and as a 5-seed reaching the Sweet 16 they've demonstrated postseason resilience. Utah State as a 9-seed is a legitimate mid-major threat with strong defensive identity and tournament momentum, making this a close, low-possession battle. The slight edge goes to Wisconsin's experience and coaching, but Utah State's defensive toughness keeps this extremely competitive."
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Utah State as a 9-seed reaching the Sweet 16 carries more established program infrastructure, Mountain West Conference experience, and likely better overall talent depth than a 12-seed High Point squad from the Big South. However, High Point's Cinderella run to the Sweet 16 indicates a hot, confident team capable of upsets, and Danny Manning's coaching experience gives them a legitimate shot. Utah State's size and experience in high-pressure games should ultimately prove the difference."
     },
     {
       "game": 52,
@@ -1240,41 +1291,43 @@
         "seed": 10,
         "team": "Missouri"
       },
-      "market_prob": null,
+      "market_prob": 0.535,
       "claude_prob": 0.54,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": 0.005,
+      "abs_divergence": 0.005,
       "pick": "BYU",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.04,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "BYU as a 6-seed has a slight structural advantage over Missouri's 10-seed in a Sweet 16 matchup, but Missouri's ability to pull off two upsets to reach this round suggests genuine quality. BYU's Big 12 tournament experience and home-region familiarity in the West bracket gives them a modest edge, though this figures to be a competitive, closely contested game with neither team holding a decisive advantage."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "BYU as a 6-seed holds a slight structural advantage over Missouri's 10-seed, though reaching the Sweet 16 as a double-digit seed signals Missouri's genuine tournament quality. BYU's Big 12 battle-tested experience gives them an edge in high-pressure situations, but Missouri's athleticism and potential hot shooting make this a coin-flip game. The slight lean toward BYU reflects seeding and conference strength rather than a dominant stylistic advantage."
     },
     {
       "game": 53,
       "region": "South",
-      "matchup": "(5) Vanderbilt vs (8) Clemson",
+      "matchup": "(1) Florida vs (12) McNeese",
       "team_a": {
-        "seed": 5,
-        "team": "Vanderbilt"
+        "seed": 1,
+        "team": "Florida"
       },
       "team_b": {
-        "seed": 8,
-        "team": "Clemson"
+        "seed": 12,
+        "team": "McNeese"
       },
-      "market_prob": 0.629,
-      "claude_prob": 0.52,
-      "divergence": -0.109,
-      "abs_divergence": 0.109,
-      "pick": "Clemson",
-      "pick_seed": 8,
-      "pick_source": "DIVERGE",
+      "market_prob": 0.845,
+      "claude_prob": 0.82,
+      "divergence": -0.025,
+      "abs_divergence": 0.025,
+      "pick": "Florida",
+      "pick_seed": 1,
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
       "conviction": null,
       "conviction_label": null,
-      "pick_rationale": "Claude likes Clemson MORE than market",
-      "claude_rationale": "As a 5-seed, Vanderbilt holds a slight seeding advantage over 8-seed Clemson, suggesting a marginally better overall resume heading into the Sweet 16. Both teams are evenly matched at this stage, but Vanderbilt's higher seed indicates slightly more consistent regular season performance. This is essentially a coin-flip game with Vanderbilt holding a slim edge."
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "Florida as a #1 seed brings superior talent, depth, and coaching resources that would overwhelm a #12 seed McNeese in the Sweet 16. McNeese's Cinderella run to reach this stage is remarkable, but the Cowboys would face a significant athleticism and experience gap against a top-tier SEC program. Florida's ability to control tempo and exploit mismatches should prove decisive."
     },
     {
       "game": 54,
@@ -1288,65 +1341,68 @@
         "seed": 7,
         "team": "Saint Mary's"
       },
-      "market_prob": null,
+      "market_prob": 0.555,
       "claude_prob": 0.58,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": 0.025,
+      "abs_divergence": 0.025,
       "pick": "North Carolina",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.08,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "North Carolina's deeper roster, superior athleticism, and ACC tournament experience give them an edge in the Sweet 16, where the game's pace and physicality should favor the Tar Heels. Saint Mary's methodical, disciplined offense under Randy Bennett can keep games close and low-scoring, making this competitive. UNC's transition opportunities and size advantages inside should ultimately be the difference in a tight game."
+      "pick_source": "CHALK",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Market and Claude aligned",
+      "claude_rationale": "North Carolina's superior athleticism, depth, and ACC tournament experience give them a slight edge in a Sweet 16 environment. Saint Mary's methodical, halfcourt-oriented offense under Randy Bennett can neutralize athletic advantages and control pace, making this a competitive matchup. UNC's talent advantage and home crowd support as a blueblood program tips the balance narrowly in their favor."
     },
     {
       "game": 55,
       "region": "Midwest",
-      "matchup": "(4) Alabama vs (8) Georgia",
+      "matchup": "(1) Michigan vs (5) Texas Tech",
       "team_a": {
-        "seed": 4,
-        "team": "Alabama"
+        "seed": 1,
+        "team": "Michigan"
       },
       "team_b": {
-        "seed": 8,
-        "team": "Georgia"
+        "seed": 5,
+        "team": "Texas Tech"
       },
-      "market_prob": null,
+      "market_prob": 0.275,
       "claude_prob": 0.62,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "Alabama",
-      "pick_seed": 4,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.12,
-      "conviction_label": "MED",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (MED)",
-      "claude_rationale": "Alabama as a 4-seed holds a meaningful seeding advantage over Georgia's 8-seed, and the Crimson Tide's up-tempo, high-scoring offense under Nate Oats typically creates matchup problems in single-elimination play. However, an SEC rivalry game means Georgia knows Alabama well, reducing surprises, and the Bulldogs' tournament run suggests they are playing confident basketball heading into the Sweet 16."
+      "divergence": 0.345,
+      "abs_divergence": 0.345,
+      "pick": "Michigan",
+      "pick_seed": 1,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Michigan MORE than market",
+      "claude_rationale": "Michigan as a #1 seed carries significant advantages in talent depth and regular season dominance, but Texas Tech's historically elite defensive system under their coaching staff makes them a dangerous Sweet 16 opponent. The Red Raiders' physical, grinding style can neutralize higher-seeded opponents, and #5 seeds have historically performed well in the Sweet 16. Michigan's home region familiarity and top-seed resources give them a moderate edge, but this projects as a competitive, close game."
     },
     {
       "game": 56,
       "region": "Midwest",
-      "matchup": "(6) Tennessee vs (7) Kentucky",
+      "matchup": "(7) Kentucky vs (14) Wright State",
       "team_a": {
-        "seed": 6,
-        "team": "Tennessee"
-      },
-      "team_b": {
         "seed": 7,
         "team": "Kentucky"
       },
-      "market_prob": null,
-      "claude_prob": 0.52,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "Tennessee",
-      "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.02,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "This is an extremely even SEC rivalry matchup with both teams having comparable talent and tournament experience. Tennessee's typically suffocating defensive identity under Rick Barnes gives them a slight edge in high-stakes, low-possession tournament games. However, Kentucky's depth and coaching adjustability make this essentially a coin flip, with home crowd neutrality in a Sweet 16 setting."
+      "team_b": {
+        "seed": 14,
+        "team": "Wright State"
+      },
+      "market_prob": 0.605,
+      "claude_prob": 0.79,
+      "divergence": 0.185,
+      "abs_divergence": 0.185,
+      "pick": "Kentucky",
+      "pick_seed": 7,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Kentucky MORE than market",
+      "claude_rationale": "Kentucky as a 7-seed still carries significant talent advantages over a 14-seed Wright State that would have needed to win two upset games just to reach the Sweet 16. The Wildcats' superior athleticism, depth, and coaching under a proven staff should overwhelm a mid-major program at this stage, even accounting for Wright State's momentum from back-to-back upsets. Kentucky's recruiting pedigree and roster talent make them a heavy favorite in this matchup."
     }
   ],
   "8": [
@@ -1362,17 +1418,18 @@
         "seed": 8,
         "team": "Ohio State"
       },
-      "market_prob": null,
+      "market_prob": 0.68,
       "claude_prob": 0.45,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": -0.23,
+      "abs_divergence": 0.23,
       "pick": "Ohio State",
       "pick_seed": 8,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.05,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "This is a coin-flip Elite 8 matchup between two similarly seeded teams. UCLA's guard play and Mick Cronin's tournament experience provide a slight edge in close games, but Ohio State's physicality and frontcourt depth could neutralize UCLA's offensive advantages. As an 8-seed, Ohio State has already proven itself capable of upsets to reach this stage, making them a dangerous opponent."
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Ohio State MORE than market",
+      "claude_rationale": "As an 8-seed reaching the Elite 8, Ohio State has demonstrated tournament resilience and momentum, having already upset higher seeds. UCLA as a 7-seed has comparable talent but faces a Buckeyes squad playing with confidence; this near-even matchup slightly favors Ohio State given their tournament trajectory and Big Ten physicality matching up well against UCLA's perimeter-oriented offense."
     },
     {
       "game": 58,
@@ -1386,65 +1443,68 @@
         "seed": 9,
         "team": "Utah State"
       },
-      "market_prob": null,
-      "claude_prob": 0.52,
-      "divergence": null,
-      "abs_divergence": null,
+      "market_prob": 0.435,
+      "claude_prob": 0.54,
+      "divergence": 0.105,
+      "abs_divergence": 0.105,
       "pick": "BYU",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.02,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "This is an extremely tight in-state rivalry matchup between two Big 12 and Mountain West programs that know each other well, making it difficult to separate them significantly. BYU's slight seeding advantage as a #6 seed suggests marginally better overall resume, but Utah State as a #9 reaching the Elite 8 has demonstrated serious tournament resilience. The familiarity factor and neutral court setting makes this essentially a coin-flip with BYU holding a razor-thin edge."
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes BYU MORE than market",
+      "claude_rationale": "This is a closely contested in-state rivalry matchup between two Big 12 (BYU) and Mountain West (Utah State) programs that have both overachieved to reach the Elite 8. BYU as a 6-seed holds a slight seeding advantage and the depth of Big 12 competition may have better prepared them for tournament pressure, but Utah State's scrappy, well-coached style under Danny Sprinkle or successor has consistently punched above its weight. The margin is razor-thin given Utah State's history of tournament upsets as a 9-seed already having beaten higher seeds to get here."
     },
     {
       "game": 59,
       "region": "South",
-      "matchup": "(6) North Carolina vs (8) Clemson",
+      "matchup": "(1) Florida vs (6) North Carolina",
       "team_a": {
+        "seed": 1,
+        "team": "Florida"
+      },
+      "team_b": {
         "seed": 6,
         "team": "North Carolina"
       },
-      "team_b": {
-        "seed": 8,
-        "team": "Clemson"
-      },
-      "market_prob": null,
-      "claude_prob": 0.54,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "North Carolina",
-      "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.04,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "North Carolina's deeper tournament pedigree and the Dean Dome program's Elite 8 experience give them a slight edge, though Clemson as a #8 seed reaching this round demonstrates genuine quality and momentum. The Tar Heels' traditional offensive firepower should be enough to edge past Clemson's defensive-minded system, but this figures to be a closely contested game with either team capable of advancing."
+      "market_prob": 0.445,
+      "claude_prob": 0.61,
+      "divergence": 0.165,
+      "abs_divergence": 0.165,
+      "pick": "Florida",
+      "pick_seed": 1,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Florida MORE than market",
+      "claude_rationale": "Florida as a #1 seed carries significant seeding and resume advantages, but North Carolina's storied tournament pedigree and experience in high-pressure Elite 8 environments make this a dangerous matchup. The Tar Heels' ability to exploit size mismatches and push pace can neutralize Florida's home-court-like crowd energy. Florida's depth and coaching edge under Todd Golden give them a slight but meaningful advantage to advance to the Final Four."
     },
     {
       "game": 60,
       "region": "Midwest",
-      "matchup": "(4) Alabama vs (6) Tennessee",
+      "matchup": "(1) Michigan vs (7) Kentucky",
       "team_a": {
-        "seed": 4,
-        "team": "Alabama"
+        "seed": 1,
+        "team": "Michigan"
       },
       "team_b": {
-        "seed": 6,
-        "team": "Tennessee"
+        "seed": 7,
+        "team": "Kentucky"
       },
-      "market_prob": null,
-      "claude_prob": 0.42,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "Tennessee",
-      "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.08,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "Tennessee under Rick Barnes typically brings elite defense and physicality that can neutralize Alabama's uptempo, three-point-heavy offense in high-stakes tournament games. The Volunteers' SEC tournament experience and disciplined halfcourt execution gives them an edge in an Elite 8 grind-it-out scenario. Alabama's explosive offense keeps this competitive, but Tennessee's defensive identity and coaching edge in late-game situations tips the balance."
+      "market_prob": 0.395,
+      "claude_prob": 0.58,
+      "divergence": 0.185,
+      "abs_divergence": 0.185,
+      "pick": "Michigan",
+      "pick_seed": 1,
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Michigan MORE than market",
+      "claude_rationale": "Michigan earned the #1 seed with a strong Big Ten regular season and benefits from home-region familiarity and top-tier coaching under Dusty May, who has built a disciplined, efficient offense. However, Kentucky as a #7 seed still carries significant talent and John Calipari's successor has maintained elite recruiting, making the Wildcats a dangerous upset threat in the Elite 8. The one-seed advantage and Michigan's tournament experience give them a moderate edge, but this figures to be a competitive, close game."
     }
   ],
   "4": [
@@ -1460,67 +1520,70 @@
         "seed": 8,
         "team": "Ohio State"
       },
-      "market_prob": null,
+      "market_prob": 0.435,
       "claude_prob": 0.52,
-      "divergence": null,
-      "abs_divergence": null,
+      "divergence": 0.085,
+      "abs_divergence": 0.085,
       "pick": "BYU",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.02,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "This is an exceptionally close Final Four matchup between two tournament overachievers. BYU's experience in big games under Mark Pope's system and their perimeter shooting give them a slight edge, but Ohio State's athleticism and frontcourt depth make this nearly a coin flip. The team that controls tempo and limits turnovers will likely advance to the championship game."
+      "pick_source": "DIVERGE",
+      "signal_source": "GAME_MARKET",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes BYU MORE than market",
+      "claude_rationale": "This is an extremely close Final Four matchup between two double-digit seeds, making it a historic upset story regardless of outcome. BYU's Big 12 tournament experience and guard play give them a slight edge, but Ohio State's size and Big Ten physicality could neutralize BYU's pace. As a #6 vs #8 matchup, both teams have proven they can win in March, making this essentially a coin flip with a marginal lean toward BYU."
     },
     {
       "game": 62,
       "region": "Final Four",
-      "matchup": "(6) North Carolina vs (6) Tennessee",
+      "matchup": "(1) Florida vs (1) Michigan",
       "team_a": {
-        "seed": 6,
-        "team": "North Carolina"
+        "seed": 1,
+        "team": "Florida"
       },
       "team_b": {
-        "seed": 6,
-        "team": "Tennessee"
+        "seed": 1,
+        "team": "Michigan"
       },
-      "market_prob": null,
-      "claude_prob": 0.42,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "Tennessee",
-      "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.08,
-      "conviction_label": "LOW",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (LOW)",
-      "claude_rationale": "Both teams enter as double-digit seeds reaching the Final Four, making this a historically unprecedented matchup of equals. Tennessee's defensive intensity under Rick Barnes and their physicality typically gives them an edge in high-stakes games, while UNC's transition offense and guard play under Hubert Davis can create problems. Tennessee's defensive efficiency and rebounding edge give them a slight advantage in a projected low-scoring grind."
+      "market_prob": 0.406,
+      "claude_prob": 0.52,
+      "divergence": 0.114,
+      "abs_divergence": 0.114,
+      "pick": "Florida",
+      "pick_seed": 1,
+      "pick_source": "DIVERGE",
+      "signal_source": "DERIVED",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes Florida MORE than market",
+      "claude_rationale": "Both teams enter as #1 seeds making this an extremely even matchup. Florida under Todd Golden has shown strong offensive efficiency and tournament resilience in 2025-26, while Michigan's physicality and Big Ten battle-tested experience make them dangerous. This is essentially a coin-flip with Florida getting a slight edge based on their perimeter shooting and depth."
     }
   ],
   "2": [
     {
       "game": 63,
       "region": "Championship",
-      "matchup": "(6) BYU vs (6) Tennessee",
+      "matchup": "(1) Florida vs (6) BYU",
       "team_a": {
-        "seed": 6,
-        "team": "BYU"
+        "seed": 1,
+        "team": "Florida"
       },
       "team_b": {
         "seed": 6,
-        "team": "Tennessee"
+        "team": "BYU"
       },
-      "market_prob": null,
-      "claude_prob": 0.38,
-      "divergence": null,
-      "abs_divergence": null,
-      "pick": "Tennessee",
+      "market_prob": 0.933,
+      "claude_prob": 0.64,
+      "divergence": -0.293,
+      "abs_divergence": 0.293,
+      "pick": "BYU",
       "pick_seed": 6,
-      "pick_source": "CLAUDE_ONLY",
-      "conviction": 0.12,
-      "conviction_label": "MED",
-      "pick_rationale": "No market signal \u2014 Claude conviction pick (MED)",
-      "claude_rationale": "Tennessee's defensive identity under Rick Barnes typically thrives in high-stakes tournament environments, and the Volunteers' physicality and depth would present significant challenges for BYU in a championship setting. BYU has shown offensive firepower and tournament resilience reaching this stage as a #6 seed, but Tennessee's experience in big games and superior athleticism likely gives them the edge. Both teams earning #6 seeds makes this competitive, but Tennessee's defensive consistency is the difference-maker."
+      "pick_source": "DIVERGE",
+      "signal_source": "DERIVED",
+      "conviction": null,
+      "conviction_label": null,
+      "pick_rationale": "Claude likes BYU MORE than market",
+      "claude_rationale": "Florida as a #1 seed brings superior overall talent, depth, and tournament pedigree under Todd Golden's system, making them a slight favorite in the championship game. However, BYU's remarkable run as a #6 seed demonstrates resilience and momentum, and tournament upsets at this stage are not uncommon. Florida's frontcourt advantage and consistent offense should be the difference in a competitive final."
     }
   ]
 }
