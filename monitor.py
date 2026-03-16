@@ -271,6 +271,194 @@ def save_score(score: dict):
         json.dump(score, f, indent=2)
 
 
+# ─── ESPN LIVE SCORES ────────────────────────────────────────────────────────
+
+ESPN_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
+LIVE_POLL_INTERVAL = 30  # Poll every 30 seconds during live games
+
+# Map our team names to ESPN abbreviations (ESPN uses different ones than Kalshi)
+ESPN_ABBREV_MAP = {
+    "Duke": "DUKE", "Siena": "SIENA", "Ohio State": "OSU", "TCU": "TCU",
+    "St. John's": "SJU", "Northern Iowa": "UNI", "Kansas": "KU",
+    "Cal Baptist": "CBU", "Louisville": "LOU", "South Florida": "USF",
+    "Michigan State": "MSU", "North Dakota State": "NDSU", "UCLA": "UCLA",
+    "UCF": "UCF", "UConn": "UCONN", "Furman": "FUR",
+    "Arizona": "ARIZ", "LIU": "LIU", "Villanova": "NOVA",
+    "Utah State": "USU", "Wisconsin": "WIS", "High Point": "HPU",
+    "Arkansas": "ARK", "Hawaii": "HAW", "BYU": "BYU", "Texas": "TEX",
+    "Gonzaga": "GONZ", "Kennesaw State": "KENN", "Miami (FL)": "MIA",
+    "Missouri": "MIZ", "Purdue": "PUR", "Queens": "QUEEN",
+    "Florida": "FLA", "Prairie View A&M": "PVAMU",
+    "Clemson": "CLEM", "Iowa": "IOWA", "Vanderbilt": "VAN",
+    "McNeese": "MCNSE", "Nebraska": "NEB", "Troy": "TROY",
+    "North Carolina": "UNC", "VCU": "VCU", "Illinois": "ILL",
+    "Penn": "PENN", "Saint Mary's": "SMC", "Texas A&M": "TA&M",
+    "Houston": "HOU", "Idaho": "IDHO",
+    "Michigan": "MICH", "UMBC": "UMBC", "Georgia": "UGA",
+    "Saint Louis": "SLU", "Texas Tech": "TTU", "Akron": "AKR",
+    "Alabama": "ALA", "Hofstra": "HOF", "Tennessee": "TENN",
+    "SMU": "SMU", "Virginia": "UVA", "Wright State": "WRST",
+    "Kentucky": "UK", "Santa Clara": "SCU", "Iowa State": "ISU",
+    "Tennessee State": "TNST",
+}
+
+
+def fetch_live_scores() -> dict[str, dict]:
+    """Fetch today's live scores from ESPN. Returns {espn_abbrev: game_info}."""
+    today = datetime.now(timezone.utc).strftime("%Y%m%d")
+    url = f"{ESPN_SCOREBOARD}?dates={today}&groups=50&limit=100"
+    try:
+        req = Request(url, headers={"Accept": "application/json"})
+        with urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read())
+    except Exception as e:
+        print(f"  ESPN error: {e}")
+        return {}
+
+    scores = {}
+    for event in data.get("events", []):
+        status_obj = event.get("status", {})
+        status_type = status_obj.get("type", {})
+        state = status_type.get("state", "")  # pre, in, post
+        description = status_type.get("description", "")
+        period = status_obj.get("period", 0)
+        clock = status_obj.get("displayClock", "")
+
+        comps = event.get("competitions", [{}])[0]
+        competitors = comps.get("competitors", [])
+
+        teams = {}
+        for c in competitors:
+            abbrev = c.get("team", {}).get("abbreviation", "")
+            name = c.get("team", {}).get("displayName", "")
+            score = c.get("score", "0")
+            home_away = c.get("homeAway", "")
+            teams[abbrev] = {
+                "name": name, "score": int(score or 0), "home_away": home_away,
+            }
+
+        for abbrev in teams:
+            scores[abbrev] = {
+                "state": state,
+                "description": description,
+                "period": period,
+                "clock": clock,
+                "teams": teams,
+                "event_id": event.get("id", ""),
+            }
+
+    return scores
+
+
+def check_live_games(picks: list[dict], score: dict,
+                     live_scores: dict, alerted_states: dict) -> None:
+    """Check for live game updates and send Telegram alerts."""
+    for pick in picks:
+        team = pick["picked_team"]
+        game_id = pick["game"]
+        matchup = pick["matchup"]
+        source = pick.get("pick_source", "?")
+        region = pick.get("region", "")
+
+        if game_id in score.get("resolved_games", []):
+            continue
+
+        # Find this team in ESPN data
+        espn_abbrev = ESPN_ABBREV_MAP.get(team)
+        if not espn_abbrev or espn_abbrev not in live_scores:
+            continue
+
+        game = live_scores[espn_abbrev]
+        state = game["state"]
+
+        if state != "in":
+            continue
+
+        # Build score string
+        teams = game["teams"]
+        our_score = teams.get(espn_abbrev, {}).get("score", 0)
+        opp_abbrev = [a for a in teams if a != espn_abbrev]
+        opp_score = teams[opp_abbrev[0]]["score"] if opp_abbrev else 0
+        opp_name = teams[opp_abbrev[0]]["name"] if opp_abbrev else "opponent"
+
+        period = game["period"]
+        clock = game["clock"]
+        description = game["description"]
+
+        leading = our_score > opp_score
+        tied = our_score == opp_score
+        margin = abs(our_score - opp_score)
+
+        # Alert key moments (avoid spamming)
+        alert_key = f"{game_id}:{description}"
+        if alert_key in alerted_states:
+            continue
+
+        should_alert = False
+        msg = ""
+
+        # Halftime
+        if description == "Halftime":
+            should_alert = True
+            if leading:
+                status_word = f"leads by {margin}"
+            elif tied:
+                status_word = "tied"
+            else:
+                status_word = f"trails by {margin}"
+
+            source_str = "Claude pick" if source == "DIVERGE" else "Kalshi pick"
+            msg = (
+                f"Halftime: {team} {our_score}, {opp_name} {opp_score}.\n\n"
+                f"{matchup} ({region})\n"
+                f"Our pick {status_word}. ({source_str})"
+            )
+
+        # Under 5 minutes in 2nd half — close game
+        elif period == 2 and clock != "" and ":" in clock:
+            try:
+                mins = int(clock.split(":")[0])
+            except ValueError:
+                mins = 99
+            if mins < 5 and margin <= 8:
+                should_alert = True
+                if leading:
+                    verb = "holding on"
+                elif tied:
+                    verb = "tied up"
+                else:
+                    verb = "fighting back"
+
+                source_str = "Claude pick" if source == "DIVERGE" else "Kalshi pick"
+                msg = (
+                    f"Crunch time: {team} {our_score}, {opp_name} {opp_score} "
+                    f"({clock} left).\n\n"
+                    f"{matchup} ({region})\n"
+                    f"{team} {verb}. ({source_str})"
+                )
+
+        # Big upset brewing — we're the underdog and winning
+        if not should_alert and period >= 1:
+            div = pick.get("divergence")
+            if source == "DIVERGE" and leading and margin >= 10:
+                upset_key = f"{game_id}:upset_alert"
+                if upset_key not in alerted_states:
+                    should_alert = True
+                    alert_key = upset_key
+                    msg = (
+                        f"Upset brewing: {team} up {margin}! "
+                        f"({our_score}-{opp_score}, {clock} {description})\n\n"
+                        f"{matchup} ({region})\n"
+                        f"This was a Claude pick"
+                        + (f" with a {div:.0%} gap." if div else ".")
+                        + f" It's working."
+                    )
+
+        if should_alert and msg:
+            alerted_states[alert_key] = True
+            telegram_send(msg)
+
+
 # ─── MAIN LOOP ───────────────────────────────────────────────────────────────
 
 def main():
@@ -318,23 +506,39 @@ def main():
         f"\"what's the score?\""
     )
 
+    # Track which live game moments we've already alerted on
+    alerted_states: dict[str, bool] = {}
+    last_kalshi_poll = 0
+    game_odds: dict[str, dict] = {}
+
     while True:
         now = datetime.now(timezone.utc)
         ts = now.strftime("%H:%M:%S UTC")
-        print(f"\n[{ts}] Polling...")
 
-        game_odds = pull_game_odds()
-        print(f"  Loaded {len(game_odds)} team prices")
+        # ─── ESPN live scores (every 30 sec) ─────────────────────────
+        live_scores = fetch_live_scores()
+        any_live = any(g["state"] == "in" for g in live_scores.values())
+
+        if live_scores:
+            live_count = sum(1 for g in live_scores.values() if g["state"] == "in")
+            if live_count > 0:
+                print(f"[{ts}] {live_count} games in progress")
+            check_live_games(picks, score, live_scores, alerted_states)
+
+        # ─── Kalshi odds (every 10 min) ──────────────────────────────
+        time_since_kalshi = time.time() - last_kalshi_poll
+        if time_since_kalshi >= POLL_INTERVAL:
+            print(f"[{ts}] Polling Kalshi...")
+            game_odds = pull_game_odds()
+            last_kalshi_poll = time.time()
+            print(f"  Loaded {len(game_odds)} team prices")
 
         # ─── Check for incoming questions ────────────────────────────
         messages, last_update_id = telegram_get_updates(last_update_id)
         for msg_text in messages:
             upper = msg_text.upper().strip()
-
-            # Skip the STOP command (that's for the trader)
             if upper == "STOP":
                 continue
-
             print(f"  [Q&A] Question: {msg_text}")
             try:
                 answer = answer_question(msg_text, picks, score, game_odds)
@@ -344,7 +548,7 @@ def main():
                 telegram_send(f"Sorry, couldn't process that: {e}")
                 print(f"  [Q&A] Error: {e}")
 
-        # ─── Check picks against live odds ───────────────────────────
+        # ─── Check picks against Kalshi odds ─────────────────────────
         for pick in picks:
             team = pick["picked_team"]
             abbrev = ABBREV_MAP.get(team)
@@ -465,15 +669,19 @@ def main():
             prev_odds[f"{game_id}:{abbrev}"] = current_prob
             print(f"  Game {game_id:>2}: {team:<20} {current_prob:>5.0%}  [{source}]  ({status})")
 
-        # Score summary
-        total = score["correct"] + score["busted"]
-        pct = f"{score['correct']/total:.0%}" if total > 0 else "n/a"
-        print(f"\n  Running score: {score['correct']}W / {score['busted']}L ({pct})")
-        print(f"  Claude: {score['diverge_correct']}W/{score['diverge_busted']}L | "
-              f"Kalshi: {score['kalshi_correct']}W/{score['kalshi_busted']}L")
-        print(f"  Next poll in {POLL_INTERVAL // 60} min...")
+        # Score summary (only print on Kalshi poll cycles, not every 30s)
+        if time_since_kalshi >= POLL_INTERVAL:
+            total = score["correct"] + score["busted"]
+            pct = f"{score['correct']/total:.0%}" if total > 0 else "n/a"
+            print(f"\n  Score: {score['correct']}W / {score['busted']}L ({pct})")
+            print(f"  Claude: {score['diverge_correct']}W/{score['diverge_busted']}L | "
+                  f"Kalshi: {score['kalshi_correct']}W/{score['kalshi_busted']}L")
 
-        time.sleep(POLL_INTERVAL)
+        # Poll faster during live games, slower otherwise
+        if any_live:
+            time.sleep(LIVE_POLL_INTERVAL)
+        else:
+            time.sleep(POLL_INTERVAL)
 
 
 if __name__ == "__main__":
