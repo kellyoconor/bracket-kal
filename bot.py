@@ -403,6 +403,8 @@ def answer_user_question(chat_id: str, question: str, user: dict) -> str:
             "role": "user",
             "content": f"""You are a March Madness bracket assistant. Answer the user's question about their bracket. Be concise and conversational — this is a Telegram message. No markdown.
 
+IMPORTANT: This is for entertainment and bracket pool analysis only. Never suggest placing bets, trades, or wagers. Never give financial advice. Focus on bracket strategy, game analysis, and fun.
+
 BRACKET DATA:
 {context}
 
@@ -430,13 +432,14 @@ def handle_message(msg: dict):
         save_user(chat_id, user)
         tg_send(chat_id,
             f"Hey {first_name}! I'm your March Madness bracket assistant.\n\n"
-            f"I'll analyze your picks against live Kalshi prediction market "
-            f"odds and our ensemble model (KenPom + Log5 + seed history + AI), "
+            f"I'll analyze your picks against live prediction market odds "
+            f"and our ensemble model (KenPom + Log5 + seed history + AI), "
             f"then track your bracket live during games.\n\n"
             f"Send me one of:\n"
             f"  1. Your ESPN bracket link\n"
             f"  2. A screenshot of your bracket\n\n"
-            f"Or just tell me your Final Four and champion."
+            f"Or just tell me your Final Four and champion.\n\n"
+            f"For entertainment and analysis only — not financial advice."
         )
         return
 
