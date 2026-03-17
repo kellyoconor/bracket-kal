@@ -463,6 +463,387 @@ QUESTION: {question}""",
     return response.content[0].text.strip()
 
 
+# ─── GUIDED BRACKET BUILDER ──────────────────────────────────────────────────
+
+REGIONS = ["East", "West", "South", "Midwest"]
+FINAL_FOUR_PAIRS = [("East", "West"), ("South", "Midwest")]
+ROUND_LABELS = {
+    64: "Round of 64", 32: "Round of 32", 16: "Sweet 16",
+    8: "Elite 8", 4: "Final Four", 2: "Championship",
+}
+
+
+def _region_game_numbers(region_index: int) -> dict:
+    """Map round -> list of game numbers for a given region."""
+    ri = region_index
+    return {
+        64: list(range(8 * ri + 1, 8 * ri + 9)),
+        32: list(range(33 + 4 * ri, 33 + 4 * ri + 4)),
+        16: list(range(49 + 2 * ri, 49 + 2 * ri + 2)),
+        8:  [57 + ri],
+    }
+
+
+def _load_divergence_lookup() -> dict:
+    """Index results.json by team-pair frozenset for quick lookup."""
+    if not RESULTS_FILE.exists():
+        return {}
+    with open(RESULTS_FILE) as f:
+        data = json.load(f)
+    lookup = {}
+    for round_key, games in data.items():
+        for g in games:
+            key = frozenset([g["team_a"]["team"], g["team_b"]["team"]])
+            lookup[key] = g
+    return lookup
+
+
+def _get_r64_matchup(region: str, game_index: int) -> tuple[dict, dict]:
+    """Get team_a, team_b dicts for an R64 game from BRACKET."""
+    from bracket_divergence import BRACKET
+    region_games = [m for m in BRACKET if m["region"] == region]
+    game = region_games[game_index]
+    return game["higher_seed"], game["lower_seed"]
+
+
+def _derive_matchup(state: dict, region_index: int, rnd: int, game_index: int) -> tuple[dict, dict]:
+    """Derive a later-round matchup from user's previous picks."""
+    prev_round = rnd * 2
+    game_nums = _region_game_numbers(region_index)
+    prev_games = game_nums[prev_round]
+    feeder_1 = prev_games[2 * game_index]
+    feeder_2 = prev_games[2 * game_index + 1]
+    team_a = state["picks_by_game"][str(feeder_1)]
+    team_b = state["picks_by_game"][str(feeder_2)]
+    return team_a, team_b
+
+
+def _get_current_matchup(state: dict) -> tuple[dict, dict]:
+    """Get team_a, team_b for the current game in the guided flow."""
+    phase = state["phase"]
+    rnd = state["round"]
+    idx = state["game_in_round"]
+    ri = state["region_index"]
+
+    if phase == "region":
+        if rnd == 64:
+            return _get_r64_matchup(REGIONS[ri], idx)
+        else:
+            return _derive_matchup(state, ri, rnd, idx)
+    else:
+        # Final Four
+        if rnd == 4:
+            pair = FINAL_FOUR_PAIRS[idx]
+            ri_a = REGIONS.index(pair[0])
+            ri_b = REGIONS.index(pair[1])
+            team_a = state["picks_by_game"][str(57 + ri_a)]
+            team_b = state["picks_by_game"][str(57 + ri_b)]
+            return team_a, team_b
+        else:
+            # Championship
+            team_a = state["picks_by_game"]["61"]
+            team_b = state["picks_by_game"]["62"]
+            return team_a, team_b
+
+
+def _format_game_prompt(team_a: dict, team_b: dict, region: str,
+                        round_label: str, step: int, total: int,
+                        div_data: dict | None) -> str:
+    """Format a single game prompt with divergence info."""
+    header = f"[{step}/{total}]"
+    if region:
+        header += f" {region} —"
+    header += f" {round_label}"
+
+    lines = [
+        header,
+        f"({team_a['seed']}) {team_a['team']}  vs  ({team_b['seed']}) {team_b['team']}",
+    ]
+
+    if div_data:
+        kalshi = div_data.get("kalshi_prob")
+        ensemble = div_data.get("ensemble_prob")
+        div = div_data.get("abs_divergence", 0)
+        pick = div_data.get("pick", "")
+        source = div_data.get("pick_source", "")
+
+        if kalshi is not None and ensemble is not None:
+            ta = team_a["team"]
+            lines.append(f"Market: {ta} {kalshi:.0%} | Model: {ta} {ensemble:.0%}")
+
+            if div >= 0.15:
+                lines.append(f"Big gap ({div:.0%}) — our model {'likes' if pick == team_a['team'] else 'fades'} {ta} more than the market.")
+            elif div >= 0.08:
+                lines.append(f"Notable divergence ({div:.0%}).")
+            elif div >= 0.05:
+                lines.append(f"Close call — {div:.0%} gap.")
+            # Under 5% — don't comment, it's chalk
+    else:
+        lines.append("No market data for this matchup — your picks went off-script.")
+
+    lines.append(f"\n{team_a['team']} or {team_b['team']}?")
+    return "\n".join(lines)
+
+
+def _games_in_round(rnd: int) -> int:
+    """Number of games per region in a given round."""
+    return {64: 8, 32: 4, 16: 2, 8: 1}[rnd]
+
+
+def _current_game_number(state: dict) -> int:
+    """Calculate the official game number for the current position."""
+    phase = state["phase"]
+    rnd = state["round"]
+    idx = state["game_in_round"]
+    ri = state["region_index"]
+
+    if phase == "region":
+        return _region_game_numbers(ri)[rnd][idx]
+    elif rnd == 4:
+        return 61 + idx
+    else:
+        return 63
+
+
+def start_guided_build(chat_id: str, user: dict):
+    """Initialize the guided bracket builder."""
+    if not RESULTS_FILE.exists():
+        tg_send(chat_id, "No model results available yet. Send your ESPN bracket link instead.")
+        return
+
+    user["state"] = "guided_build"
+    user["guided_state"] = {
+        "phase": "region",
+        "region_index": 0,
+        "round": 64,
+        "game_in_round": 0,
+        "picks_by_game": {},
+        "games_completed": 0,
+    }
+    save_user(chat_id, user)
+
+    tg_send(chat_id,
+        "Let's build your bracket.\n\n"
+        "I'll walk you through every game, region by region. "
+        "At each matchup I'll show you what the market thinks vs "
+        "what our model thinks.\n\n"
+        "63 games. Reply with a team name to pick.\n\n"
+        "Shortcuts:\n"
+        "  higher seed — pick the favorite\n"
+        "  upset — pick the underdog\n"
+        "  skip — let the model decide\n\n"
+        f"Starting with the {REGIONS[0]} region."
+    )
+
+    _present_current_game(chat_id, user)
+
+
+def _present_current_game(chat_id: str, user: dict):
+    """Present the next game in the guided flow."""
+    state = user["guided_state"]
+    lookup = _load_divergence_lookup()
+
+    team_a, team_b = _get_current_matchup(state)
+    key = frozenset([team_a["team"], team_b["team"]])
+    div_data = lookup.get(key)
+
+    phase = state["phase"]
+    rnd = state["round"]
+    region = REGIONS[state["region_index"]] if phase == "region" else ""
+
+    prompt = _format_game_prompt(
+        team_a, team_b, region, ROUND_LABELS[rnd],
+        state["games_completed"] + 1, 63, div_data,
+    )
+    tg_send(chat_id, prompt)
+
+    # Stash current teams for response parsing
+    state["_team_a"] = team_a
+    state["_team_b"] = team_b
+    save_user(chat_id, user)
+
+
+def _advance_guided_state(state: dict) -> bool:
+    """Advance to the next game. Returns True if there are more games, False if done."""
+    phase = state["phase"]
+    rnd = state["round"]
+    idx = state["game_in_round"]
+    ri = state["region_index"]
+
+    if phase == "region":
+        max_games = _games_in_round(rnd)
+        if idx + 1 < max_games:
+            # More games in this round+region
+            state["game_in_round"] = idx + 1
+            return True
+
+        # Round complete for this region — advance to next round
+        next_rounds = {64: 32, 32: 16, 16: 8}
+        if rnd in next_rounds:
+            state["round"] = next_rounds[rnd]
+            state["game_in_round"] = 0
+            return True
+
+        # Region complete (just finished E8) — next region or Final Four
+        if ri + 1 < 4:
+            state["region_index"] = ri + 1
+            state["round"] = 64
+            state["game_in_round"] = 0
+            return True
+
+        # All regions done — move to Final Four
+        state["phase"] = "final"
+        state["round"] = 4
+        state["game_in_round"] = 0
+        return True
+
+    else:  # phase == "final"
+        if rnd == 4 and idx + 1 < 2:
+            state["game_in_round"] = idx + 1
+            return True
+        if rnd == 4:
+            state["round"] = 2
+            state["game_in_round"] = 0
+            return True
+        # Championship done
+        return False
+
+
+def handle_guided_response(chat_id: str, text: str, user: dict):
+    """Process a user's pick during guided bracket building."""
+    state = user["guided_state"]
+    team_a = state["_team_a"]
+    team_b = state["_team_b"]
+    lookup = _load_divergence_lookup()
+
+    txt = text.strip().lower()
+
+    # Parse the pick
+    picked = None
+    if txt in ("higher seed", "higher", "favorite", "fav", "chalk", "1"):
+        picked = team_a  # higher seed
+    elif txt in ("upset", "underdog", "lower seed", "lower", "dog", "2"):
+        picked = team_b  # lower seed
+    elif txt in ("skip", "model", "auto"):
+        # Use model's pick from results.json
+        key = frozenset([team_a["team"], team_b["team"]])
+        div_data = lookup.get(key)
+        if div_data:
+            pick_name = div_data["pick"]
+            picked = team_a if pick_name == team_a["team"] else team_b
+        else:
+            picked = team_a  # fallback to higher seed
+    else:
+        # Try to match team name
+        a_name = team_a["team"].lower()
+        b_name = team_b["team"].lower()
+        if txt in a_name or a_name in txt:
+            picked = team_a
+        elif txt in b_name or b_name in txt:
+            picked = team_b
+
+    if not picked:
+        tg_send(chat_id,
+            f"Didn't catch that. Reply with:\n"
+            f"  {team_a['team']}\n"
+            f"  {team_b['team']}\n"
+            f"  higher seed / upset / skip")
+        return
+
+    # Record the pick
+    game_num = _current_game_number(state)
+    state["picks_by_game"][str(game_num)] = picked
+    state["games_completed"] += 1
+
+    # Check for region/round transitions and send headers
+    old_ri = state["region_index"]
+    old_rnd = state["round"]
+    old_phase = state["phase"]
+
+    has_more = _advance_guided_state(state)
+
+    if not has_more:
+        save_user(chat_id, user)
+        _finalize_guided_bracket(chat_id, user)
+        return
+
+    # Send transition messages
+    new_ri = state["region_index"]
+    new_rnd = state["round"]
+    new_phase = state["phase"]
+
+    if old_phase == "region" and new_phase == "region":
+        if new_ri != old_ri:
+            # New region
+            champ = picked["team"]  # last pick of previous region was E8
+            tg_send(chat_id,
+                f"{REGIONS[old_ri]} champion: {champ}\n\n"
+                f"On to the {REGIONS[new_ri]} region.")
+        elif new_rnd != old_rnd:
+            tg_send(chat_id, f"\n{REGIONS[new_ri]} — {ROUND_LABELS[new_rnd]}")
+    elif new_phase == "final" and old_phase == "region":
+        champ = picked["team"]
+        tg_send(chat_id,
+            f"{REGIONS[old_ri]} champion: {champ}\n\n"
+            f"All regions done. Time for the Final Four.")
+
+    save_user(chat_id, user)
+    _present_current_game(chat_id, user)
+
+
+def _finalize_guided_bracket(chat_id: str, user: dict):
+    """Convert guided picks to standard format and transition to active."""
+    state = user["guided_state"]
+    picks_by_game = state["picks_by_game"]
+
+    # Build standard picks list
+    round_ranges = [
+        ("R64", 1, 32), ("R32", 33, 48), ("S16", 49, 56),
+        ("E8", 57, 60), ("F4", 61, 62), ("CHAMP", 63, 63),
+    ]
+
+    picks = []
+    for round_name, start, end in round_ranges:
+        for gn in range(start, end + 1):
+            team_data = picks_by_game.get(str(gn))
+            if team_data:
+                picks.append({"round": round_name, "team": team_data["team"]})
+
+    # Extract champion and Final Four
+    champ_data = picks_by_game.get("63", {})
+    champion = champ_data.get("team", "TBD")
+
+    final_four = []
+    for gn in (57, 58, 59, 60):  # E8 winners = regional champs
+        t = picks_by_game.get(str(gn), {})
+        if t.get("team"):
+            final_four.append(t["team"])
+
+    user["state"] = "active"
+    user["bracket_name"] = "Guided bracket"
+    user["champion"] = champion
+    user["final_four"] = final_four
+    user["picks"] = picks
+    user["total_picks"] = len(picks)
+    # Clean up guided state
+    del user["guided_state"]
+    save_user(chat_id, user)
+
+    ff_str = ", ".join(final_four) if final_four else "TBD"
+
+    tg_send(chat_id,
+        f"Your bracket is locked!\n\n"
+        f"Champion: {champion}\n"
+        f"Final Four: {ff_str}\n"
+        f"{len(picks)} picks total.\n\n"
+        f"Running divergence analysis..."
+    )
+
+    # Run the standard analysis
+    analysis = run_analysis(chat_id, user)
+    tg_send(chat_id, analysis)
+
+
 # ─── MESSAGE HANDLER ─────────────────────────────────────────────────────────
 
 def handle_message(msg: dict):
@@ -500,10 +881,20 @@ def handle_message(msg: dict):
             f"then track your bracket live during games.\n\n"
             f"Send me one of:\n"
             f"  1. Your ESPN bracket link\n"
-            f"  2. A screenshot of your bracket\n\n"
-            f"Or just tell me your Final Four and champion.\n\n"
+            f"  2. A screenshot of your bracket\n"
+            f"  3. /build — I'll walk you through it game by game\n\n"
             f"For entertainment and analysis only — not financial advice."
         )
+        return
+
+    # /build command — guided bracket builder
+    if text.lower() in ("/build", "build", "build my bracket", "guided"):
+        start_guided_build(chat_id, user)
+        return
+
+    # Guided bracket flow — handle picks
+    if user.get("state") == "guided_build":
+        handle_guided_response(chat_id, text, user)
         return
 
     # Photo = screenshot intake
@@ -576,8 +967,10 @@ def handle_message(msg: dict):
             "Here's what I can do:\n\n"
             "Send me your ESPN bracket link to load your picks\n"
             "Send a screenshot of your bracket\n"
+            "/build — build your bracket with me game by game\n"
             "Ask me anything about your bracket\n\n"
             "Commands:\n"
+            "  /build — guided bracket builder\n"
             "  /score — your current record\n"
             "  /help — this message\n\n"
             "Or just ask naturally:\n"
