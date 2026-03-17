@@ -11,6 +11,7 @@ venv/
 trades.json
 monitor_score.json
 bracket_history.json
+users/
 
 # OS
 .DS_Store
