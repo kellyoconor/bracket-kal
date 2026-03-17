@@ -844,6 +844,76 @@ def _finalize_guided_bracket(chat_id: str, user: dict):
     tg_send(chat_id, analysis)
 
 
+# ─── ADMIN STATS ─────────────────────────────────────────────────────────────
+
+def _get_admin_stats() -> str:
+    """Scan users/ directory and return usage stats."""
+    all_users = get_all_users()
+    if not all_users:
+        return "No users yet."
+
+    total = len(all_users)
+    active = 0
+    building = 0
+    awaiting = 0
+    intake_espn = 0
+    intake_screenshot = 0
+    intake_guided = 0
+    has_picks = 0
+    champions: dict[str, int] = {}
+
+    for cid in all_users:
+        u = load_user(cid)
+        state = u.get("state", "new")
+        if state == "active":
+            active += 1
+        elif state == "guided_build":
+            building += 1
+        elif state == "awaiting_bracket":
+            awaiting += 1
+
+        if u.get("picks"):
+            has_picks += 1
+
+        bname = u.get("bracket_name", "")
+        if "ESPN" in bname or "espn" in bname:
+            intake_espn += 1
+        elif "Screenshot" in bname or "screenshot" in bname:
+            intake_screenshot += 1
+        elif "Guided" in bname or "guided" in bname:
+            intake_guided += 1
+
+        champ = u.get("champion")
+        if champ:
+            champions[champ] = champions.get(champ, 0) + 1
+
+    # Top champions
+    top_champs = sorted(champions.items(), key=lambda x: -x[1])[:3]
+    champ_str = ", ".join(f"{t} ({n})" for t, n in top_champs) if top_champs else "none yet"
+
+    # Rate limit stats
+    global_today = len(global_daily_requests)
+
+    lines = [
+        f"Users: {total}",
+        f"  Active brackets: {active}",
+        f"  Building now: {building}",
+        f"  Awaiting bracket: {awaiting}",
+        f"",
+        f"Intake method:",
+        f"  ESPN: {intake_espn}",
+        f"  Screenshot: {intake_screenshot}",
+        f"  Guided builder: {intake_guided}",
+        f"",
+        f"Brackets with picks: {has_picks}",
+        f"Top champions: {champ_str}",
+        f"",
+        f"API calls today: {global_today}/{GLOBAL_DAILY_BUDGET}",
+    ]
+
+    return "\n".join(lines)
+
+
 # ─── MESSAGE HANDLER ─────────────────────────────────────────────────────────
 
 def handle_message(msg: dict):
@@ -947,6 +1017,11 @@ def handle_message(msg: dict):
                 "\nFor full tracking, send your ESPN bracket link — "
                 "I can pull all 63 picks automatically.")
             return
+
+    # /admin command — stats for admin only
+    if text.lower() in ("/admin", "/stats") and chat_id == TELEGRAM_CHAT_ID_ADMIN:
+        tg_send(chat_id, _get_admin_stats())
+        return
 
     # /score command
     if text.lower() in ("/score", "score", "what's the score", "whats the score", "how am i doing"):
