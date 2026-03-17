@@ -4,6 +4,10 @@ Find where prediction markets and AI disagree on March Madness — then pick fro
 
 Bracket Divergence pulls live Kalshi odds, runs a KenPom-powered ensemble model with Claude's contextual adjustments, and surfaces every game where the two signals diverge. You get three things: which games have edge, which direction the edge points, and why.
 
+Works as a personal tool or a multi-user Telegram bot. Users send their ESPN bracket link, the bot analyzes it against live market data, and tracks their picks through the tournament with live score updates.
+
+For entertainment and analysis only — not financial advice.
+
 ---
 
 ## Quick start
@@ -22,7 +26,42 @@ python kalshi_odds.py          # Pull 11K+ live Kalshi markets
 python bracket_divergence.py   # Run full 63-game bracket
 ```
 
-That's it. Results land in `results.json`. Every game includes the Kalshi price, the ensemble probability, each model component, and Claude's reasoning.
+Results land in `results.json`. Every game includes the Kalshi price, the ensemble probability, each model component, and Claude's reasoning.
+
+---
+
+## User-facing bot
+
+The public Telegram bot lets anyone analyze their March Madness bracket.
+
+### User journey
+
+1. User messages the bot `/start`
+2. Bot asks for their ESPN bracket link or a screenshot
+3. User pastes `fantasy.espn.com/games/tournament-challenge-bracket-2026/bracket?id=...`
+4. Bot pulls all 63 picks via ESPN's public API, instantly
+5. Bot runs divergence analysis — shows where the user's picks agree and disagree with the ensemble model and Kalshi odds
+6. During games — bot sends live score updates, halftime alerts, upset alerts
+7. After games — bot reports which picks hit and tracks running score
+8. User can ask questions anytime: "how's my bracket?", "what's my riskiest pick?", "who do I have in the Final Four?"
+
+### Intake methods
+
+| Method | How it works |
+|--------|-------------|
+| **ESPN link** | User pastes their bracket URL. Bot extracts UUID, hits ESPN's public API, pulls all 63 picks. Zero manual entry. |
+| **Screenshot** | User sends a photo of their bracket (any source). Claude Vision reads it and extracts picks. |
+| **Quick start** | User names their Final Four and champion. Bot fills remaining picks from market favorites. |
+
+### Running the bot
+
+```bash
+python bot.py
+```
+
+Requires `TELEGRAM_BOT_TOKEN_PUBLIC` (separate from the personal monitor bot) and `ANTHROPIC_API_KEY`.
+
+User data is stored per chat ID in `users/{chat_id}/`. Each user gets their own bracket state, score tracking, and Q&A context.
 
 ---
 
@@ -82,6 +121,15 @@ For every game, the engine computes: `divergence = ensemble_prob - kalshi_prob`
 
 The bracket cascades — winners from each round feed into the next. Round of 64 through the Championship, all 63 games.
 
+### Live scores
+
+ESPN's free scoreboard API provides real-time game data. The bot polls every 30 seconds during live games and sends Telegram alerts at key moments:
+
+- **Halftime** — score update with pick status
+- **Crunch time** — under 5 minutes, margin ≤ 8
+- **Upset alert** — a Claude pick is up by 10+ ("It's working.")
+- **Game resolution** — win or loss with running score
+
 ---
 
 ## Commands
@@ -89,71 +137,35 @@ The bracket cascades — winners from each round feed into the next. Round of 64
 ### Generate a bracket
 
 ```bash
-# One-shot: run with existing Kalshi data
-python bracket_divergence.py
-
-# Pull fresh odds first, then run
-python bracket_divergence.py --refresh
-
-# Watch mode: re-run every 60 minutes, track changes between runs
-python bracket_divergence.py --watch
+python bracket_divergence.py            # Run with existing Kalshi data
+python bracket_divergence.py --refresh  # Pull fresh odds first
+python bracket_divergence.py --watch    # Re-run every 60 min, track changes
 ```
-
-Watch mode pulls fresh Kalshi odds each cycle, recomputes the full bracket, and logs pick changes to `bracket_history.json`.
 
 ### Pull market data
 
 ```bash
-# Pull all 8 Kalshi series
-python kalshi_odds.py
+python kalshi_odds.py    # Pull all 8 Kalshi series (~11K markets)
 ```
 
 ### Generate comparison brackets
 
 ```bash
-# Create pure-Kalshi, pure-Claude, and hybrid brackets + comparison table
-python split_brackets.py
+python split_brackets.py    # Pure-Kalshi, pure-Claude, hybrid + comparison table
 ```
 
-### Derive odds from championship prices
+### Run the public bot
 
 ```bash
-# Standalone: normalize championship odds into H2H game probabilities
-python derive_odds.py
+python bot.py    # Multi-user Telegram bot
 ```
 
----
-
-## Live monitoring
-
-### Monitor your picks
+### Monitor your personal picks
 
 ```bash
 python monitor.py           # Start tracking
-python monitor.py --reset   # Reset score and start fresh
+python monitor.py --reset   # Reset score
 ```
-
-Polls Kalshi every 10 minutes. Sends Telegram alerts when:
-
-- **A picked team's odds drop >5%** — "Heads up — Ohio State is sliding. Was 56%, now 48%. This is a Claude pick — we overrode the market. It's moving against us."
-- **A game resolves** — "We nailed it. Ohio State wins. This was a Claude pick — the market had them lower but Claude saw the edge."
-- **A pick busts** — "Ohio State is out. Claude pick missed (we saw a 28% gap). Duke advances."
-
-Every message tells you the source (**Claude pick** or **Kalshi pick**) and running record.
-
-### Automated trading
-
-```bash
-python kalshi_trader.py
-```
-
-Reads `trade_rules.json`, evaluates divergence games against your rules, and executes trades via Kalshi's authenticated API.
-
-Safety rails:
-- Hard limits from `.env`: `MAX_TRADE` and `MAX_EXPOSURE`
-- Telegrams the trade proposal and waits 60 seconds for `STOP`
-- Never trades within 30 minutes of tip-off
-- Logs every trade to `trades.json` with timestamp and reasoning
 
 ---
 
@@ -165,15 +177,16 @@ Safety rails:
 # Required
 ANTHROPIC_API_KEY=sk-ant-...
 
-# Telegram alerts (monitor + trader)
-TELEGRAM_BOT_TOKEN=your-bot-token
+# Personal monitor (BelowTheFloorBot)
+TELEGRAM_BOT_TOKEN=your-personal-bot-token
 TELEGRAM_CHAT_ID=your-chat-id
 
-# Kalshi trading (trader only)
+# Public bot (separate Telegram bot)
+TELEGRAM_BOT_TOKEN_PUBLIC=your-public-bot-token
+
+# Trading — admin only, never exposed to users
 KALSHI_API_KEY=your-kalshi-api-key
 KALSHI_PRIVATE_KEY_PATH=./kalshi_private.pem
-
-# Trading limits
 MAX_TRADE=25
 MAX_EXPOSURE=200
 ```
@@ -189,36 +202,9 @@ Top of `bracket_divergence.py`:
 | `FLOOR_THRESHOLD` | `0.012` | Championship odds below this = no derived signal |
 | `MODEL` | `claude-sonnet-4-6` | Claude model for contextual assessment |
 
-### Ensemble weights
-
-Top of `ensemble.py`:
-
-| Model | Default weight | Adjust when... |
-|-------|---------------|----------------|
-| KenPom logistic | 0.60 | Efficiency numbers are misleading for this matchup |
-| Log5 formula | 0.25 | Win percentages are inflated by weak schedules |
-| Seed historical | 0.15 | Classic upset profile or Cinderella matchup |
-
-Claude shifts these per-game based on contextual assessment. The defaults are starting points, not fixed.
-
 ### KenPom ratings
 
-`kenpom_ratings.json` contains efficiency ratings for all 64 tournament teams. Update before each run for best results. A [kenpom.com](https://kenpom.com) subscription ($25/yr) provides exact values. The included ratings use confirmed rankings from public sources with estimated efficiency values.
-
-### Trade rules
-
-`trade_rules.json` defines when the trader acts:
-
-```json
-{
-  "name": "strong_divergence_buy",
-  "condition": "divergence >= 0.15 and market_price <= 0.70",
-  "action": "buy_yes",
-  "target": "claude_pick",
-  "size_dollars": 10,
-  "enabled": true
-}
-```
+`kenpom_ratings.json` contains efficiency ratings for all 64 tournament teams. Update before each run for best results. A [kenpom.com](https://kenpom.com) subscription ($25/yr) provides exact values.
 
 ---
 
@@ -229,12 +215,14 @@ Claude shifts these per-game based on contextual assessment. The defaults are st
 | File | What it does |
 |------|-------------|
 | `bracket_divergence.py` | Main engine. Ensemble model + Kalshi odds + divergence. All 63 games. |
+| `bot.py` | Multi-user Telegram bot. ESPN intake, screenshot intake, Q&A, live tracking. |
+| `espn_scraper.py` | ESPN Tournament Challenge API client. Pulls bracket picks from URLs. |
 | `kalshi_odds.py` | Pulls all 8 Kalshi NCAA tournament series. No auth required. |
 | `ensemble.py` | KenPom logistic, Log5, seed historical. Computes blended probability. |
+| `monitor.py` | Personal pick tracker with Telegram alerts and ESPN live scores. |
 | `derive_odds.py` | Derives H2H probabilities from championship odds alone. |
 | `split_brackets.py` | Generates three independent bracket files + comparison table. |
-| `monitor.py` | Live pick tracking with Telegram alerts. Polls Kalshi every 10 min. |
-| `kalshi_trader.py` | Automated trading with safety rails. Kalshi authenticated API. |
+| `kalshi_trader.py` | Automated trading with safety rails. Admin only. |
 
 ### Data
 
@@ -248,38 +236,30 @@ Claude shifts these per-game based on contextual assessment. The defaults are st
 | `trade_rules.json` | Trading rules for the automated trader. |
 | `.env` | API keys and limits. Not committed. |
 
-### Generated outputs
-
-| File | What it contains |
-|------|-----------------|
-| `kalshi_bracket.json` | Pure Kalshi market bracket. |
-| `claude_bracket.json` | Pure ensemble bracket. |
-| `divergence_bracket.json` | Hybrid bracket — Kalshi picks where aligned, Claude picks where diverged. |
-| `comparison_table.json` | Every game where Kalshi and the ensemble disagree. |
-| `bracket_history.json` | Watch mode history — how the bracket changed over time. |
-| `trades.json` | Trade execution log with timestamps and reasoning. |
-| `monitor_score.json` | Running score — Claude picks vs Kalshi picks hit rate. |
-
 ---
 
 ## Deploy
 
-The monitor and watch mode are long-running processes. Deploy to Railway for always-on tracking.
+Railway with four services from one repo:
+
+| Service | Start command | What it does |
+|---------|-------------|-------------|
+| **bot** | `python bot.py` | Public multi-user Telegram bot |
+| **monitor** | `python monitor.py` | Personal pick tracker + live scores |
+| **watch** | `python bracket_divergence.py --watch` | Hourly bracket re-runs |
+| **trader** | `python kalshi_trader.py` | Automated trading (admin only) |
+
+Each service sets its own start command in the Railway dashboard. Shared variables are linked per service.
 
 ```bash
-# Railway auto-deploys from GitHub
-# Connect repo → set env vars → deploy
-
-# Default start command (from railway.toml):
-python monitor.py --reset
-
-# Override per service for multiple processes:
-# Service 1: python monitor.py
-# Service 2: python bracket_divergence.py --watch
-# Service 3: python kalshi_trader.py
+# Required shared variables:
+ANTHROPIC_API_KEY          → bot, monitor, watch
+TELEGRAM_BOT_TOKEN         → monitor
+TELEGRAM_BOT_TOKEN_PUBLIC  → bot
+TELEGRAM_CHAT_ID           → monitor
+MAX_TRADE                  → trader
+MAX_EXPOSURE               → trader
 ```
-
-See `Procfile` for available process types.
 
 ---
 
@@ -310,37 +290,62 @@ Every game in `results.json` includes the full signal breakdown:
 }
 ```
 
-You see exactly why every pick was made: which model drove it, what Claude adjusted, and how it compares to Kalshi.
-
 ---
 
 ## Architecture
 
 ```
-kalshi_odds.py                    bracket_divergence.py
-     │                                    │
-     ▼                                    ▼
- Kalshi API ──► kalshi_markets.json    KenPom logistic ─┐
- (8 series)          Log5 formula ────┤──► Base ensemble
-                    │                  Seed historical ──┘       │
-                    │                                            ▼
-                    │                                   Claude contextual
-                    │                                   assessment adjusts
-                    │                                   weights per game
-                    │                                            │
-                    ▼                                            ▼
-              Kalshi H2H prob ◄────── divergence ──────► Ensemble prob
-                                          │
-                                          ▼
-                                    Pick resolution
-                                    (< 8pp = Kalshi)
-                                    (≥ 8pp = Claude)
-                                          │
-                                          ▼
-                                    Cascade winners
-                                    through all rounds
-                                          │
-                              ┌───────────┼───────────┐
-                              ▼           ▼           ▼
-                        results.json  monitor.py  kalshi_trader.py
+                          ┌─────────────────────────────────┐
+                          │          USER ENTRY              │
+                          │                                  │
+                          │  ESPN link ──► espn_scraper.py   │
+                          │  Screenshot ──► Claude Vision    │
+                          │  Quick start ──► defaults        │
+                          └──────────┬──────────────────────┘
+                                     │
+                                     ▼
+                               bot.py (public)
+                          per-user bracket tracking
+                          Q&A with bracket context
+                                     │
+                    ┌────────────────┼────────────────┐
+                    ▼                ▼                ▼
+              Live scores      Divergence       Odds tracking
+              (ESPN API)       analysis         (Kalshi API)
+              30s polling      vs ensemble      10min polling
+                    │                │                │
+                    └────────┬───────┘                │
+                             ▼                        │
+                       Telegram alerts                │
+                    ┌────────────────────┐             │
+                    │  Halftime scores   │             │
+                    │  Upset alerts      │             │
+                    │  Game results      │◄────────────┘
+                    │  Odds movement     │
+                    │  Q&A answers       │
+                    └────────────────────┘
+
+  ─── ENGINE ───────────────────────────────────────────
+
+  kalshi_odds.py                    bracket_divergence.py
+       │                                    │
+       ▼                                    ▼
+   Kalshi API ──► kalshi_markets.json    KenPom logistic ─┐
+   (8 series)                            Log5 formula ────┤──► Base ensemble
+                      │                  Seed historical ──┘       │
+                      │                                            ▼
+                      │                                   Claude contextual
+                      │                                   assessment adjusts
+                      │                                   weights per game
+                      │                                            │
+                      ▼                                            ▼
+                Kalshi H2H prob ◄────── divergence ──────► Ensemble prob
+                                            │
+                                            ▼
+                                      Pick resolution
+                                      (< 8pp = Kalshi)
+                                      (≥ 8pp = Claude)
+                                            │
+                                            ▼
+                                      results.json
 ```
