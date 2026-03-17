@@ -34,8 +34,9 @@ ROOT = Path(__file__).parent
 USERS_DIR = ROOT / "users"
 RESULTS_FILE = ROOT / "results.json"
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
-TELEGRAM_CHAT_ID_ADMIN = os.getenv("TELEGRAM_CHAT_ID", "")  # Your admin chat
+# Public bot uses its own token — separate from BelowTheFloorBot (monitor)
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN_PUBLIC", os.getenv("TELEGRAM_BOT_TOKEN", ""))
+TELEGRAM_CHAT_ID_ADMIN = os.getenv("TELEGRAM_CHAT_ID", "")  # Your admin chat for error alerts
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
 KALSHI_BASE = "https://api.elections.kalshi.com/trade-api/v2"
