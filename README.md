@@ -32,7 +32,7 @@ Two independent signals. One divergence calculation.
 
 ### Signal 1: Kalshi
 
-Live prediction market odds from seven Kalshi series:
+Live prediction market odds from eight Kalshi series:
 
 | Series | What it prices |
 |--------|---------------|
@@ -43,6 +43,7 @@ Live prediction market odds from seven Kalshi series:
 | `KXMARMADUPSET` | Upset totals — "7+ upsets in Round of 64?" |
 | `KXMARMADPTS` | Player points — "Will anyone score 40+?" |
 | `KXMARMAD1SEED` | 1-seed props |
+| `KXMARMADCONF` | Conference props — "Will a Big 12 team win?" |
 
 The engine uses per-game H2H contracts (`KXNCAAMBGAME`) as the primary signal. When a game doesn't have a direct market, it falls back to derived odds from championship prices. Props and futures are displayed as cross-validation context.
 
@@ -103,7 +104,7 @@ Watch mode pulls fresh Kalshi odds each cycle, recomputes the full bracket, and 
 ### Pull market data
 
 ```bash
-# Pull all 7 Kalshi series (~11K markets)
+# Pull all 8 Kalshi series
 python kalshi_odds.py
 ```
 
@@ -228,7 +229,7 @@ Claude shifts these per-game based on contextual assessment. The defaults are st
 | File | What it does |
 |------|-------------|
 | `bracket_divergence.py` | Main engine. Ensemble model + Kalshi odds + divergence. All 63 games. |
-| `kalshi_odds.py` | Pulls all 7 Kalshi NCAA tournament series. No auth required. |
+| `kalshi_odds.py` | Pulls all 8 Kalshi NCAA tournament series. No auth required. |
 | `ensemble.py` | KenPom logistic, Log5, seed historical. Computes blended probability. |
 | `derive_odds.py` | Derives H2H probabilities from championship odds alone. |
 | `split_brackets.py` | Generates three independent bracket files + comparison table. |
@@ -320,7 +321,7 @@ kalshi_odds.py                    bracket_divergence.py
      │                                    │
      ▼                                    ▼
  Kalshi API ──► kalshi_markets.json    KenPom logistic ─┐
- (7 series)    (11K+ markets)          Log5 formula ────┤──► Base ensemble
+ (8 series)          Log5 formula ────┤──► Base ensemble
                     │                  Seed historical ──┘       │
                     │                                            ▼
                     │                                   Claude contextual
