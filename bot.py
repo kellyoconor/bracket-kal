@@ -88,21 +88,37 @@ def is_rate_limited(chat_id: str) -> str | None:
 
 # ─── TELEGRAM ────────────────────────────────────────────────────────────────
 
-def tg_send(chat_id: str, text: str):
+def tg_send(chat_id: str, text: str, reply_markup: dict | None = None):
     if not TELEGRAM_TOKEN:
         print(f"  [TG:{chat_id}] {text[:80]}...")
         return
-    url = (
-        f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-        f"?chat_id={chat_id}"
-        f"&text={quote(text)}"
-    )
+    body = {"chat_id": chat_id, "text": text}
+    if reply_markup:
+        body["reply_markup"] = reply_markup
     try:
-        req = Request(url)
+        req = Request(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            data=json.dumps(body).encode(),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
         with urlopen(req, timeout=10) as resp:
             resp.read()
     except Exception as e:
         print(f"  [TG] Send failed: {e}")
+
+
+def tg_answer_callback(callback_query_id: str):
+    """Acknowledge a callback query so the button stops loading."""
+    if not TELEGRAM_TOKEN:
+        return
+    try:
+        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/answerCallbackQuery?callback_query_id={callback_query_id}"
+        req = Request(url)
+        with urlopen(req, timeout=5) as resp:
+            resp.read()
+    except Exception:
+        pass
 
 
 def tg_get_updates(last_update_id: int) -> tuple[list[dict], int]:
@@ -123,6 +139,22 @@ def tg_get_updates(last_update_id: int) -> tuple[list[dict], int]:
             uid = u.get("update_id", 0)
             if uid > new_id:
                 new_id = uid
+            # Handle callback queries (inline keyboard button taps)
+            cb = u.get("callback_query")
+            if cb:
+                cb_chat_id = str(cb.get("message", {}).get("chat", {}).get("id", ""))
+                cb_data = cb.get("data", "")
+                cb_first = cb.get("from", {}).get("first_name", "")
+                cb_id = cb.get("id", "")
+                if cb_chat_id and cb_data:
+                    tg_answer_callback(cb_id)
+                    messages.append({
+                        "chat_id": cb_chat_id,
+                        "text": cb_data,
+                        "photo": None,
+                        "first_name": cb_first,
+                    })
+                continue
             msg = u.get("message", {})
             chat_id = str(msg.get("chat", {}).get("id", ""))
             text = msg.get("text", "").strip()
@@ -627,11 +659,7 @@ def start_guided_build(chat_id: str, user: dict):
         "I'll walk you through every game, region by region. "
         "At each matchup I'll show you what the market thinks vs "
         "what our model thinks.\n\n"
-        "63 games. Reply with a team name to pick.\n\n"
-        "Shortcuts:\n"
-        "  higher seed — pick the favorite\n"
-        "  upset — pick the underdog\n"
-        "  skip — let the model decide\n\n"
+        "63 games. Just tap a team to pick them.\n\n"
         f"Starting with the {REGIONS[0]} region."
     )
 
@@ -655,7 +683,18 @@ def _present_current_game(chat_id: str, user: dict):
         team_a, team_b, region, ROUND_LABELS[rnd],
         state["games_completed"] + 1, 63, div_data,
     )
-    tg_send(chat_id, prompt)
+    keyboard = {
+        "inline_keyboard": [
+            [
+                {"text": f"({team_a['seed']}) {team_a['team']}", "callback_data": team_a["team"]},
+                {"text": f"({team_b['seed']}) {team_b['team']}", "callback_data": team_b["team"]},
+            ],
+            [
+                {"text": "Skip (model picks)", "callback_data": "skip"},
+            ],
+        ]
+    }
+    tg_send(chat_id, prompt, reply_markup=keyboard)
 
     # Stash current teams for response parsing
     state["_team_a"] = team_a
