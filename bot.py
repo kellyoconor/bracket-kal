@@ -15,6 +15,7 @@ import json
 import os
 import time
 import threading
+import collections
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import urlopen, Request
@@ -44,6 +45,45 @@ ESPN_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens
 
 POLL_INTERVAL = 600
 LIVE_POLL_INTERVAL = 30
+
+# ─── RATE LIMITING ──────────────────────────────────────────────────────────
+
+USER_RATE_LIMIT_PER_MIN = 10
+USER_RATE_LIMIT_PER_HOUR = 50
+GLOBAL_DAILY_BUDGET = 500
+
+user_request_timestamps: dict[str, list[float]] = collections.defaultdict(list)
+global_daily_requests: list[float] = []
+
+
+def is_rate_limited(chat_id: str) -> str | None:
+    """Check if a user or the global budget is rate-limited.
+    Returns a message string if limited, None if OK."""
+    now = time.time()
+
+    # Global daily budget
+    cutoff_day = now - 86400
+    global_daily_requests[:] = [t for t in global_daily_requests if t > cutoff_day]
+    if len(global_daily_requests) >= GLOBAL_DAILY_BUDGET:
+        return "Bot is at capacity for today. Please try again tomorrow."
+
+    # Per-user sliding window
+    timestamps = user_request_timestamps[chat_id]
+    cutoff_min = now - 60
+    cutoff_hour = now - 3600
+    timestamps[:] = [t for t in timestamps if t > cutoff_hour]
+
+    recent_minute = sum(1 for t in timestamps if t > cutoff_min)
+    if recent_minute >= USER_RATE_LIMIT_PER_MIN:
+        return "Too many requests. Please wait a minute."
+
+    if len(timestamps) >= USER_RATE_LIMIT_PER_HOUR:
+        return "Too many requests this hour. Please slow down."
+
+    # Record this request
+    timestamps.append(now)
+    global_daily_requests.append(now)
+    return None
 
 
 # ─── TELEGRAM ────────────────────────────────────────────────────────────────
@@ -120,7 +160,8 @@ def tg_get_photo(file_id: str) -> bytes | None:
 # ─── USER DATA ───────────────────────────────────────────────────────────────
 
 def user_dir(chat_id: str) -> Path:
-    d = USERS_DIR / chat_id
+    sanitized = str(int(chat_id))  # Force numeric — rejects path traversal
+    d = USERS_DIR / sanitized
     d.mkdir(parents=True, exist_ok=True)
     return d
 
@@ -403,7 +444,14 @@ def answer_user_question(chat_id: str, question: str, user: dict) -> str:
             "role": "user",
             "content": f"""You are a March Madness bracket assistant. Answer the user's question about their bracket. Be concise and conversational — this is a Telegram message. No markdown.
 
-IMPORTANT: This is for entertainment and bracket pool analysis only. Never suggest placing bets, trades, or wagers. Never give financial advice. Focus on bracket strategy, game analysis, and fun.
+RULES:
+1. Only cite facts from the BRACKET DATA below. Do not invent statistics.
+2. If the user asks something not covered by the data, say "I don't have that information in the bracket data."
+3. Do not cite win percentages, historical records, or KenPom numbers unless they appear in the data below.
+4. Never suggest placing bets, trades, or wagers. This is for bracket pool entertainment only.
+5. Keep answers concise and grounded in the provided data.
+
+IMPORTANT: This is for entertainment and bracket pool analysis only. Never give financial advice.
 
 BRACKET DATA:
 {context}
@@ -422,6 +470,21 @@ def handle_message(msg: dict):
     text = msg["text"]
     photo = msg["photo"]
     first_name = msg["first_name"]
+
+    # Validate chat_id is numeric (Fix 4)
+    try:
+        str(int(chat_id))
+    except (ValueError, TypeError):
+        print(f"  Invalid chat_id: {chat_id!r}")
+        return
+
+    # Rate limit check (Fix 1) — skip for cheap commands
+    is_expensive = text.lower() not in ("/start", "start", "hi", "hello", "hey", "/help", "help", "/score", "score")
+    if is_expensive or photo:
+        limited = is_rate_limited(chat_id)
+        if limited:
+            tg_send(chat_id, limited)
+            return
 
     user = load_user(chat_id)
 
@@ -448,6 +511,9 @@ def handle_message(msg: dict):
         tg_send(chat_id, "Reading your bracket from the screenshot...")
         largest = max(photo, key=lambda p: p.get("width", 0) * p.get("height", 0))
         photo_data = tg_get_photo(largest["file_id"])
+        if photo_data and len(photo_data) > 5 * 1024 * 1024:
+            tg_send(chat_id, "Image too large. Please send a screenshot under 5MB.")
+            return
         if photo_data:
             response = handle_screenshot(chat_id, photo_data, user)
             tg_send(chat_id, response)
@@ -566,8 +632,9 @@ def main():
                 try:
                     handle_message(msg)
                 except Exception as e:
-                    print(f"  Error handling message: {e}")
-                    tg_send(msg["chat_id"], f"Something went wrong: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    tg_send(msg["chat_id"], "Something went wrong. Please try again.")
 
         except Exception as e:
             print(f"  Poll error: {e}")

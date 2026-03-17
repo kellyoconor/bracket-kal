@@ -230,22 +230,59 @@ def pull_live_price(abbrev: str) -> dict | None:
     return None
 
 
+ALLOWED_VARS = {"divergence", "market_price", "claude_prob", "kalshi_prob"}
+ALLOWED_OPS = {
+    ">=": lambda a, b: a >= b,
+    "<=": lambda a, b: a <= b,
+    "!=": lambda a, b: a != b,
+    "==": lambda a, b: a == b,
+    ">": lambda a, b: a > b,
+    "<": lambda a, b: a < b,
+}
+
+
+def _eval_clause(clause: str, ctx: dict) -> bool:
+    """Evaluate a single comparison like 'divergence >= 0.15'."""
+    clause = clause.strip()
+    for op_str in (">=", "<=", "!=", "==", ">", "<"):
+        if op_str in clause:
+            parts = clause.split(op_str, 1)
+            if len(parts) != 2:
+                return False
+            var_name = parts[0].strip()
+            val_str = parts[1].strip()
+            if var_name not in ALLOWED_VARS:
+                return False
+            try:
+                value = float(val_str)
+            except ValueError:
+                return False
+            return ALLOWED_OPS[op_str](ctx.get(var_name, 0), value)
+    return False
+
+
 def evaluate_rule(rule: dict, game: dict, market_price: float) -> bool:
     """Evaluate whether a trade rule triggers for a given game."""
     divergence = game.get("abs_divergence") or 0
     claude_prob = game.get("claude_prob", 0.5)
-    mp = market_price
+    kalshi_prob = game.get("kalshi_prob", 0.5)
 
-    condition = rule["condition"]
-    # Simple expression evaluation with restricted namespace
     ctx = {
         "divergence": divergence,
-        "market_price": mp,
+        "market_price": market_price,
         "claude_prob": claude_prob,
-        "abs": abs,
+        "kalshi_prob": kalshi_prob,
     }
+
+    condition = rule["condition"]
     try:
-        return bool(eval(condition, {"__builtins__": {}}, ctx))
+        # Split on " or " first, then " and " within each group
+        or_groups = [g.strip() for g in condition.split(" or ")]
+        for group in or_groups:
+            clauses = [c.strip() for c in group.split(" and ")]
+            if all(_eval_clause(c, ctx) for c in clauses):
+                return True
+        return False
     except Exception:
         return False
 
@@ -423,9 +460,10 @@ def main():
 
         except Exception as e:
             trade_record["status"] = "failed"
-            trade_record["error"] = str(e)
-            print(f"    FAILED: {e}")
-            telegram_send(f"*TRADE FAILED*\n{t['pick']}: {e}")
+            trade_record["error"] = str(e)  # Keep full error in local log
+            import traceback
+            traceback.print_exc()
+            telegram_send(f"*TRADE FAILED*\n{t['pick']}: Something went wrong.")
 
         save_trade(trade_record)
         time.sleep(1)

@@ -147,6 +147,13 @@ def answer_question(question: str, picks: list[dict], score: dict,
         max_tokens=500,
         messages=[{"role": "user", "content": f"""You are a March Madness bracket assistant. Answer the user's question using the bracket data below. Be concise and conversational — this is a Telegram message, keep it short. No markdown formatting (Telegram basic formatting only).
 
+RULES:
+1. Only cite facts from the BRACKET DATA below. Do not invent statistics.
+2. If the user asks something not covered by the data, say "I don't have that information in the bracket data."
+3. Do not cite win percentages, historical records, or KenPom numbers unless they appear in the data below.
+4. Never suggest placing bets, trades, or wagers. This is for bracket pool entertainment only.
+5. Keep answers concise and grounded in the provided data.
+
 BRACKET DATA:
 {context}
 
@@ -545,7 +552,9 @@ def main():
                 telegram_send(answer)
                 print(f"  [Q&A] Answered.")
             except Exception as e:
-                telegram_send(f"Sorry, couldn't process that: {e}")
+                import traceback
+                traceback.print_exc()
+                telegram_send("Something went wrong. Please try again.")
                 print(f"  [Q&A] Error: {e}")
 
         # ─── Check picks against Kalshi odds ─────────────────────────
