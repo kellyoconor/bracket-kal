@@ -108,6 +108,38 @@ def tg_send(chat_id: str, text: str, reply_markup: dict | None = None):
         print(f"  [TG] Send failed: {e}")
 
 
+def tg_send_photo(chat_id: str, photo_bytes: bytes, caption: str = ""):
+    """Send a photo (bytes) to a Telegram chat via multipart upload."""
+    if not TELEGRAM_TOKEN:
+        print(f"  [TG:{chat_id}] <photo {len(photo_bytes)} bytes>")
+        return
+    import uuid as _uuid
+    boundary = _uuid.uuid4().hex
+    parts = []
+    # chat_id field
+    parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"chat_id\"\r\n\r\n{chat_id}".encode())
+    # caption field
+    if caption:
+        parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"caption\"\r\n\r\n{caption}".encode())
+    # photo file
+    parts.append(
+        f"--{boundary}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"bracket.png\"\r\nContent-Type: image/png\r\n\r\n".encode()
+        + photo_bytes
+    )
+    body = b"\r\n".join(parts) + f"\r\n--{boundary}--\r\n".encode()
+    try:
+        req = Request(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto",
+            data=body,
+            headers={"Content-Type": f"multipart/form-data; boundary={boundary}"},
+            method="POST",
+        )
+        with urlopen(req, timeout=15) as resp:
+            resp.read()
+    except Exception as e:
+        print(f"  [TG] Photo send failed: {e}")
+
+
 def tg_answer_callback(callback_query_id: str):
     """Acknowledge a callback query so the button stops loading."""
     if not TELEGRAM_TOKEN:
@@ -953,6 +985,62 @@ def _get_admin_stats() -> str:
     return "\n".join(lines)
 
 
+# ─── BRACKET SUMMARY ────────────────────────────────────────────────────────
+
+ROUND_ORDER = ["R64", "R32", "S16", "E8", "F4", "CHAMP"]
+ROUND_DISPLAY = {
+    "R64": "Round of 64", "R32": "Round of 32", "S16": "Sweet 16",
+    "E8": "Elite 8", "F4": "Final Four", "CHAMP": "Championship",
+}
+
+
+def _format_bracket_summary(user: dict) -> str:
+    """Format a text summary of the user's bracket picks by round."""
+    picks = user.get("picks", [])
+    champ = user.get("champion", "?")
+    ff = user.get("final_four", [])
+    score = user.get("score", {})
+    bracket_name = user.get("bracket_name", "My Bracket")
+
+    lines = [f"{bracket_name}"]
+    lines.append(f"Champion: {champ}")
+    if ff:
+        lines.append(f"Final Four: {', '.join(ff)}")
+
+    total_w = score.get("correct", 0)
+    total_l = score.get("busted", 0)
+    if total_w + total_l > 0:
+        lines.append(f"Record: {total_w}W / {total_l}L")
+
+    lines.append("")
+
+    # Group picks by round
+    by_round: dict[str, list[str]] = {}
+    for p in picks:
+        rnd = p.get("round", "?")
+        by_round.setdefault(rnd, []).append(p.get("team", "?"))
+
+    for rnd in ROUND_ORDER:
+        teams = by_round.get(rnd, [])
+        if not teams:
+            continue
+        label = ROUND_DISPLAY.get(rnd, rnd)
+        lines.append(f"{label} ({len(teams)}):")
+        # Show teams in compact format
+        if len(teams) <= 4:
+            for t in teams:
+                lines.append(f"  {t}")
+        else:
+            # Two columns for R64/R32
+            for i in range(0, len(teams), 2):
+                pair = teams[i:i+2]
+                lines.append(f"  {pair[0]:<20s} {pair[1] if len(pair) > 1 else ''}")
+        lines.append("")
+
+    lines.append(f"{len(picks)} picks total.")
+    return "\n".join(lines)
+
+
 # ─── MESSAGE HANDLER ─────────────────────────────────────────────────────────
 
 def handle_message(msg: dict):
@@ -1062,6 +1150,20 @@ def handle_message(msg: dict):
         tg_send(chat_id, _get_admin_stats())
         return
 
+    # /mybracket command — view picks summary + bracket image
+    if text.lower() in ("/mybracket", "mybracket", "my bracket", "view bracket", "/viewbracket"):
+        if not user.get("picks"):
+            tg_send(chat_id, "No bracket loaded yet. Send your ESPN link or use /build.")
+            return
+        tg_send(chat_id, _format_bracket_summary(user))
+        try:
+            from bracket_image import render_bracket
+            img_bytes = render_bracket(user)
+            tg_send_photo(chat_id, img_bytes, caption="Your bracket")
+        except Exception as e:
+            print(f"  Bracket image failed: {e}")
+        return
+
     # /score command
     if text.lower() in ("/score", "score", "what's the score", "whats the score", "how am i doing"):
         score = user.get("score", {})
@@ -1085,6 +1187,7 @@ def handle_message(msg: dict):
             "Ask me anything about your bracket\n\n"
             "Commands:\n"
             "  /build — guided bracket builder\n"
+            "  /mybracket — view your picks\n"
             "  /score — your current record\n"
             "  /help — this message\n\n"
             "Or just ask naturally:\n"
