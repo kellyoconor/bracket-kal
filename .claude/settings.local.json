@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.kalshi.com)",
+      "WebFetch(domain:kalshi.com)",
+      "WebSearch",
+      "WebFetch(domain:www.cbssports.com)",
+      "WebFetch(domain:www.ncaa.com)",
+      "WebFetch(domain:www.nbcsports.com)",
+      "WebFetch(domain:www.nbcnewyork.com)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "Bash(cd:*)",
+      "WebFetch(domain:site.api.espn.com)",
+      "WebFetch(domain:gist.github.com)",
+      "Bash(.venv/bin/pip install:*)"
+    ]
+  }
+}
