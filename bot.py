@@ -507,7 +507,9 @@ def run_analysis(chat_id: str, user: dict) -> str:
 
     lines.append(
         f"\n{agreements} picks match, {len(disagreements)} differ.\n"
-        f"I'll track all your picks live and message you during games."
+        f"I'll track all your picks live and message you during games.\n\n"
+        f"Live alerts are ON — you'll get halftime scores, upset alerts, "
+        f"and results as games happen. Use /alerts off to turn them off."
     )
 
     return "\n".join(lines)
