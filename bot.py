@@ -1271,6 +1271,43 @@ def handle_message(msg: dict):
                 "I can pull all 63 picks automatically.")
             return
 
+    # /testalert command — send sample alerts so you can see the format
+    if text.lower() in ("/testalert", "testalert", "/test alert"):
+        samples = [
+            (
+                "Halftime: Duke 38, Ohio State 31.\n\n"
+                "(1) Duke vs (8) Ohio State (East)\n"
+                "Your pick leads by 7."
+            ),
+            (
+                "Crunch time: St. John's 62, Northern Iowa 59 "
+                "(3:42 left).\n\n"
+                "(5) St. John's vs (12) Northern Iowa (East)\n"
+                "St. John's holding on."
+            ),
+            (
+                "Upset brewing: Wright State up 12! "
+                "(54-42, 8:15 2nd Half)\n\n"
+                "(14) Wright State vs (7) Kentucky (South)\n"
+                "Bold pick paying off with a 20% gap."
+            ),
+            (
+                "Duke wins!\n\n"
+                "(1) Duke vs (8) Ohio State (East)\n\n"
+                "Record: 1W / 0L"
+            ),
+            (
+                "Heads up — Kentucky odds are sliding.\n\n"
+                "(7) Kentucky vs (14) Wright State\n"
+                "Was 72%, now 58%."
+            ),
+        ]
+        tg_send(chat_id, "Sending sample alerts so you can see the format...\n")
+        for msg in samples:
+            tg_send(chat_id, msg)
+        tg_send(chat_id, "Those are the 5 alert types: halftime, crunch time, upset brewing, game result, and odds movement.")
+        return
+
     # /admin command — stats for admin only
     if text.lower() in ("/admin", "/stats") and chat_id == TELEGRAM_CHAT_ID_ADMIN:
         tg_send(chat_id, _get_admin_stats())
