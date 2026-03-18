@@ -780,6 +780,54 @@ def _advance_guided_state(state: dict) -> bool:
         return False
 
 
+def _undo_guided_pick(chat_id: str, user: dict):
+    """Go back one pick in the guided bracket builder."""
+    state = user["guided_state"]
+    completed = state.get("games_completed", 0)
+
+    if completed == 0:
+        tg_send(chat_id, "You're at the first game — nothing to undo.")
+        return
+
+    # Remove the last pick
+    # Find the game number of the last completed pick
+    # We need to reverse the state advancement
+    last_game_num = None
+    for gn in sorted(state["picks_by_game"].keys(), key=int, reverse=True):
+        last_game_num = gn
+        break
+
+    if last_game_num:
+        removed_team = state["picks_by_game"].pop(last_game_num)
+        team_name = removed_team.get("team", "?") if isinstance(removed_team, dict) else removed_team
+        state["games_completed"] -= 1
+
+        # Reverse the state to the previous game position
+        # Recalculate position from games_completed count
+        _rewind_guided_state(state)
+
+        save_user(chat_id, user)
+        tg_send(chat_id, f"Removed {team_name}. Let's redo this pick.")
+        _present_current_game(chat_id, user)
+    else:
+        tg_send(chat_id, "Nothing to undo.")
+
+
+def _rewind_guided_state(state: dict):
+    """Recalculate guided state position from games_completed count."""
+    target = state["games_completed"]
+
+    # Reset to beginning
+    state["phase"] = "region"
+    state["region_index"] = 0
+    state["round"] = 64
+    state["game_in_round"] = 0
+
+    # Advance to the target position
+    for _ in range(target):
+        _advance_guided_state(state)
+
+
 def handle_guided_response(chat_id: str, text: str, user: dict):
     """Process a user's pick during guided bracket building."""
     state = user["guided_state"]
@@ -913,6 +961,16 @@ def _finalize_guided_bracket(chat_id: str, user: dict):
     # Run the standard analysis
     analysis = run_analysis(chat_id, user)
     tg_send(chat_id, analysis)
+
+    # Auto-send bracket image
+    try:
+        from bracket_image import render_bracket
+        img_bytes = render_bracket(user)
+        tg_send_photo(chat_id, img_bytes, caption="Your bracket")
+    except Exception as e:
+        print(f"  Bracket image failed: {e}")
+
+    tg_send(chat_id, "Use /mybracket anytime to see your bracket.")
 
 
 # ─── ADMIN STATS ─────────────────────────────────────────────────────────────
@@ -1091,6 +1149,9 @@ def handle_message(msg: dict):
 
     # Guided bracket flow — handle picks
     if user.get("state") == "guided_build":
+        if text.strip().lower() in ("undo", "back", "/undo"):
+            _undo_guided_pick(chat_id, user)
+            return
         handle_guided_response(chat_id, text, user)
         return
 
@@ -1108,6 +1169,7 @@ def handle_message(msg: dict):
             if user.get("state") == "active":
                 analysis = run_analysis(chat_id, user)
                 tg_send(chat_id, analysis)
+                tg_send(chat_id, "Type /mybracket to see your visual bracket, or ask me anything about your picks.")
         else:
             tg_send(chat_id, "Couldn't download that image. Try again?")
         return
@@ -1120,6 +1182,7 @@ def handle_message(msg: dict):
         if user.get("state") == "active":
             analysis = run_analysis(chat_id, user)
             tg_send(chat_id, analysis)
+            tg_send(chat_id, "Type /mybracket to see your visual bracket, or ask me anything about your picks.")
         return
 
     # Quick start: user just names their champion/Final Four
@@ -1164,6 +1227,16 @@ def handle_message(msg: dict):
             print(f"  Bracket image failed: {e}")
         return
 
+    # /refresh command — re-run divergence analysis with latest odds
+    if text.lower() in ("/refresh", "refresh", "/reanalyze", "reanalyze"):
+        if not user.get("picks"):
+            tg_send(chat_id, "No bracket loaded yet. Send your ESPN link or use /build.")
+            return
+        tg_send(chat_id, "Re-running divergence analysis with latest data...")
+        analysis = run_analysis(chat_id, user)
+        tg_send(chat_id, analysis)
+        return
+
     # /score command
     if text.lower() in ("/score", "score", "what's the score", "whats the score", "how am i doing"):
         score = user.get("score", {})
@@ -1188,6 +1261,7 @@ def handle_message(msg: dict):
             "Commands:\n"
             "  /build — guided bracket builder\n"
             "  /mybracket — view your picks\n"
+            "  /refresh — re-run analysis with latest odds\n"
             "  /score — your current record\n"
             "  /help — this message\n\n"
             "Or just ask naturally:\n"
