@@ -32,17 +32,17 @@ Results land in `results.json`. Every game includes the Kalshi price, the ensemb
 
 ## User-facing bot
 
-The public Telegram bot lets anyone analyze their March Madness bracket.
+The public Telegram bot — [@MarketVsMadnessBot](https://t.me/MarketVsMadnessBot) — lets anyone analyze their March Madness bracket.
 
 ### User journey
 
 1. User messages the bot `/start`
-2. Bot asks for their ESPN bracket link or a screenshot
-3. User pastes `fantasy.espn.com/games/tournament-challenge-bracket-2026/bracket?id=...`
-4. Bot pulls all 63 picks via ESPN's public API, instantly
-5. Bot runs divergence analysis — shows where the user's picks agree and disagree with the ensemble model and Kalshi odds
-6. During games — bot sends live score updates, halftime alerts, upset alerts
-7. After games — bot reports which picks hit and tracks running score
+2. Bot asks for their ESPN bracket link, a screenshot, or offers `/build`
+3. User submits bracket (ESPN link, screenshot, or guided builder)
+4. Bot runs divergence analysis — shows where the user's picks agree and disagree with the ensemble model and Kalshi odds
+5. Bot sends visual bracket image (PNG) with picks by round
+6. During games — bot sends live alerts: halftime scores, crunch time updates, upset alerts, game results, odds movement
+7. After games — bot reports which picks hit and tracks running score with green/red color coding
 8. User can ask questions anytime: "how's my bracket?", "what's my riskiest pick?", "who do I have in the Final Four?"
 
 ### Intake methods
@@ -51,7 +51,33 @@ The public Telegram bot lets anyone analyze their March Madness bracket.
 |--------|-------------|
 | **ESPN link** | User pastes their bracket URL. Bot extracts UUID, hits ESPN's public API, pulls all 63 picks. Zero manual entry. |
 | **Screenshot** | User sends a photo of their bracket (any source). Claude Vision reads it and extracts picks. |
-| **Quick start** | User names their Final Four and champion. Bot fills remaining picks from market favorites. |
+| **Guided builder** (`/build`) | Bot walks through all 63 games one by one with inline buttons. Shows market odds vs model at each matchup. Supports undo. |
+
+### Bot commands
+
+| Command | What it does |
+|---------|-------------|
+| `/start` | Begin — submit your bracket |
+| `/build` | Guided bracket builder — pick all 63 games with divergence data |
+| `/mybracket` | View your picks as text summary + visual bracket image (PNG) |
+| `/refresh` | Re-run divergence analysis with latest odds |
+| `/alerts` | Toggle live game alerts on/off |
+| `/score` | Your current W/L record |
+| `/help` | Command list |
+
+### Live alerts (automatic)
+
+All users with active brackets receive alerts during games — no action needed:
+
+| Alert | Trigger |
+|-------|---------|
+| **Halftime** | Your picked team's game reaches halftime |
+| **Crunch time** | Under 5 min left, margin 8 or less |
+| **Upset brewing** | Your bold pick is leading by 10+ |
+| **Game result** | Win or loss with running W/L record |
+| **Odds sliding** | 5%+ drop on one of your picks |
+
+Alerts are rate-limited to 20/hour per user. Toggle with `/alerts off`.
 
 ### Running the bot
 
@@ -61,7 +87,7 @@ python bot.py
 
 Requires `TELEGRAM_BOT_TOKEN_PUBLIC` (separate from the personal monitor bot) and `ANTHROPIC_API_KEY`.
 
-User data is stored per chat ID in `users/{chat_id}/`. Each user gets their own bracket state, score tracking, and Q&A context.
+User data is stored per chat ID in `users/{chat_id}/`. Each user gets their own bracket state, score tracking, and Q&A context. The live alert system runs as a background thread, polling ESPN every 30 seconds during live games and Kalshi every 10 minutes.
 
 ---
 
@@ -215,11 +241,13 @@ Top of `bracket_divergence.py`:
 | File | What it does |
 |------|-------------|
 | `bracket_divergence.py` | Main engine. Ensemble model + Kalshi odds + divergence. All 63 games. |
-| `bot.py` | Multi-user Telegram bot. ESPN intake, screenshot intake, Q&A, live tracking. |
+| `bot.py` | Multi-user Telegram bot. ESPN intake, screenshot intake, guided builder, Q&A, visual bracket, live alerts. |
+| `bracket_image.py` | Renders user bracket as PNG image using Pillow. Color-coded correct/busted picks. |
+| `live_alerts.py` | Multi-user live alert system. Polls ESPN + Kalshi, sends game-day notifications. |
 | `espn_scraper.py` | ESPN Tournament Challenge API client. Pulls bracket picks from URLs. |
 | `kalshi_odds.py` | Pulls all 8 Kalshi NCAA tournament series. No auth required. |
 | `ensemble.py` | KenPom logistic, Log5, seed historical. Computes blended probability. |
-| `monitor.py` | Personal pick tracker with Telegram alerts and ESPN live scores. |
+| `monitor.py` | Personal pick tracker with Telegram alerts and ESPN live scores (single-user). |
 | `derive_odds.py` | Derives H2H probabilities from championship odds alone. |
 | `split_brackets.py` | Generates three independent bracket files + comparison table. |
 | `kalshi_trader.py` | Automated trading with safety rails. Admin only. |
@@ -300,11 +328,12 @@ Every game in `results.json` includes the full signal breakdown:
                           │                                  │
                           │  ESPN link ──► espn_scraper.py   │
                           │  Screenshot ──► Claude Vision    │
-                          │  Quick start ──► defaults        │
+                          │  /build ──► guided builder       │
                           └──────────┬──────────────────────┘
                                      │
                                      ▼
                                bot.py (public)
+                          @MarketVsMadnessBot
                           per-user bracket tracking
                           Q&A with bracket context
                                      │
@@ -316,13 +345,22 @@ Every game in `results.json` includes the full signal breakdown:
                     │                │                │
                     └────────┬───────┘                │
                              ▼                        │
-                       Telegram alerts                │
+                    live_alerts.py                     │
+                    (background thread)               │
                     ┌────────────────────┐             │
                     │  Halftime scores   │             │
+                    │  Crunch time       │             │
                     │  Upset alerts      │             │
                     │  Game results      │◄────────────┘
                     │  Odds movement     │
-                    │  Q&A answers       │
+                    └────────────────────┘
+                             │
+                             ▼
+                    bracket_image.py
+                    ┌────────────────────┐
+                    │  Visual bracket    │
+                    │  PNG rendering     │
+                    │  Green/red coding  │
                     └────────────────────┘
 
   ─── ENGINE ───────────────────────────────────────────

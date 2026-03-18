@@ -130,6 +130,25 @@ RULES:
 
 ---
 
+## Fix 7: Thread-safe file I/O for multi-user live alerts
+
+**Status:** Implemented (2026-03-18)
+
+**Files:** `bot.py`, `live_alerts.py`
+**Problem:** The live alert background thread reads/writes `user.json` concurrently with the main message handler thread. Two risks: (1) read-modify-write race condition silently clobbers user data, (2) concurrent writes corrupt JSON files.
+
+**What was built:**
+
+- **Atomic file writes** — `save_user()` now writes to a temp file then uses `os.replace()` (POSIX atomic) to swap it in. No partial writes possible.
+- **Per-user threading locks** — `_get_user_lock(chat_id)` returns a `threading.Lock` per user. The alert loop uses `update_user_score()` which acquires the lock, re-reads from disk, updates only the score field, and writes back. Prevents clobbering picks/state written by the message handler.
+- **Per-user error isolation** — each user's alert processing is wrapped in try/except. One corrupted user doesn't skip alerts for everyone else.
+- **`any_live` initialized** — prevents `UnboundLocalError` crash on first-iteration failure.
+- **Safe ESPN score parsing** — handles non-numeric score values from ESPN API.
+
+**Test coverage:** 9 tests in `test_live_alerts.py` covering all 6 alert types + dedup + rate limiting. 10 tests in `test_rewind.py` covering the guided builder undo/rewind state machine.
+
+---
+
 ## What we're NOT fixing (and why)
 
 | Issue | Why it's fine |

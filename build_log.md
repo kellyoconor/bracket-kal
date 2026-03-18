@@ -383,6 +383,55 @@ The pattern: build the engine first, then the infrastructure around it, then the
 
 ---
 
-*Built in one day. Deployed by Thursday. Running through April 7.*
+## March 18: The UX Sprint
+
+Two days after launch, the bot got its user experience layer. Five commits, ~1,200 lines of new code.
+
+### The Visual Bracket
+`98c52ad` — `bracket_image.py` renders the full 64-team bracket as a PNG using Pillow. Traditional left-right tree layout. R64 on the outer edges, picks flowing inward through each round, champion highlighted in gold center box. Green/red color coding for correct/busted picks. Round labels, score badge, legend. Sent via `tg_send_photo` multipart upload. The `/mybracket` command sends both a text summary and the image.
+
+### Rounding Out the Journey
+`c1046d0` — Five UX improvements in one commit:
+- **Auto bracket image** — after completing `/build`, the bot automatically sends the visual bracket
+- **Post-analysis CTA** — after ESPN/screenshot intake, prompts "Type /mybracket to see your visual bracket"
+- **`/refresh`** — re-run divergence analysis with latest odds
+- **`/undo` in guided builder** — type "undo" or "back" to fix mistakes during `/build`
+- **Updated `/help`** — all new commands documented
+
+### Multi-User Live Alerts
+`bde5c4c` — The big one. Ported the single-user `monitor.py` alert system into `bot.py` as a background thread. New `live_alerts.py` module (512 lines):
+- Polls ESPN every 30 seconds during live games, Kalshi every 10 minutes
+- Sends alerts to ALL users with active brackets — not just the admin
+- Pick enrichment at intake time maps flat picks to game metadata (game numbers, matchups, regions, divergence data)
+- `/alerts` command to toggle notifications on/off
+- Per-user rate limiting (20 alerts/hour max)
+- Alert types: halftime, crunch time, upset brewing, game resolution (W/L), odds movement
+
+### Thread Safety Hardening
+`b6ab49b` — After a thread safety audit found real bugs:
+- **Atomic file writes** — `save_user()` writes to temp file + `os.replace()`. No corrupted JSON.
+- **Per-user threading locks** — `update_user_score()` re-reads from disk under lock before writing. Alert thread can't clobber message handler's changes.
+- **Per-user error isolation** — one bad user doesn't kill alerts for everyone
+- **`any_live` initialized** — prevents crash on first-iteration ESPN failure
+
+### Test Coverage
+`14e47bf` — 19 tests across two suites:
+- `test_live_alerts.py` (9 tests) — all 6 alert types, deduplication, rate limiting
+- `test_rewind.py` (10 tests) — full guided builder state machine: 63 positions, rewind, undo, boundary transitions, double undo
+
+### New Files
+```
+bracket_image.py        — Visual bracket PNG renderer (Pillow)
+live_alerts.py          — Multi-user live alert system (ESPN + Kalshi polling)
+test_live_alerts.py     — Alert system test suite (9 tests)
+test_rewind.py          — Guided builder undo test suite (10 tests)
+```
+
+### The Bot Name
+The public bot is **@MarketVsMadnessBot** — [t.me/MarketVsMadnessBot](https://t.me/MarketVsMadnessBot). Deployed on Railway, auto-deploys on push to main.
+
+---
+
+*Built in one day. Extended in a second. Running through April 7.*
 
 *Come back with the data.*
