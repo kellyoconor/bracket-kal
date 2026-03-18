@@ -341,7 +341,7 @@ def check_alerts_for_user(
                         status_word = f"trails by {margin}"
 
                     msg = (
-                        f"Halftime: {team} {our_score}, {opp_name} {opp_score}.\n\n"
+                        f"\U0001f3c0 Halftime: {team} {our_score}, {opp_name} {opp_score}\n\n"
                         f"{matchup} ({region})\n"
                         f"Your pick {status_word}."
                     )
@@ -362,8 +362,8 @@ def check_alerts_for_user(
                         else:
                             verb = "fighting back"
                         msg = (
-                            f"Crunch time: {team} {our_score}, {opp_name} {opp_score} "
-                            f"({clock} left).\n\n"
+                            f"\U0001f525 Crunch time: {team} {our_score}, {opp_name} {opp_score} "
+                            f"({clock} left)\n\n"
                             f"{matchup} ({region})\n"
                             f"{team} {verb}."
                         )
@@ -376,7 +376,7 @@ def check_alerts_for_user(
                         and upset_key not in alert_state.alerted_keys):
                     div_str = f" with a {abs(divergence):.0%} gap" if divergence else ""
                     msg = (
-                        f"Upset brewing: {team} up {margin}! "
+                        f"\U0001f6a8 Upset brewing: {team} up {margin}! "
                         f"({our_score}-{opp_score}, {clock} {description})\n\n"
                         f"{matchup} ({region})\n"
                         f"Bold pick paying off{div_str}."
@@ -412,16 +412,16 @@ def check_alerts_for_user(
 
             if won:
                 msg = (
-                    f"{team} wins!\n\n"
+                    f"\u2705 {team} wins!\n\n"
                     f"{matchup} ({region})\n\n"
-                    f"Record: {total_w}W / {total_l}L"
+                    f"\U0001f4ca Record: {total_w}W / {total_l}L"
                 )
             else:
                 msg = (
-                    f"{team} is out.\n\n"
+                    f"\u274c {team} is out.\n\n"
                     f"{matchup} ({region})\n"
                     f"{opponent.strip()} advances.\n\n"
-                    f"Record: {total_w}W / {total_l}L"
+                    f"\U0001f4ca Record: {total_w}W / {total_l}L"
                 )
             messages.append(msg)
             continue
@@ -433,7 +433,7 @@ def check_alerts_for_user(
             drop = prev - current_prob
             if drop >= 0.05:
                 msg = (
-                    f"Heads up — {team} odds are sliding.\n\n"
+                    f"\U0001f4c9 Heads up — {team} odds are sliding.\n\n"
                     f"{matchup}\n"
                     f"Was {prev:.0%}, now {current_prob:.0%}."
                 )
