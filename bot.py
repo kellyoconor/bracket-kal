@@ -254,6 +254,18 @@ def get_all_users() -> list[str]:
     return [d.name for d in USERS_DIR.iterdir() if d.is_dir() and (d / "user.json").exists()]
 
 
+# ─── PICK ENRICHMENT (for live alerts) ───────────────────────────────────────
+
+def enrich_and_save(chat_id: str, user: dict):
+    """Enrich user picks with game metadata for live alerts, then save."""
+    try:
+        from live_alerts import enrich_user_picks
+        user["enriched_picks"] = enrich_user_picks(user["picks"])
+        save_user(chat_id, user)
+    except Exception as e:
+        print(f"  Enrichment failed for {chat_id}: {e}")
+
+
 # ─── ESPN BRACKET INTAKE ─────────────────────────────────────────────────────
 
 def handle_espn_link(chat_id: str, text: str, user: dict) -> str:
@@ -286,6 +298,7 @@ def handle_espn_link(chat_id: str, text: str, user: dict) -> str:
     user["picks_by_round"] = result["picks_by_round"]
     user["total_picks"] = result["total_picks"]
     save_user(chat_id, user)
+    enrich_and_save(chat_id, user)
 
     # Build response
     champ = result["champion"] or "TBD"
@@ -365,6 +378,7 @@ Use standard team names (Duke, not Blue Devils). Include every pick you can read
     user["picks"] = picks
     user["total_picks"] = len(picks)
     save_user(chat_id, user)
+    enrich_and_save(chat_id, user)
 
     champ = parsed.get("champion", "TBD")
     ff = ", ".join(parsed.get("final_four", [])) or "TBD"
@@ -947,6 +961,7 @@ def _finalize_guided_bracket(chat_id: str, user: dict):
     # Clean up guided state
     del user["guided_state"]
     save_user(chat_id, user)
+    enrich_and_save(chat_id, user)
 
     ff_str = ", ".join(final_four) if final_four else "TBD"
 
@@ -1237,6 +1252,25 @@ def handle_message(msg: dict):
         tg_send(chat_id, analysis)
         return
 
+    # /alerts command — toggle live game alerts
+    if text.lower() in ("/alerts", "/alerts on", "/alerts off", "alerts on", "alerts off"):
+        if "off" in text.lower():
+            user["alerts_enabled"] = False
+            save_user(chat_id, user)
+            tg_send(chat_id, "Live alerts turned off. Use /alerts on to re-enable.")
+        else:
+            user["alerts_enabled"] = True
+            save_user(chat_id, user)
+            tg_send(chat_id,
+                "Live alerts are on. You'll get updates during games:\n"
+                "  Halftime scores\n"
+                "  Crunch time updates\n"
+                "  Upset alerts\n"
+                "  Game results (W/L)\n"
+                "  Odds movement\n\n"
+                "Use /alerts off to turn them off.")
+        return
+
     # /score command
     if text.lower() in ("/score", "score", "what's the score", "whats the score", "how am i doing"):
         score = user.get("score", {})
@@ -1262,6 +1296,7 @@ def handle_message(msg: dict):
             "  /build — guided bracket builder\n"
             "  /mybracket — view your picks\n"
             "  /refresh — re-run analysis with latest odds\n"
+            "  /alerts — toggle live game alerts\n"
             "  /score — your current record\n"
             "  /help — this message\n\n"
             "Or just ask naturally:\n"
@@ -1288,6 +1323,19 @@ def handle_message(msg: dict):
 
 # ─── MAIN LOOP ───────────────────────────────────────────────────────────────
 
+def get_active_users_with_picks() -> list[tuple[str, dict]]:
+    """Get all users with active brackets and enriched picks (for live alerts)."""
+    result = []
+    for cid in get_all_users():
+        try:
+            u = load_user(cid)
+            if u.get("state") == "active" and u.get("enriched_picks"):
+                result.append((cid, u))
+        except Exception:
+            continue
+    return result
+
+
 def main():
     print("=" * 70)
     print("Bracket Divergence Bot — Multi-User")
@@ -1299,6 +1347,17 @@ def main():
 
     print(f"  Anthropic Q&A: {'enabled' if ANTHROPIC_API_KEY else 'disabled'}")
     print(f"  Users dir: {USERS_DIR}")
+
+    # Start live alert background thread
+    from live_alerts import alert_loop
+    stop_event = threading.Event()
+    alert_thread = threading.Thread(
+        target=alert_loop,
+        args=(get_active_users_with_picks, tg_send, save_user, stop_event),
+        daemon=True,
+    )
+    alert_thread.start()
+
     print(f"  Polling for messages...\n")
 
     last_update_id = 0
