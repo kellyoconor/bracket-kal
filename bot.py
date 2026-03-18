@@ -48,8 +48,8 @@ LIVE_POLL_INTERVAL = 30
 
 # ─── RATE LIMITING ──────────────────────────────────────────────────────────
 
-USER_RATE_LIMIT_PER_MIN = 10
-USER_RATE_LIMIT_PER_HOUR = 50
+USER_RATE_LIMIT_PER_MIN = 15
+USER_RATE_LIMIT_PER_HOUR = 120
 GLOBAL_DAILY_BUDGET = 500
 
 user_request_timestamps: dict[str, list[float]] = collections.defaultdict(list)
@@ -1161,7 +1161,15 @@ def handle_message(msg: dict):
         return
 
     # Rate limit check (Fix 1) — skip for cheap commands
-    is_expensive = text.lower() not in ("/start", "start", "hi", "hello", "hey", "/help", "help", "/score", "score")
+    cheap_commands = {
+        "/start", "start", "hi", "hello", "hey",
+        "/help", "help",
+        "/score", "score", "what's the score", "whats the score", "how am i doing",
+        "/mybracket", "mybracket", "my bracket", "view bracket", "/viewbracket",
+        "/refresh", "refresh",
+        "/alerts", "/alerts on", "/alerts off", "alerts on", "alerts off",
+    }
+    is_expensive = text.lower() not in cheap_commands
     if is_expensive or photo:
         limited = is_rate_limited(chat_id)
         if limited:
