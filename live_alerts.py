@@ -9,7 +9,7 @@ Alert types:
   - Halftime scores
   - Crunch time (under 5 min, close game)
   - Upset brewing (divergence pick leading big)
-  - Game resolution (W/L with running record)
+  - Game resolution (W/L with score tracking)
   - Odds movement (5%+ drops)
 """
 
@@ -116,7 +116,6 @@ def enrich_user_picks(user_picks: list[dict]) -> list[dict]:
     lookup = {}
     for round_key, games in results.items():
         for g in games:
-            # Index by both team_a and team_b names
             ta = g.get("team_a", {}).get("team", "")
             tb = g.get("team_b", {}).get("team", "")
             if ta:
@@ -132,7 +131,6 @@ def enrich_user_picks(user_picks: list[dict]) -> list[dict]:
 
         entry = lookup.get((rkey, team))
         if entry:
-            # Determine if user picked same as model or went different
             model_pick = entry.get("pick", "")
             if team == model_pick:
                 pick_source = entry.get("pick_source", "CHALK")
@@ -150,7 +148,6 @@ def enrich_user_picks(user_picks: list[dict]) -> list[dict]:
                 "abs_divergence": entry.get("abs_divergence"),
             })
         else:
-            # Can't match — still include for basic tracking
             enriched.append({
                 "picked_team": team,
                 "round": round_code,
@@ -196,7 +193,10 @@ def fetch_live_scores() -> dict[str, dict]:
             abbrev = c.get("team", {}).get("abbreviation", "")
             name = c.get("team", {}).get("displayName", "")
             score_val = c.get("score", "0")
-            teams[abbrev] = {"name": name, "score": int(score_val or 0)}
+            try:
+                teams[abbrev] = {"name": name, "score": int(score_val or 0)}
+            except (ValueError, TypeError):
+                teams[abbrev] = {"name": name, "score": 0}
 
         for abbrev in teams:
             scores[abbrev] = {
@@ -445,25 +445,26 @@ def check_alerts_for_user(
 
 # ─── Main alert loop ───────────────────────────────────────────────────────
 
-def alert_loop(get_users_fn, send_fn, save_user_fn, stop_event: threading.Event):
+def alert_loop(get_users_fn, send_fn, save_score_fn, stop_event: threading.Event):
     """
     Background alert loop. Polls ESPN/Kalshi and sends alerts to all active users.
 
     Args:
-        get_users_fn: () -> list[(chat_id, user_dict)] — users with enriched picks
-        send_fn: (chat_id, message) -> None — sends a Telegram message
-        save_user_fn: (chat_id, user_dict) -> None — persists user data
-        stop_event: threading.Event — set to stop the loop
+        get_users_fn: () -> list[(chat_id, user_data)] with enriched picks
+        send_fn: (chat_id, message) -> None
+        save_score_fn: (chat_id, score_dict) -> None (thread-safe score update)
+        stop_event: threading.Event
     """
     print("  [alerts] Live alert loop started")
     game_odds: dict[str, dict] = {}
     last_kalshi_poll = 0.0
+    any_live = False
 
     while not stop_event.is_set():
         try:
             # ESPN live scores (shared across all users)
             live_scores = fetch_live_scores()
-            any_live = any(g["state"] == "in" for g in live_scores.values())
+            any_live = any(g.get("state") == "in" for g in live_scores.values())
 
             # Kalshi odds (every 10 min)
             if time.time() - last_kalshi_poll >= KALSHI_POLL_INTERVAL:
@@ -475,32 +476,36 @@ def alert_loop(get_users_fn, send_fn, save_user_fn, stop_event: threading.Event)
             # Check each user
             users = get_users_fn()
             for chat_id, user in users:
-                enriched = user.get("enriched_picks", [])
-                if not enriched:
+                try:
+                    enriched = user.get("enriched_picks", [])
+                    if not enriched:
+                        continue
+                    if not user.get("alerts_enabled", True):
+                        continue
+
+                    alert_state = _get_alert_state(chat_id)
+                    score = user.get("score", {
+                        "correct": 0, "busted": 0, "resolved_games": [],
+                    })
+
+                    msgs, score_changed = check_alerts_for_user(
+                        enriched, score, live_scores, game_odds, alert_state,
+                    )
+
+                    for msg in msgs:
+                        if alert_state.can_send():
+                            send_fn(chat_id, msg)
+                            alert_state.record_send()
+
+                    if score_changed:
+                        try:
+                            save_score_fn(chat_id, score)
+                        except Exception as e:
+                            print(f"  [alerts] Save failed for {chat_id}: {e}")
+
+                except Exception as e:
+                    print(f"  [alerts] Error for user {chat_id}: {e}")
                     continue
-                if not user.get("alerts_enabled", True):
-                    continue
-
-                alert_state = _get_alert_state(chat_id)
-                score = user.get("score", {
-                    "correct": 0, "busted": 0, "resolved_games": [],
-                })
-
-                msgs, score_changed = check_alerts_for_user(
-                    enriched, score, live_scores, game_odds, alert_state,
-                )
-
-                for msg in msgs:
-                    if alert_state.can_send():
-                        send_fn(chat_id, msg)
-                        alert_state.record_send()
-
-                if score_changed:
-                    user["score"] = score
-                    try:
-                        save_user_fn(chat_id, user)
-                    except Exception as e:
-                        print(f"  [alerts] Save failed for {chat_id}: {e}")
 
         except Exception as e:
             print(f"  [alerts] Error: {e}")

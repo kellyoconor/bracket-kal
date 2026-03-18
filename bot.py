@@ -230,6 +230,17 @@ def user_dir(chat_id: str) -> Path:
     return d
 
 
+_user_locks: dict[str, threading.Lock] = {}
+_user_locks_meta = threading.Lock()
+
+
+def _get_user_lock(chat_id: str) -> threading.Lock:
+    with _user_locks_meta:
+        if chat_id not in _user_locks:
+            _user_locks[chat_id] = threading.Lock()
+        return _user_locks[chat_id]
+
+
 def load_user(chat_id: str) -> dict:
     path = user_dir(chat_id) / "user.json"
     if path.exists():
@@ -243,9 +254,29 @@ def load_user(chat_id: str) -> dict:
 
 
 def save_user(chat_id: str, data: dict):
+    """Atomic write: write to temp file, then rename (POSIX atomic)."""
+    import tempfile
     path = user_dir(chat_id) / "user.json"
-    with open(path, "w") as f:
-        json.dump(data, f, indent=2)
+    fd, tmp = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w") as f:
+            json.dump(data, f, indent=2)
+        os.replace(tmp, path)
+    except Exception:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+
+
+def update_user_score(chat_id: str, score: dict):
+    """Thread-safe score update — re-reads user from disk under lock."""
+    lock = _get_user_lock(chat_id)
+    with lock:
+        user = load_user(chat_id)
+        user["score"] = score
+        save_user(chat_id, user)
 
 
 def get_all_users() -> list[str]:
@@ -1353,7 +1384,7 @@ def main():
     stop_event = threading.Event()
     alert_thread = threading.Thread(
         target=alert_loop,
-        args=(get_active_users_with_picks, tg_send, save_user, stop_event),
+        args=(get_active_users_with_picks, tg_send, update_user_score, stop_event),
         daemon=True,
     )
     alert_thread.start()
