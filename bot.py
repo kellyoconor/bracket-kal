@@ -1190,10 +1190,17 @@ def handle_message(msg: dict):
             f"I'll analyze your picks against live prediction market odds "
             f"and our ensemble model (KenPom + Log5 + seed history + AI), "
             f"then track your bracket live during games.\n\n"
-            f"Send me one of:\n"
-            f"  1. Your ESPN bracket link\n"
-            f"  2. A screenshot of your bracket\n"
-            f"  3. /build — I'll walk you through it game by game\n\n"
+            f"Get started:\n"
+            f"  1. Paste your ESPN bracket link\n"
+            f"  2. Send a screenshot of your bracket\n"
+            f"  3. /build — I'll walk you through all 63 picks\n\n"
+            f"Commands:\n"
+            f"  /build — guided bracket builder\n"
+            f"  /mybracket — view your picks + bracket image\n"
+            f"  /refresh — re-run analysis with latest odds\n"
+            f"  /alerts — toggle live game alerts\n"
+            f"  /score — your W/L record\n"
+            f"  /help — all commands\n\n"
             f"For entertainment and analysis only — not financial advice."
         )
         return
@@ -1388,6 +1395,29 @@ def main():
 
     print(f"  Anthropic Q&A: {'enabled' if ANTHROPIC_API_KEY else 'disabled'}")
     print(f"  Users dir: {USERS_DIR}")
+
+    # Register bot commands menu with Telegram
+    try:
+        commands = json.dumps([
+            {"command": "start", "description": "Get started"},
+            {"command": "build", "description": "Guided bracket builder (63 picks)"},
+            {"command": "mybracket", "description": "View your picks + bracket image"},
+            {"command": "refresh", "description": "Re-run analysis with latest odds"},
+            {"command": "alerts", "description": "Toggle live game alerts"},
+            {"command": "score", "description": "Your W/L record"},
+            {"command": "help", "description": "All commands"},
+        ])
+        req = Request(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/setMyCommands",
+            data=json.dumps({"commands": json.loads(commands)}).encode(),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urlopen(req, timeout=10) as resp:
+            resp.read()
+        print("  Bot command menu registered")
+    except Exception as e:
+        print(f"  Command menu registration failed: {e}")
 
     # Start live alert background thread
     from live_alerts import alert_loop
