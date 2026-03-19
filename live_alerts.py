@@ -530,7 +530,7 @@ def check_alerts_for_user(
                         f"but the market is softening."
                     )
                 msg = (
-                    f"\U0001f4c9 Heads up — {team} is sliding.\n\n"
+                    f"\U0001f4c9 Market movement: {team} dropping.\n\n"
                     f"{matchup}\n"
                     f"Was {prev:.0%}, now {current_prob:.0%}."
                     f"{context}"
