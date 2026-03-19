@@ -594,10 +594,11 @@ def answer_user_question(chat_id: str, question: str, user: dict) -> str:
 
 RULES:
 1. Only cite facts from the BRACKET DATA below. Do not invent statistics.
-2. If the user asks something not covered by the data, say "I don't have that information in the bracket data."
+2. If the data includes LIVE SCORES, use them to answer questions about current games, scores, and how picks are doing right now.
 3. Do not cite win percentages, historical records, or KenPom numbers unless they appear in the data below.
 4. Never suggest placing bets, trades, or wagers. This is for bracket pool entertainment only.
 5. Keep answers concise and grounded in the provided data.
+6. If the user asks something not covered by the data, say "I don't have that information."
 
 IMPORTANT: This is for entertainment and bracket pool analysis only. Never give financial advice.
 
