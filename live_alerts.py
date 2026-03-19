@@ -214,9 +214,9 @@ def is_tournament_game(ticker: str) -> bool:
 def pull_game_odds() -> dict[str, dict]:
     """Pull current Kalshi odds for tournament games."""
     odds = {}
-    try:
-        cursor = None
-        while True:
+    cursor = None
+    while True:
+        try:
             params = {"series_ticker": "KXNCAAMBGAME", "limit": 200}
             if cursor:
                 params["cursor"] = cursor
@@ -224,33 +224,38 @@ def pull_game_odds() -> dict[str, dict]:
             req = Request(url, headers={"Accept": "application/json"})
             with urlopen(req, timeout=15) as resp:
                 data = json.loads(resp.read())
-            markets = data.get("markets", [])
-            for m in markets:
-                ticker = m.get("ticker", "")
-                if not is_tournament_game(ticker):
-                    continue
-                abbrev = ticker.rsplit("-", 1)[-1] if "-" in ticker else ""
-                status = m.get("status", "")
-                yb = float(m.get("yes_bid_dollars", "0") or "0")
-                ya = float(m.get("yes_ask_dollars", "0") or "0")
-                lp = float(m.get("last_price_dollars", "0") or "0")
-                if yb > 0 and ya > 0:
-                    prob = (yb + ya) / 2
-                elif lp > 0:
-                    prob = lp
-                else:
-                    prob = None
-                if prob is not None:
-                    existing = odds.get(abbrev)
-                    if not existing or status in ("active", "open"):
-                        odds[abbrev] = {
-                            "prob": prob, "status": status, "ticker": ticker,
-                        }
-            cursor = data.get("cursor")
-            if not cursor or not markets:
-                break
-    except Exception as e:
-        print(f"  [alerts] Kalshi error: {e}")
+        except Exception as e:
+            # Rate limited or network error — return what we have so far
+            if odds:
+                print(f"  [alerts] Kalshi error (returning {len(odds)} partial): {e}")
+            else:
+                print(f"  [alerts] Kalshi error: {e}")
+            break
+        markets = data.get("markets", [])
+        for m in markets:
+            ticker = m.get("ticker", "")
+            if not is_tournament_game(ticker):
+                continue
+            abbrev = ticker.rsplit("-", 1)[-1] if "-" in ticker else ""
+            status = m.get("status", "")
+            yb = float(m.get("yes_bid_dollars", "0") or "0")
+            ya = float(m.get("yes_ask_dollars", "0") or "0")
+            lp = float(m.get("last_price_dollars", "0") or "0")
+            if yb > 0 and ya > 0:
+                prob = (yb + ya) / 2
+            elif lp > 0:
+                prob = lp
+            else:
+                prob = None
+            if prob is not None:
+                existing = odds.get(abbrev)
+                if not existing or status in ("active", "open"):
+                    odds[abbrev] = {
+                        "prob": prob, "status": status, "ticker": ticker,
+                    }
+        cursor = data.get("cursor")
+        if not cursor or not markets:
+            break
     return odds
 
 

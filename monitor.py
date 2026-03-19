@@ -187,41 +187,45 @@ def is_tournament_game(ticker: str) -> bool:
 
 def pull_game_odds() -> dict[str, dict]:
     odds = {}
-    try:
-        cursor = None
-        while True:
+    cursor = None
+    while True:
+        try:
             params = {"series_ticker": "KXNCAAMBGAME", "limit": 200}
             if cursor:
                 params["cursor"] = cursor
             data = kalshi_get("/markets", params)
-            markets = data.get("markets", [])
-            for m in markets:
-                ticker = m.get("ticker", "")
-                if not is_tournament_game(ticker):
-                    continue
-                abbrev = ticker.rsplit("-", 1)[-1] if "-" in ticker else ""
-                status = m.get("status", "")
-                yb = float(m.get("yes_bid_dollars", "0") or "0")
-                ya = float(m.get("yes_ask_dollars", "0") or "0")
-                lp = float(m.get("last_price_dollars", "0") or "0")
-                if yb > 0 and ya > 0:
-                    prob = (yb + ya) / 2
-                elif lp > 0:
-                    prob = lp
-                else:
-                    prob = None
-                if prob is not None:
-                    existing = odds.get(abbrev)
-                    if not existing or status in ("active", "open"):
-                        odds[abbrev] = {
-                            "prob": prob, "status": status,
-                            "ticker": ticker, "event": m.get("event_ticker", ""),
-                        }
-            cursor = data.get("cursor")
-            if not cursor or not markets:
-                break
-    except Exception as e:
-        print(f"  Error pulling odds: {e}")
+        except Exception as e:
+            if odds:
+                print(f"  Error pulling odds (returning {len(odds)} partial): {e}")
+            else:
+                print(f"  Error pulling odds: {e}")
+            break
+        markets = data.get("markets", [])
+        for m in markets:
+            ticker = m.get("ticker", "")
+            if not is_tournament_game(ticker):
+                continue
+            abbrev = ticker.rsplit("-", 1)[-1] if "-" in ticker else ""
+            status = m.get("status", "")
+            yb = float(m.get("yes_bid_dollars", "0") or "0")
+            ya = float(m.get("yes_ask_dollars", "0") or "0")
+            lp = float(m.get("last_price_dollars", "0") or "0")
+            if yb > 0 and ya > 0:
+                prob = (yb + ya) / 2
+            elif lp > 0:
+                prob = lp
+            else:
+                prob = None
+            if prob is not None:
+                existing = odds.get(abbrev)
+                if not existing or status in ("active", "open"):
+                    odds[abbrev] = {
+                        "prob": prob, "status": status,
+                        "ticker": ticker, "event": m.get("event_ticker", ""),
+                    }
+        cursor = data.get("cursor")
+        if not cursor or not markets:
+            break
     return odds
 
 
