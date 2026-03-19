@@ -563,11 +563,13 @@ def check_alerts_for_user(
                         f"\n\nChalk pick — both the market and model liked them, "
                         f"but the market is softening."
                     )
+                kalshi_link = f"https://kalshi.com/markets/{market['ticker']}"
                 msg = (
                     f"\U0001f4c9 Market movement: {team} dropping.\n\n"
                     f"{matchup}\n"
                     f"Was {prev:.0%}, now {current_prob:.0%}."
-                    f"{context}"
+                    f"{context}\n\n"
+                    f"{kalshi_link}"
                 )
                 messages.append(msg)
         alert_state.prev_odds[odds_key] = current_prob
