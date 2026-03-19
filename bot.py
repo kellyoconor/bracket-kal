@@ -550,6 +550,39 @@ def answer_user_question(chat_id: str, question: str, user: dict) -> str:
     for p in picks[:40]:  # Limit context size
         context_lines.append(f"  {p.get('round', '?')}: {p.get('team', '?')}")
 
+    # Add live scores if games are in progress
+    try:
+        from live_alerts import fetch_live_scores, ESPN_ABBREV_MAP
+        live_scores = fetch_live_scores()
+        live_games = []
+        for p in picks:
+            team = p.get("team", "")
+            espn_abbrev = ESPN_ABBREV_MAP.get(team)
+            if espn_abbrev and espn_abbrev in live_scores:
+                game = live_scores[espn_abbrev]
+                teams = game["teams"]
+                state = game["state"]
+                if state in ("in", "post"):
+                    our = teams.get(espn_abbrev, {})
+                    opp_abbrevs = [a for a in teams if a != espn_abbrev]
+                    opp = teams[opp_abbrevs[0]] if opp_abbrevs else {}
+                    status = game.get("description", state)
+                    live_games.append(
+                        f"  {team} {our.get('score', 0)}, {opp.get('name', '?')} {opp.get('score', 0)} ({status})"
+                    )
+        if live_games:
+            # Deduplicate (same game appears for both teams)
+            seen = set()
+            unique = []
+            for lg in live_games:
+                if lg not in seen:
+                    seen.add(lg)
+                    unique.append(lg)
+            context_lines.append("\nLIVE SCORES:")
+            context_lines.extend(unique)
+    except Exception:
+        pass  # Don't break Q&A if live scores fail
+
     context = "\n".join(context_lines)
 
     response = client.messages.create(
