@@ -446,12 +446,16 @@ def run_analysis(chat_id: str, user: dict) -> str:
 
     agreements = 0
     disagreements = []
+    seen_matchups = set()
 
     for pick in user_picks:
         team = pick.get("team", "")
         # Try to find this game in ensemble results
         for matchup, ens in ensemble_by_matchup.items():
             if team in matchup:
+                if matchup in seen_matchups:
+                    break  # Already counted this matchup
+                seen_matchups.add(matchup)
                 ens_pick = ens.get("pick", "")
                 if team == ens_pick:
                     agreements += 1
