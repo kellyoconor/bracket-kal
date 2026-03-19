@@ -415,7 +415,7 @@ def check_alerts_for_user(
                         status_word = f"trails by {margin}"
 
                     msg = (
-                        f"\U0001f3c0 Halftime: {team} {our_score}, {opp_name} {opp_score}\n\n"
+                        f"\U0001f3c0 LIVE — Halftime: {team} {our_score}, {opp_name} {opp_score}\n\n"
                         f"{live_matchup}\n"
                         f"Your pick {status_word}."
                     )
@@ -436,7 +436,7 @@ def check_alerts_for_user(
                         else:
                             verb = "fighting back"
                         msg = (
-                            f"\U0001f525 Crunch time: {team} {our_score}, {opp_name} {opp_score} "
+                            f"\U0001f525 LIVE — Crunch time: {team} {our_score}, {opp_name} {opp_score} "
                             f"({clock} left)\n\n"
                             f"{live_matchup}\n"
                             f"{team} {verb}."
@@ -450,7 +450,7 @@ def check_alerts_for_user(
                         and upset_key not in alert_state.alerted_keys):
                     div_str = f" with a {abs(divergence):.0%} gap" if divergence else ""
                     msg = (
-                        f"\U0001f6a8 Upset brewing: {team} up {margin}! "
+                        f"\U0001f6a8 LIVE — Upset brewing: {team} up {margin}! "
                         f"({our_score}-{opp_score}, {clock} {description})\n\n"
                         f"{live_matchup}\n"
                         f"Bold pick paying off{div_str}."
@@ -504,7 +504,7 @@ def check_alerts_for_user(
                 else:
                     context = "Chalk pick — no surprises here."
                 msg = (
-                    f"\u2705 {team} wins!\n\n"
+                    f"\u2705 RESULT — {team} wins!\n\n"
                     f"{matchup} ({region})\n"
                     f"{context}\n\n"
                     f"\U0001f4ca Record: {total_w}W / {total_l}L"
@@ -521,7 +521,7 @@ def check_alerts_for_user(
                 else:
                     context = f"Both the market and model had {team}. Sometimes the madness wins."
                 msg = (
-                    f"\u274c {team} is out.\n\n"
+                    f"\u274c RESULT — {team} is out.\n\n"
                     f"{matchup} ({region})\n"
                     f"{opponent.strip()} advances.\n"
                     f"{context}\n\n"
