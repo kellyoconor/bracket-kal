@@ -455,8 +455,17 @@ def check_alerts_for_user(
         current_prob = market["prob"]
         status = market["status"]
 
-        # Game resolution
+        # Game resolution — only trust if ESPN confirms the team actually played
         if status in ("closed", "determined", "finalized"):
+            espn_abbrev = ESPN_ABBREV_MAP.get(team)
+            espn_game = live_scores.get(espn_abbrev, {}) if espn_abbrev else {}
+            espn_state = espn_game.get("state", "")
+
+            if espn_state not in ("in", "post"):
+                # Kalshi closed this market but the team didn't play today —
+                # phantom closure from another team's elimination. Skip it.
+                continue
+
             won = current_prob >= 0.90
             score["resolved_games"].append(game_id)
             if won:
