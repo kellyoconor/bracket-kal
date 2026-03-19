@@ -75,9 +75,9 @@ All users with active brackets receive alerts during games — no action needed:
 | **Crunch time** | Under 5 min left, margin 8 or less |
 | **Upset brewing** | Your bold pick is leading by 10+ |
 | **Game result** | Win or loss with running W/L record |
-| **Odds sliding** | 5%+ drop on one of your picks |
+| **Odds sliding** | 5%+ drop on one of your picks — with context on whether it's a model pick, your pick, or chalk |
 
-Alerts are rate-limited to 20/hour per user. Toggle with `/alerts off`.
+Alerts include pick source context: model picks ("we overrode the market — worth watching"), user picks ("your pick — the market is moving against it"), and chalk picks ("market is softening"). Alerts are rate-limited to 20/hour per user. Toggle with `/alerts off`.
 
 ### Running the bot
 
@@ -87,7 +87,9 @@ python bot.py
 
 Requires `TELEGRAM_BOT_TOKEN_PUBLIC` (separate from the personal monitor bot) and `ANTHROPIC_API_KEY`.
 
-User data is stored per chat ID in `users/{chat_id}/`. Each user gets their own bracket state, score tracking, and Q&A context. The live alert system runs as a background thread, polling ESPN every 30 seconds during live games and Kalshi every 10 minutes.
+User data is stored per chat ID in `users/{chat_id}/`. Each user gets their own bracket state, score tracking, and Q&A context. Alert state (previous odds, alerted game moments) is persisted to `users/{chat_id}/alert_state.json` so odds movement detection survives restarts. The live alert system runs as a background thread, polling ESPN every 30 seconds during live games and Kalshi every 10 minutes.
+
+**Persistent storage:** Attach a Railway volume at `/app/users` so user data and alert state survive deploys.
 
 ---
 
@@ -243,7 +245,7 @@ Top of `bracket_divergence.py`:
 | `bracket_divergence.py` | Main engine. Ensemble model + Kalshi odds + divergence. All 63 games. |
 | `bot.py` | Multi-user Telegram bot. ESPN intake, screenshot intake, guided builder, Q&A, visual bracket, live alerts. |
 | `bracket_image.py` | Renders user bracket as PNG image using Pillow. Color-coded correct/busted picks. |
-| `live_alerts.py` | Multi-user live alert system. Polls ESPN + Kalshi, sends game-day notifications. |
+| `live_alerts.py` | Multi-user live alert system. Polls ESPN + Kalshi, sends game-day notifications with pick source context. Persists alert state to disk. |
 | `espn_scraper.py` | ESPN Tournament Challenge API client. Pulls bracket picks from URLs. |
 | `kalshi_odds.py` | Pulls all 8 Kalshi NCAA tournament series. No auth required. |
 | `ensemble.py` | KenPom logistic, Log5, seed historical. Computes blended probability. |
@@ -277,7 +279,7 @@ Railway with four services from one repo:
 | **watch** | `python bracket_divergence.py --watch` | Hourly bracket re-runs |
 | **trader** | `python kalshi_trader.py` | Automated trading (admin only) |
 
-Each service sets its own start command in the Railway dashboard. Shared variables are linked per service.
+Each service sets its own start command in the Railway dashboard. Shared variables are linked per service. The **bot** service requires a persistent volume mounted at `/app/users` to retain user data and alert state across deploys.
 
 ```bash
 # Required shared variables:

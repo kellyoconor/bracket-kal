@@ -478,7 +478,7 @@ def run_analysis(chat_id: str, user: dict) -> str:
 
     if not disagreements:
         return (
-            f"Interesting — your bracket matches our ensemble model on every "
+            f"Interesting — your bracket matches our model on every "
             f"pick I could match. Either you're using the same signals we are, "
             f"or great minds think alike.\n\n"
             f"I'll track your picks live and message you during games."
@@ -487,7 +487,7 @@ def run_analysis(chat_id: str, user: dict) -> str:
     # Show top disagreements
     lines = [
         f"Found {len(disagreements)} games where your picks differ from "
-        f"our ensemble model.\n"
+        f"our model.\n"
     ]
 
     # Sort by divergence
@@ -502,7 +502,7 @@ def run_analysis(chat_id: str, user: dict) -> str:
         lines.append(
             f"  {d['matchup']}\n"
             f"  You: {d['your_pick']} | We: {d['our_pick']}\n"
-            f"  Kalshi: {kal_str} | Ensemble: {ens_str}\n"
+            f"  Market: {kal_str} | Model: {ens_str}\n"
         )
 
     lines.append(
@@ -538,7 +538,7 @@ def answer_user_question(chat_id: str, question: str, user: dict) -> str:
         f"Final Four: {', '.join(ff) if ff else '?'}",
         f"Total picks: {user.get('total_picks', len(picks))}",
         f"Score: {score.get('correct', 0)}W / {score.get('busted', 0)}L",
-        f"Agreements with ensemble: {analysis.get('agreements', '?')}",
+        f"Agreements with model: {analysis.get('agreements', '?')}",
         f"Disagreements: {len(analysis.get('disagreements', []))}",
     ]
 
@@ -1188,7 +1188,7 @@ def handle_message(msg: dict):
         tg_send(chat_id,
             f"Hey {first_name}! I'm your March Madness bracket assistant.\n\n"
             f"I'll analyze your picks against live prediction market odds "
-            f"and our ensemble model (KenPom + Log5 + seed history + AI), "
+            f"and our model (KenPom + Log5 + seed history + AI), "
             f"then track your bracket live during games.\n\n"
             f"Get started:\n"
             f"  1. Paste your ESPN bracket link\n"

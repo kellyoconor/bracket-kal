@@ -159,3 +159,33 @@ RULES:
 | Trade confirmation 60-sec window | Only you use the trader, and you have STOP |
 | Monitor/trader state sync | Both are personal tools, not public-facing |
 
+---
+
+## Fix 8: Persist alert state to disk
+
+**Status:** Implemented (2026-03-19)
+
+**File:** `live_alerts.py`
+**Problem:** `UserAlertState` (prev_odds, alerted_keys) was in-memory only. Every Railway deploy wiped it, causing: (1) odds movement detection needed 20-minute warmup (two Kalshi polls), (2) duplicate alerts for already-alerted game moments.
+
+**What was built:**
+
+- **`UserAlertState.save()`** — persists `alerted_keys` and `prev_odds` to `users/{chat_id}/alert_state.json` using atomic temp-file + `os.replace()` writes
+- **`UserAlertState.load()`** — restores state from disk on startup. Falls back to fresh state if file missing or corrupt
+- **Save trigger** — state writes to disk after processing each user when there are new alerts or fresh odds data (not every 30s loop iteration)
+- **`alert_timestamps` stays in-memory** — rate limit state is short-lived, safe to reset on deploy
+
+**Infrastructure:** Requires Railway persistent volume mounted at `/app/users`.
+
+## Fix 9: Enrich user-facing alert messages with pick source context
+
+**Status:** Implemented (2026-03-19)
+
+**File:** `live_alerts.py`
+**Problem:** User-facing alerts were bare ("odds are sliding") while the personal monitor had rich context about pick source. Users couldn't tell if a sliding pick was a bold model call or safe chalk.
+
+**What was built:**
+
+- **Odds movement** — messages now explain: model pick ("we overrode the market — worth watching"), user pick ("your pick differs from the model — market moving against it"), or chalk ("both liked them, market is softening")
+- **Game resolution** — win/loss messages include source context: model pick wins ("our model saw the edge"), model pick losses ("model pick missed with X% gap"), user picks ("your pick paid off" / "tough break"), chalk ("no surprises" / "sometimes the madness wins")
+

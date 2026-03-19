@@ -432,6 +432,28 @@ The public bot is **@MarketVsMadnessBot** — [t.me/MarketVsMadnessBot](https://
 
 ---
 
-*Built in one day. Extended in a second. Running through April 7.*
+## March 19: Launch Day Fixes
+
+Games start today. The bot is getting shared with real users.
+
+### Enriched User Alerts
+Alert messages for the public bot were bare — just "odds are sliding" with no context. The personal monitor (`monitor.py`) had much richer messages explaining whether a pick was a Claude divergence pick, a user pick, or chalk. Ported that context to `live_alerts.py` so all users get the same quality:
+
+- **Odds movement** — "This is a model pick — we overrode the market here. Could be injury news, could be sharp money. Worth watching." vs "Chalk pick — market is softening."
+- **Game resolution** — wins/losses now explain whether the model saw an edge, the user's pick paid off, or chalk held.
+
+### Persistent Alert State
+Alert state (`prev_odds`, `alerted_keys`) was in-memory only. Every Railway deploy wiped it, meaning:
+- Odds movement detection needed two Kalshi polls (20 min) to warm up after any restart
+- Duplicate alerts could fire for already-alerted game moments
+
+Fixed: `UserAlertState` now persists to `users/{chat_id}/alert_state.json` via atomic writes. Loads on startup. Odds movement detection works immediately after restarts.
+
+### Railway Volume
+User data (`users/` directory) was ephemeral — every deploy lost all registered users. Attached a Railway persistent volume at `/app/users`. User brackets, scores, and alert state now survive deploys.
+
+---
+
+*Built in one day. Extended in a second. Hardened on game day. Running through April 7.*
 
 *Come back with the data.*
