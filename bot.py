@@ -553,7 +553,7 @@ def answer_user_question(chat_id: str, question: str, user: dict) -> str:
     context = "\n".join(context_lines)
 
     response = client.messages.create(
-        model="claude-sonnet-4-6",
+        model="claude-haiku-4-5-20251001",
         max_tokens=400,
         messages=[{
             "role": "user",
