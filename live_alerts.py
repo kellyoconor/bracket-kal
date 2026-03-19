@@ -67,7 +67,7 @@ ABBREV_MAP = {
 }
 
 ESPN_ABBREV_MAP = {
-    "Duke": "DUKE", "Siena": "SIENA", "Ohio State": "OSU", "TCU": "TCU",
+    "Duke": "DUKE", "Siena": "SIE", "Ohio State": "OSU", "TCU": "TCU",
     "St. John's": "SJU", "Northern Iowa": "UNI", "Kansas": "KU",
     "Cal Baptist": "CBU", "Louisville": "LOU", "South Florida": "USF",
     "Michigan State": "MSU", "North Dakota State": "NDSU", "UCLA": "UCLA",
@@ -79,7 +79,7 @@ ESPN_ABBREV_MAP = {
     "Missouri": "MIZ", "Purdue": "PUR", "Queens": "QUEEN",
     "Florida": "FLA", "Prairie View A&M": "PVAMU",
     "Clemson": "CLEM", "Iowa": "IOWA", "Vanderbilt": "VAN",
-    "McNeese": "MCNSE", "Nebraska": "NEB", "Troy": "TROY",
+    "McNeese": "MCN", "Nebraska": "NEB", "Troy": "TROY",
     "North Carolina": "UNC", "VCU": "VCU", "Illinois": "ILL",
     "Penn": "PENN", "Saint Mary's": "SMC", "Texas A&M": "TA&M",
     "Houston": "HOU", "Idaho": "IDHO",
