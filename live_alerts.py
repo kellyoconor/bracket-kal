@@ -345,10 +345,22 @@ def check_alerts_for_user(
     messages = []
     score_changed = False
 
-    # Only process the earliest unresolved round per team for ALL alert types.
-    # This prevents R32 projected matchups from triggering during R64 games
-    # (both ESPN live scores and Kalshi odds movement/resolution).
-    processed_teams: set[str] = set()
+    # Determine the current round — only process picks for this round.
+    # Round order: R64 (games 1-32), R32 (33-48), S16 (49-56),
+    # E8 (57-60), F4 (61-62), CHAMP (63).
+    ROUND_RANGES = [
+        ("R64", 1, 32), ("R32", 33, 48), ("S16", 49, 56),
+        ("E8", 57, 60), ("F4", 61, 62), ("CHAMP", 63, 63),
+    ]
+    resolved = set(score.get("resolved_games", []))
+    current_round = None
+    for round_name, start, end in ROUND_RANGES:
+        round_games = set(range(start, end + 1))
+        if not round_games.issubset(resolved):
+            current_round = round_name
+            break
+    if current_round is None:
+        current_round = "CHAMP"  # All done
 
     for pick in enriched_picks:
         team = pick["picked_team"]
@@ -357,16 +369,15 @@ def check_alerts_for_user(
         source = pick.get("pick_source", "?")
         region = pick.get("region", "")
         divergence = pick.get("divergence")
+        pick_round = pick.get("round", "")
 
         if not game_id:
             continue
-        if game_id in score.get("resolved_games", []):
-            # Still mark team as processed so later-round picks are skipped
-            processed_teams.add(team)
+        if game_id in resolved:
             continue
 
-        # Skip if we already processed an earlier-round pick for this team
-        if team in processed_teams:
+        # Only process picks for the current round
+        if pick_round != current_round:
             continue
 
         # ─── Live score alerts (ESPN) ─────────────────────────────
@@ -560,9 +571,6 @@ def check_alerts_for_user(
                 )
                 messages.append(msg)
         alert_state.prev_odds[odds_key] = current_prob
-
-        # Mark team as processed so later-round picks are skipped
-        processed_teams.add(team)
 
     return messages, score_changed
 
