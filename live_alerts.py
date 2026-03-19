@@ -505,6 +505,17 @@ def check_alerts_for_user(
                     f"\U0001f4ca Record: {total_w}W / {total_l}L"
                 )
             messages.append(msg)
+
+            # If the team lost, cascade to all future-round picks so they
+            # never fire (Kalshi closes those markets immediately).
+            if not won:
+                for future_pick in enriched_picks:
+                    if future_pick["picked_team"] == team:
+                        fid = future_pick.get("game")
+                        if fid and fid not in score["resolved_games"]:
+                            score["resolved_games"].append(fid)
+                            score_changed = True
+
             continue
 
         # Odds movement
