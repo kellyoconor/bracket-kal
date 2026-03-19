@@ -345,9 +345,10 @@ def check_alerts_for_user(
     messages = []
     score_changed = False
 
-    # Only fire ESPN live alerts for the earliest unresolved round per team.
-    # This prevents R32 projected matchups from triggering during R64 games.
-    alerted_teams_espn: set[str] = set()
+    # Only process the earliest unresolved round per team for ALL alert types.
+    # This prevents R32 projected matchups from triggering during R64 games
+    # (both ESPN live scores and Kalshi odds movement/resolution).
+    processed_teams: set[str] = set()
 
     for pick in enriched_picks:
         team = pick["picked_team"]
@@ -364,7 +365,11 @@ def check_alerts_for_user(
 
         # ─── Live score alerts (ESPN) ─────────────────────────────
         espn_abbrev = ESPN_ABBREV_MAP.get(team)
-        if espn_abbrev and espn_abbrev in live_scores and team not in alerted_teams_espn:
+        # Skip if we already processed an earlier-round pick for this team
+        if team in processed_teams:
+            continue
+
+        if espn_abbrev and espn_abbrev in live_scores:
             game = live_scores[espn_abbrev]
             if game["state"] == "in":
                 teams = game["teams"]
@@ -438,8 +443,6 @@ def check_alerts_for_user(
                     )
                     alert_state.alerted_keys.add(upset_key)
                     messages.append(msg)
-
-                alerted_teams_espn.add(team)
 
         # ─── Kalshi odds: resolution + movement ───────────────────
         kalshi_abbrev = ABBREV_MAP.get(team)
@@ -534,6 +537,9 @@ def check_alerts_for_user(
                 )
                 messages.append(msg)
         alert_state.prev_odds[odds_key] = current_prob
+
+        # Mark team as processed so later-round picks are skipped
+        processed_teams.add(team)
 
     return messages, score_changed
 
