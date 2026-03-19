@@ -505,7 +505,7 @@ def run_analysis(chat_id: str, user: dict) -> str:
         ens_str = f"{ens:.0%}" if ens else "?"
         lines.append(
             f"  {d['matchup']}\n"
-            f"  You: {d['your_pick']} | We: {d['our_pick']}\n"
+            f"  You: {d['your_pick']} | Model: {d['our_pick']}\n"
             f"  Market: {kal_str} | Model: {ens_str}\n"
         )
 
