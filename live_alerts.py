@@ -254,12 +254,17 @@ def pull_game_odds() -> dict[str, dict]:
     return odds
 
 
-# ─── Per-user alert state (in-memory) ──────────────────────────────────────
+# ─── Per-user alert state (persisted to disk) ─────────────────────────────
+
+USERS_DIR = ROOT / "users"
+ALERT_STATE_FILE = "alert_state.json"
+
 
 class UserAlertState:
-    __slots__ = ("alerted_keys", "prev_odds", "alert_timestamps")
+    __slots__ = ("chat_id", "alerted_keys", "prev_odds", "alert_timestamps")
 
-    def __init__(self):
+    def __init__(self, chat_id: str = ""):
+        self.chat_id = chat_id
         self.alerted_keys: set[str] = set()
         self.prev_odds: dict[str, float] = {}
         self.alert_timestamps: list[float] = []
@@ -273,13 +278,49 @@ class UserAlertState:
     def record_send(self):
         self.alert_timestamps.append(time.time())
 
+    def save(self):
+        """Persist alerted_keys and prev_odds to disk."""
+        if not self.chat_id:
+            return
+        state_dir = USERS_DIR / str(self.chat_id)
+        if not state_dir.exists():
+            return
+        path = state_dir / ALERT_STATE_FILE
+        data = {
+            "alerted_keys": list(self.alerted_keys),
+            "prev_odds": self.prev_odds,
+        }
+        try:
+            import tempfile, os
+            fd, tmp = tempfile.mkstemp(dir=state_dir, suffix=".tmp")
+            with os.fdopen(fd, "w") as f:
+                json.dump(data, f)
+            os.replace(tmp, path)
+        except Exception as e:
+            print(f"  [alerts] Save state failed for {self.chat_id}: {e}")
+
+    @classmethod
+    def load(cls, chat_id: str) -> "UserAlertState":
+        """Load persisted state from disk, or create fresh."""
+        state = cls(chat_id)
+        path = USERS_DIR / str(chat_id) / ALERT_STATE_FILE
+        if path.exists():
+            try:
+                with open(path) as f:
+                    data = json.load(f)
+                state.alerted_keys = set(data.get("alerted_keys", []))
+                state.prev_odds = data.get("prev_odds", {})
+            except Exception as e:
+                print(f"  [alerts] Load state failed for {chat_id}: {e}")
+        return state
+
 
 _alert_states: dict[str, UserAlertState] = {}
 
 
 def _get_alert_state(chat_id: str) -> UserAlertState:
     if chat_id not in _alert_states:
-        _alert_states[chat_id] = UserAlertState()
+        _alert_states[chat_id] = UserAlertState.load(chat_id)
     return _alert_states[chat_id]
 
 
@@ -411,16 +452,37 @@ def check_alerts_for_user(
             opponent = parts[1] if len(parts) > 1 and team in parts[0] else (parts[0] if len(parts) > 1 else "opponent")
 
             if won:
+                if source == "DIVERGE":
+                    context = (
+                        f"This was a model pick — the market had them lower "
+                        f"but our model saw the edge."
+                    )
+                elif source == "USER":
+                    context = "Your pick paid off."
+                else:
+                    context = "Chalk pick — no surprises here."
                 msg = (
                     f"\u2705 {team} wins!\n\n"
-                    f"{matchup} ({region})\n\n"
+                    f"{matchup} ({region})\n"
+                    f"{context}\n\n"
                     f"\U0001f4ca Record: {total_w}W / {total_l}L"
                 )
             else:
+                if source == "DIVERGE":
+                    div_str = f" (we saw a {abs(divergence):.0%} gap)" if divergence else ""
+                    context = (
+                        f"Model pick missed{div_str}. Our model liked {team} "
+                        f"more than the market did, but the market was right."
+                    )
+                elif source == "USER":
+                    context = f"Your pick — tough break."
+                else:
+                    context = f"Both the market and model had {team}. Sometimes the madness wins."
                 msg = (
                     f"\u274c {team} is out.\n\n"
                     f"{matchup} ({region})\n"
-                    f"{opponent.strip()} advances.\n\n"
+                    f"{opponent.strip()} advances.\n"
+                    f"{context}\n\n"
                     f"\U0001f4ca Record: {total_w}W / {total_l}L"
                 )
             messages.append(msg)
@@ -432,10 +494,27 @@ def check_alerts_for_user(
         if prev is not None:
             drop = prev - current_prob
             if drop >= 0.05:
+                if source == "DIVERGE":
+                    context = (
+                        f"\n\nThis is a model pick — we overrode the market here. "
+                        f"It's moving against us. Could be injury news, could be "
+                        f"sharp money. Worth watching."
+                    )
+                elif source == "USER":
+                    context = (
+                        f"\n\nThis is one of your picks that differs from our model. "
+                        f"The market is moving against it."
+                    )
+                else:
+                    context = (
+                        f"\n\nChalk pick — both the market and model liked them, "
+                        f"but the market is softening."
+                    )
                 msg = (
-                    f"\U0001f4c9 Heads up — {team} odds are sliding.\n\n"
+                    f"\U0001f4c9 Heads up — {team} is sliding.\n\n"
                     f"{matchup}\n"
                     f"Was {prev:.0%}, now {current_prob:.0%}."
+                    f"{context}"
                 )
                 messages.append(msg)
         alert_state.prev_odds[odds_key] = current_prob
@@ -496,6 +575,10 @@ def alert_loop(get_users_fn, send_fn, save_score_fn, stop_event: threading.Event
                         if alert_state.can_send():
                             send_fn(chat_id, msg)
                             alert_state.record_send()
+
+                    # Persist alert state (prev_odds, alerted_keys) to disk
+                    if msgs or game_odds:
+                        alert_state.save()
 
                     if score_changed:
                         try:
