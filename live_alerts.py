@@ -345,6 +345,10 @@ def check_alerts_for_user(
     messages = []
     score_changed = False
 
+    # Only fire ESPN live alerts for the earliest unresolved round per team.
+    # This prevents R32 projected matchups from triggering during R64 games.
+    alerted_teams_espn: set[str] = set()
+
     for pick in enriched_picks:
         team = pick["picked_team"]
         game_id = pick.get("game")
@@ -360,7 +364,7 @@ def check_alerts_for_user(
 
         # ─── Live score alerts (ESPN) ─────────────────────────────
         espn_abbrev = ESPN_ABBREV_MAP.get(team)
-        if espn_abbrev and espn_abbrev in live_scores:
+        if espn_abbrev and espn_abbrev in live_scores and team not in alerted_teams_espn:
             game = live_scores[espn_abbrev]
             if game["state"] == "in":
                 teams = game["teams"]
@@ -368,6 +372,11 @@ def check_alerts_for_user(
                 opp_abbrevs = [a for a in teams if a != espn_abbrev]
                 opp_score = teams[opp_abbrevs[0]]["score"] if opp_abbrevs else 0
                 opp_name = teams[opp_abbrevs[0]]["name"] if opp_abbrevs else "opponent"
+
+                # Use the actual live game for display, not projected bracket matchup
+                live_matchup = f"{team} vs {opp_name}"
+                if region:
+                    live_matchup += f" ({region})"
 
                 period = game["period"]
                 clock = game["clock"]
@@ -388,7 +397,7 @@ def check_alerts_for_user(
 
                     msg = (
                         f"\U0001f3c0 Halftime: {team} {our_score}, {opp_name} {opp_score}\n\n"
-                        f"{matchup} ({region})\n"
+                        f"{live_matchup}\n"
                         f"Your pick {status_word}."
                     )
                     alert_state.alerted_keys.add(alert_key)
@@ -410,7 +419,7 @@ def check_alerts_for_user(
                         msg = (
                             f"\U0001f525 Crunch time: {team} {our_score}, {opp_name} {opp_score} "
                             f"({clock} left)\n\n"
-                            f"{matchup} ({region})\n"
+                            f"{live_matchup}\n"
                             f"{team} {verb}."
                         )
                         alert_state.alerted_keys.add(alert_key)
@@ -424,11 +433,13 @@ def check_alerts_for_user(
                     msg = (
                         f"\U0001f6a8 Upset brewing: {team} up {margin}! "
                         f"({our_score}-{opp_score}, {clock} {description})\n\n"
-                        f"{matchup} ({region})\n"
+                        f"{live_matchup}\n"
                         f"Bold pick paying off{div_str}."
                     )
                     alert_state.alerted_keys.add(upset_key)
                     messages.append(msg)
+
+                alerted_teams_espn.add(team)
 
         # ─── Kalshi odds: resolution + movement ───────────────────
         kalshi_abbrev = ABBREV_MAP.get(team)
