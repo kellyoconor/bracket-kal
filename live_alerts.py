@@ -361,13 +361,16 @@ def check_alerts_for_user(
         if not game_id:
             continue
         if game_id in score.get("resolved_games", []):
+            # Still mark team as processed so later-round picks are skipped
+            processed_teams.add(team)
+            continue
+
+        # Skip if we already processed an earlier-round pick for this team
+        if team in processed_teams:
             continue
 
         # ─── Live score alerts (ESPN) ─────────────────────────────
         espn_abbrev = ESPN_ABBREV_MAP.get(team)
-        # Skip if we already processed an earlier-round pick for this team
-        if team in processed_teams:
-            continue
 
         if espn_abbrev and espn_abbrev in live_scores:
             game = live_scores[espn_abbrev]
