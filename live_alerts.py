@@ -593,6 +593,7 @@ def alert_loop(get_users_fn, send_fn, save_score_fn, stop_event: threading.Event
     game_odds: dict[str, dict] = {}
     last_kalshi_poll = 0.0
     any_live = False
+    first_poll = True  # Suppress odds movement alerts on first poll after startup
 
     while not stop_event.is_set():
         try:
@@ -606,6 +607,32 @@ def alert_loop(get_users_fn, send_fn, save_score_fn, stop_event: threading.Event
                 last_kalshi_poll = time.time()
                 if game_odds:
                     print(f"  [alerts] Loaded {len(game_odds)} Kalshi prices")
+
+                # On first poll, just warm up prev_odds without sending alerts
+                if first_poll:
+                    print("  [alerts] Warm-up poll — syncing prev_odds, no alerts")
+                    users = get_users_fn()
+                    for chat_id, user in users:
+                        enriched = user.get("enriched_picks", [])
+                        if not enriched:
+                            continue
+                        alert_state = _get_alert_state(chat_id)
+                        for pick in enriched:
+                            team = pick["picked_team"]
+                            game_id = pick.get("game")
+                            if not game_id:
+                                continue
+                            kalshi_abbrev = ABBREV_MAP.get(team)
+                            if not kalshi_abbrev:
+                                continue
+                            market = game_odds.get(kalshi_abbrev)
+                            if market:
+                                odds_key = f"{game_id}:{kalshi_abbrev}"
+                                alert_state.prev_odds[odds_key] = market["prob"]
+                        alert_state.save()
+                    first_poll = False
+                    stop_event.wait(KALSHI_POLL_INTERVAL)
+                    continue
 
             # Check each user
             users = get_users_fn()
