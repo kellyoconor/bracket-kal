@@ -1351,6 +1351,30 @@ def handle_message(msg: dict):
         tg_send(chat_id, _get_admin_stats())
         return
 
+    # /resetscore — admin command to reset a user's score (or all users)
+    if text.lower().startswith("/resetscore") and chat_id == TELEGRAM_CHAT_ID_ADMIN:
+        parts = text.strip().split()
+        target_ids = [parts[1]] if len(parts) > 1 else get_all_users()
+        reset_count = 0
+        for cid in target_ids:
+            u = load_user(cid)
+            u["score"] = {
+                "correct": 0, "busted": 0, "resolved_games": [],
+                "diverge_correct": 0, "diverge_busted": 0,
+                "kalshi_correct": 0, "kalshi_busted": 0,
+            }
+            save_user(cid, u)
+            # Also clear persisted alert state so prev_odds start fresh
+            from live_alerts import _get_alert_state, _alert_states
+            if cid in _alert_states:
+                del _alert_states[cid]
+            state_file = user_dir(cid) / "alert_state.json"
+            if state_file.exists():
+                state_file.unlink()
+            reset_count += 1
+        tg_send(chat_id, f"Reset scores for {reset_count} user(s). Clean slate.")
+        return
+
     # /mybracket command — view picks summary + bracket image
     if text.lower() in ("/mybracket", "mybracket", "my bracket", "view bracket", "/viewbracket"):
         if not user.get("picks"):
