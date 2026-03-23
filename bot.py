@@ -1358,8 +1358,12 @@ def handle_message(msg: dict):
         reset_count = 0
         for cid in target_ids:
             u = load_user(cid)
+            # Preserve resolved_games — it tracks which games are done,
+            # not the score. Wiping it causes current_round to regress.
+            existing_resolved = u.get("score", {}).get("resolved_games", [])
             u["score"] = {
-                "correct": 0, "busted": 0, "resolved_games": [],
+                "correct": 0, "busted": 0,
+                "resolved_games": existing_resolved,
                 "diverge_correct": 0, "diverge_busted": 0,
                 "kalshi_correct": 0, "kalshi_busted": 0,
             }

@@ -14,6 +14,7 @@ Alert types:
 """
 
 import json
+import re
 import time
 import threading
 from datetime import datetime, timezone
@@ -352,15 +353,35 @@ def check_alerts_for_user(
         ("R64", 1, 32), ("R32", 33, 48), ("S16", 49, 56),
         ("E8", 57, 60), ("F4", 61, 62), ("CHAMP", 63, 63),
     ]
+
+    # Floor: use tournament calendar so we never regress to an old round
+    # (e.g. after /resetscore clears resolved_games).
+    # 2026 NCAA tournament schedule
+    ROUND_START_DATES = [
+        ("R64", 3, 19), ("R32", 3, 21), ("S16", 3, 27),
+        ("E8", 3, 29), ("F4", 4, 5), ("CHAMP", 4, 7),
+    ]
+    today = datetime.now(timezone.utc).date()
+    calendar_round = "R64"
+    for rname, month, day in ROUND_START_DATES:
+        if today >= datetime(today.year, month, day).date():
+            calendar_round = rname
+
     resolved = set(score.get("resolved_games", []))
-    current_round = None
+    resolved_round = None
     for round_name, start, end in ROUND_RANGES:
         round_games = set(range(start, end + 1))
         if not round_games.issubset(resolved):
-            current_round = round_name
+            resolved_round = round_name
             break
-    if current_round is None:
-        current_round = "CHAMP"  # All done
+    if resolved_round is None:
+        resolved_round = "CHAMP"  # All done
+
+    # Use whichever is further along — calendar or resolved data
+    round_order = [r[0] for r in ROUND_RANGES]
+    cal_idx = round_order.index(calendar_round)
+    res_idx = round_order.index(resolved_round)
+    current_round = round_order[max(cal_idx, res_idx)]
 
     for pick in enriched_picks:
         team = pick["picked_team"]
@@ -404,8 +425,10 @@ def check_alerts_for_user(
                 leading = our_score > opp_score
                 tied = our_score == opp_score
 
-                # Halftime
-                alert_key = f"{game_id}:{description}"
+                # Halftime — dedup by ESPN game, not pick game_id,
+                # so two picked teams playing each other only alert once.
+                espn_game_key = ":".join(sorted(teams.keys()))
+                alert_key = f"espn:{espn_game_key}:{description}"
                 if description == "Halftime" and alert_key not in alert_state.alerted_keys:
                     if leading:
                         status_word = f"leads by {margin}"
@@ -563,12 +586,39 @@ def check_alerts_for_user(
                         f"\n\nChalk pick — both the market and model liked them, "
                         f"but the market is softening."
                     )
+                # Use actual matchup from ESPN if available
+                display_matchup = matchup
+                espn_abbrev_mv = ESPN_ABBREV_MAP.get(team)
+                is_live = (espn_abbrev_mv and espn_abbrev_mv in live_scores
+                           and live_scores[espn_abbrev_mv]["state"] == "in")
+                if espn_abbrev_mv and espn_abbrev_mv in live_scores:
+                    mv_teams = live_scores[espn_abbrev_mv]["teams"]
+                    opp_abbrevs_mv = [a for a in mv_teams if a != espn_abbrev_mv]
+                    if opp_abbrevs_mv:
+                        opp_name_mv = mv_teams[opp_abbrevs_mv[0]]["name"]
+                        display_matchup = f"{team} vs {opp_name_mv}"
+                        if region:
+                            display_matchup += f" ({region})"
+
+                # For games not currently live, show scheduled date
+                date_line = ""
+                if not is_live:
+                    date_match = re.search(
+                        r"(\d{2})(MAR|APR)(\d{2})", market["ticker"]
+                    )
+                    if date_match:
+                        yr, mon, dy = date_match.groups()
+                        month_num = {"MAR": 3, "APR": 4}[mon]
+                        game_dt = datetime(2000 + int(yr), month_num, int(dy))
+                        date_line = f"\nGame date: {game_dt.strftime('%A, %B %-d')}"
+
                 kalshi_link = f"https://kalshi.com/markets/{market['ticker']}"
                 msg = (
                     f"\U0001f4c9 Market movement: {team} dropping.\n\n"
-                    f"{matchup}\n"
+                    f"{display_matchup}\n"
                     f"Was {prev:.0%}, now {current_prob:.0%}."
-                    f"{context}\n\n"
+                    f"{context}"
+                    f"{date_line}\n\n"
                     f"{kalshi_link}"
                 )
                 messages.append(msg)
